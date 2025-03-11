@@ -8,7 +8,7 @@ function NavLinks({ toggleMenu }: { toggleMenu: () => void }){
           <li>
             <NavLink
               to="/"
-              className="text-white text-lg hover:bg-white hover:text-kilred transition-colors duration-200"
+              className="text-white font-ingress text-lg hover:bg-white hover:text-kilred transition-colors duration-200"
               onClick={() => toggleMenu()}
             >
               Hjem
@@ -17,7 +17,7 @@ function NavLinks({ toggleMenu }: { toggleMenu: () => void }){
           <li>
             <NavLink
               to="/om-oss"
-              className="text-white text-lg hover:bg-white hover:text-kilred transition-colors duration-200"
+              className="text-white font-ingress text-lg hover:bg-white hover:text-kilred transition-colors duration-200"
               onClick={() => toggleMenu()}
             >
               Om oss
@@ -26,7 +26,7 @@ function NavLinks({ toggleMenu }: { toggleMenu: () => void }){
           <li>
             <NavLink
               to="/kontakt/"
-              className="text-white text-lg hover:bg-white hover:text-kilred transition-colors duration-200"
+              className="text-white font-ingress text-lg hover:bg-white hover:text-kilred transition-colors duration-200"
               onClick={() => toggleMenu()}
             >
               Kontakt

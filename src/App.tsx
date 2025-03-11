@@ -3,6 +3,8 @@ import './index.css'
 import Home from './pages/Home'
 import About from './pages/About'
 import Layout from './components/Layout'
+import Contact from './pages/Contact'
+
 
 function App() {
 
@@ -13,6 +15,7 @@ function App() {
       <Route path="/" element={<Layout />}>
       <Route index element={<Home />} />
       <Route path="/om-oss" element={<About />} />
+      <Route path="/kontakt" element={<Contact />} />
       </Route>
     </Routes>
     </div>
