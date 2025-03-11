@@ -6,6 +6,8 @@ export default {
       colors: {
         kilred: "#cd0010",
         kilsvart: "#181414",
+        kilblue: "#0088CD",
+        kildarkblue: "#003C75",
       },
       fontFamily: {
         heading: ["DM Mono", "sans-serif"],
