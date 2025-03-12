@@ -10,9 +10,8 @@ export default {
         kildarkblue: '#003C75',
       },
       fontFamily: {
-        heading: ['DM Mono', 'monospace'],
-        ingress: ['DM Sans', 'sans-serif'],
-        body: ['Baskerville', 'serif'],
+        anton: ['Anton', 'sans-serif'],
+        roboto: ['Roboto', 'sans-serif'],
       },
     },
   },

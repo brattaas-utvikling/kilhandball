@@ -11,7 +11,7 @@ function Footer() {
         </div>
       </div>
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 mt-8 gap-8 text-gray-400 border-t-2 border-gray-400 ">
-        <ul className="flex flex-wrap justify-center md:justify-start items-center md:items-start gap-x-4 mt-4 text-base font-body">
+        <ul className="flex flex-wrap justify-center md:justify-start items-center md:items-start gap-x-4 mt-4 text-base font-roboto">
           <li>
             {/* Bruker Link fra react-router-dom i stedet for onClick + navigate */}
             <Link
@@ -37,14 +37,14 @@ function Footer() {
           </li>
         </ul>
         <div>
-          <p className="flex justify-center md:justify-end items-center mt-4 text-base font-body">
+          <p className="flex justify-center md:justify-end items-center mt-4 text-base font-roboto">
             Designet og utviklet av{' '}
             <a
-            className="text-kilblue text-lg hover:underline"
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https:/www.brattaasutvikling.no"
-            aria-label="Nettsiden til Brattås Utvikling"
+              className="text-kilblue text-lg hover:underline"
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https:/www.brattaasutvikling.no"
+              aria-label="Nettsiden til Brattås Utvikling"
             >
               Brattås Utvikling
             </a>
