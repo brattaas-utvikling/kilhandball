@@ -2,7 +2,6 @@ import { FaFacebook, FaInstagram } from 'react-icons/fa6';
 import Logo from '../../assets/kil_logo.svg';
 import { Link } from 'react-router-dom';
 
-
 function Footer() {
   return (
     <footer className="bg-kilsvart py-10 px-6 w-full">
@@ -34,14 +33,15 @@ function Footer() {
             |
           </li>
           <li>
-            <p>
-              &copy; 2025 KIL Håndball
-            </p>
+            <p>&copy; 2025 KIL Håndball</p>
           </li>
         </ul>
         <div>
           <p className="flex justify-center md:justify-end items-center mt-4 text-base font-body">
-            Designet og utviklet av <a className="text-kilblue text-lg" href="www.brattaasutvikling.no">Brattås Utvikling</a>
+            Designet og utviklet av{' '}
+            <a className="text-kilblue text-lg" href="www.brattaasutvikling.no">
+              Brattås Utvikling
+            </a>
           </p>
         </div>
         <div className="flex gap-4 text-2xl my-4 text-white justify-center md:justify-end">
@@ -59,7 +59,7 @@ function Footer() {
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-opacity-60 transition"
-              aria-label="Besøk oss på Instagram"
+            aria-label="Besøk oss på Instagram"
           >
             <FaInstagram />
           </a>

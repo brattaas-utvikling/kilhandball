@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import Logo from '../../assets/kil_logo.svg';
 import NavBar from '../NavBar';
 
-
 function Header() {
   return (
     <header className="bg-kilred w-full flex items-center fixed h-20 md:h-24 z-50">

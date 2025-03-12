@@ -11,11 +11,27 @@ function NavBar() {
     setMenuOpen(!menuOpen);
   }
 
+  // useEffect(() => {
+  //   if (menuOpen) {
+  //     menuRef.current?.focus();
+  //   }
+  // }, [menuOpen]);
+
+  // 💡 Oppdater menyen når vindusstørrelsen endres
   useEffect(() => {
-    if (menuOpen) {
-      menuRef.current?.focus();
+    function handleResize() {
+      if (window.innerWidth >= 768) {
+        setMenuOpen(true); // Alltid åpen i desktop-modus
+      } else {
+        setMenuOpen(false); // Starter lukket i mobil-modus
+      }
     }
-  }, [menuOpen]);
+
+    handleResize(); // Kjør én gang ved innlasting
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return (
     <>
@@ -40,7 +56,8 @@ function NavBar() {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3, ease: 'easeInOut' }}
               tabIndex={-1}
-              className="absolute top-20 left-0 right-0 bg-kilred p-4 flex flex-col items-center gap-4 md:flex md:flex-row md:static md:gap-6 focus:outline-none"
+              className="absolute top-20 left-0 right-0 bg-kilred p-4 flex flex-col items-center gap-4 
+                md:flex md:flex-row md:static md:gap-6 focus:outline-none"
               onKeyDown={(e) => e.key === 'Escape' && setMenuOpen(false)}
             >
               <NavLinks toggleMenu={toggleMenu} />
