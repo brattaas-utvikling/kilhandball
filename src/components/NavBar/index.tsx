@@ -16,8 +16,8 @@ function NavBar() {
   //     menuRef.current?.focus();
   //   }
   // }, [menuOpen]);
-
-  // 💡 Oppdater menyen når vindusstørrelsen endres
+  
+   // 💡 Oppdater menyen når vindusstørrelsen endres
   useEffect(() => {
     function handleResize() {
       if (window.innerWidth >= 768) {
@@ -28,9 +28,9 @@ function NavBar() {
     }
 
     handleResize(); // Kjør én gang ved innlasting
-    window.addEventListener('resize', handleResize);
-
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
@@ -48,22 +48,23 @@ function NavBar() {
 
         {/* AnimatePresence sørger for smooth enter/exit */}
         <AnimatePresence>
-          {menuOpen && (
-            <motion.div
-              ref={menuRef}
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3, ease: 'easeInOut' }}
-              tabIndex={-1}
-              className="absolute top-20 left-0 right-0 bg-kilred p-4 flex flex-col items-center gap-4 
-                md:flex md:flex-row md:static md:gap-6 focus:outline-none"
-              onKeyDown={(e) => e.key === 'Escape' && setMenuOpen(false)}
-            >
-              <NavLinks toggleMenu={toggleMenu} />
-            </motion.div>
-          )}
-        </AnimatePresence>
+  {(menuOpen || window.innerWidth >= 768) && ( // Sørger for at menyen vises på desktop
+    <motion.div
+      ref={menuRef}
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.3, ease: 'easeInOut' }}
+      tabIndex={-1}
+      className={`absolute top-20 left-0 right-0 bg-kilred p-4 flex flex-col items-center gap-4 focus:outline-none 
+        md:flex md:flex-row md:static md:gap-6`}
+      onKeyDown={(e) => e.key === 'Escape' && setMenuOpen(false)}
+    >
+      <NavLinks toggleMenu={toggleMenu} />
+    </motion.div>
+  )}
+</AnimatePresence>
+
       </nav>
 
       {/* Bakgrunn som lukker menyen ved klikk */}

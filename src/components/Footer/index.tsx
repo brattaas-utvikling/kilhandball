@@ -29,7 +29,7 @@ function Footer() {
               Kontakt
             </Link>
           </li>
-          <li className="text-body text-3xl" aria-hidden="true">
+          <li className="text-body text-2xl items-center" aria-hidden="true">
             |
           </li>
           <li>
@@ -39,7 +39,13 @@ function Footer() {
         <div>
           <p className="flex justify-center md:justify-end items-center mt-4 text-base font-body">
             Designet og utviklet av{' '}
-            <a className="text-kilblue text-lg" href="www.brattaasutvikling.no">
+            <a
+            className="text-kilblue text-lg hover:underline"
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https:/www.brattaasutvikling.no"
+            aria-label="Nettsiden til Brattås Utvikling"
+            >
               Brattås Utvikling
             </a>
           </p>
