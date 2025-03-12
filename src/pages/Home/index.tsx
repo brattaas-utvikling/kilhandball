@@ -1,7 +1,7 @@
 function Home() {
   return (
     <div className="flex flex-col items-center justify-center">
-      <div className="border-b-2 border-gray-600 pb-4">
+      <div className="border-b-2 border-gray-600 pb-4 w-full">
         <h1 className="text-2xl md:text-4xl font-anton font-bold mb-4 text-center uppercase">
           Velkommen til KIL Håndball
         </h1>
@@ -10,7 +10,7 @@ function Home() {
           informasjon løpende.
         </p>
       </div>
-      <div className="p-6 md:p-8 max-w-2xl mx-auto">
+      <div className="p-6 md:p-8 mx-auto mt-8 md:mt-16">
         <h2 className="text-xl md:text-2xl font-bold font-anton text-kilsvart mb-4">
           Innkalling til årsmøte i Kongsvinger IL Håndball 27. MARS 2025
         </h2>

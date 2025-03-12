@@ -61,11 +61,6 @@ export default function About() {
         hvor barn og unge kan trene, utvikle seg og fremfor alt, oppleve gleden
         ved håndball.
       </p>
-
-      <p className="text-lg text-center font-thin font-roboto text-black leading-relaxed italic mt-16">
-        Bli en del av vårt fellesskap i Kongsvinger IL Håndball – hvor vi sammen
-        skaper idrettsglede og bygger karakter.
-      </p>
     </div>
   );
 }
