@@ -19,7 +19,7 @@ export default function About() {
         <StyledLoader />
       ) : (
         <div className="mx-auto pb-20">
-          <h1 className="text-4xl md:text-5xl font-anton font-bold text-kilsvart text-center mb-6 animate-fade-in">
+          <h1 className="text-3xl md:text-4xl font-anton font-bold text-kilsvart text-center uppercase mb-6 animate-fade-in border-b-2 border-gray-600 pb-4 w-full">
             Om oss
           </h1>
           <p className="text-lg md:text-xl font-roboto text-center text-kilred font-semibold mb-8">
