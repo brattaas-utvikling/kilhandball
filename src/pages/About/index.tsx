@@ -32,48 +32,12 @@ export default function About() {
             Håndballavdelingen vår er et skinnende eksempel på denne arven, hvor
             lidenskap og samhold står sentralt.
           </p>
-          <h2 className="text-2xl md:text-3xl font-anton font-bold text-kilsvart mt-10 mb-2">
-            Ledelse og Utvikling
-          </h2>
-          <p className="text-base md:text-lg font-roboto text-gray-700 leading-relaxed">
-            Under ledelse av vår dyktige styreleder Bent Rohde Christoffersen, har
-            håndballavdelingen nylig gjennomgått en positiv forandring. Vårt nye
-            styre, opptatt av både tradisjon og innovasjon, har etablert et
-            sportslig utvalg dedikert til å styrke det sportslige aspektet av
-            klubben. Dette inkluderer en gjennomtenkt treningskabal, fokus på
-            trenerutdanning, og utvikling av en Sportslig plan som vil tjene som en
-            veileder for våre ambisjoner og praksis.
-          </p>
-          <h2 className="text-2xl md:text-3xl font-anton font-bold text-kilsvart mt-10 mb-2">
-            Våre Verdier og Tilnærming
-          </h2>
-          <p className="text-base md:text-lg font-roboto text-gray-700 leading-relaxed">
-            I hjertet av Kongsvinger IL Håndball ligger våre kjerneverdier:
-            mestring, inkludering og samfunnsengasjement. Vi tror fast på at barne-
-            og ungdomsidrett er en arena hvor alle skal få muligheten til å oppleve
-            mestring og glede. Med et inkluderende miljø ønsker vi at alle, uansett
-            bakgrunn eller ferdighetsnivå, skal føle seg velkomne til å prøve
-            håndball hos oss.
-          </p>
-          <h2 className="text-2xl md:text-3xl font-anton font-bold text-kilsvart mt-10 mb-2">
-            Fasiliteter og Lokasjon
-          </h2>
-          <p className="text-base md:text-lg font-roboto text-gray-700 leading-relaxed">
-            Våre treninger og hjemmekamper finner sted i Tråstad
-            Idrettshall, plassert langs Glomma og i nærheten av Kongsvinger
-            Ungdomsskole og Kongsvinger Idrettspark. Dette gir oss en unik mulighet
-            til å integrere idrett med lokalsamfunnet og bidra til en sunn og aktiv
-            livsstil blant ungdommen.
-          </p>
-          <h2 className="text-2xl md:text-3xl font-anton font-bold text-kilsvart mt-10 mb-2">
-            Dugnad og Fellesskap
-          </h2>
-          <p className="text-base md:text-lg font-roboto text-gray-700 leading-relaxed">
-            Klubben vår er drevet av en ånd av dugnad, hvor alle – spillere,
-            trenere, foreldre og lokalbefolkning – bidrar med sitt. Denne felles
-            innsatsen gjør det mulig for oss å tilby et trygt og støttende miljø
-            hvor barn og unge kan trene, utvikle seg og fremfor alt, oppleve gleden
-            ved håndball.
+          <p className="text-base md:text-lg font-roboto text-gray-700 leading-relaxed mt-4">
+            Vi er stolte av å kunne tilby et bredt spekter av aktiviteter for
+            barn, ungdom og voksne, og vi er alltid på jakt etter nye talenter
+            som ønsker å bli en del av vårt fellesskap. Uansett om du er en
+            erfaren spiller eller en nybegynner, er du hjertelig velkommen til
+            å ta kontakt med oss for en uforpliktende prat.
           </p>
         </div>
       )}
