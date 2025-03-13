@@ -1,53 +1,61 @@
 import { Sponsor } from "../../types/Sponsor";
+import sparebank1 from '../../assets/sparebank1.webp';
+import eidsiva from '../../assets/eidsiva.png';
+import rimfeldtEiendom from '../../assets/rimfeldt-eiendom.jpg';
+import sport1 from '../../assets/sport1.jpg';
+import glåmdalen from '../../assets/glåmdalen.png';
+import kobbl from '../../assets/kobbl.jpg';
+import sulland from '../../assets/sulland.jpg';
+import betongOst from '../../assets/betong_ost.png';
 
 // Sponsor data
 const sponsorsData = [
   {
     id: 1,
     name: 'SpareBank 1',
-    imageUrl: 'src/assets/sparebank1.webp',
+    imageUrl: sparebank1,
     websiteUrl: 'https://www.sparebank1.no/nb/ostlandet/privat.html'
   },
   {
     id: 2,
     name: 'Eidsiva',
-    imageUrl: 'src/assets/eidsiva.png',
+    imageUrl: eidsiva,
     websiteUrl: 'https://www.eidsiva.no/'
   },
   {
     id: 3,
     name: 'Rimfelt-Eiendom',
-    imageUrl: 'src/assets/rimfeldt-eiendom.jpg',
+    imageUrl: rimfeldtEiendom,
     websiteUrl: 'https://rimfeldteiendom.no/'
   },
   {
     id: 4,
     name: 'Sport1 Kongsvinger',
-    imageUrl: 'src/assets/sport1.jpg',
-    websiteUrl: 'https://www.sponsor4.no'
+    imageUrl: sport1,
+    websiteUrl: 'https://www.sport1.no/'
   },
   {
     id: 5,
     name: 'Glåmdalen',
-    imageUrl: 'src/assets/glåmdalen.png',
+    imageUrl: glåmdalen,
     websiteUrl: 'https://www.glomdalen.no/'
   },
   {
     id: 6,
     name: 'Kobbl',
-    imageUrl: 'src/assets/kobbl.jpg',
+    imageUrl: kobbl,
     websiteUrl: 'https://www.kobbl.no'
   },
   {
     id: 7,
     name: 'Sulland',
-    imageUrl: 'src/assets/sulland.jpg',
+    imageUrl: sulland,
     websiteUrl: 'https://www.sulland.no/'
   },
   {
     id: 8,
     name: 'Betong ØST',
-    imageUrl: 'src/assets/betong_ost.png',
+    imageUrl: betongOst,
     websiteUrl: 'https://www.betongost.no/'
   }
 ];

@@ -83,7 +83,7 @@ function Footer() {
               className="text-kilblue text-lg hover:underline"
               target="_blank"
               rel="noopener noreferrer"
-              href="https:/www.brattaasutvikling.no"
+              href="https://www.brattaasutvikling.no"
               aria-label="Nettsiden til Brattås Utvikling"
             >
               Brattås Utvikling
