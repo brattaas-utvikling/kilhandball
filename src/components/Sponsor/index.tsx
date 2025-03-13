@@ -1,11 +1,4 @@
-import React from 'react';
-
-interface Sponsor {
-    id: number;
-    name: string;
-    imageUrl: string;
-    websiteUrl: string;
-    }
+import { Sponsor } from "../../types/Sponsor";
 
 // Sponsor data
 const sponsorsData = [
