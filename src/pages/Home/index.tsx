@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import StyledLoader from "../../components/styles/StyledLoader";
+import SiteNotification from "../../components/SiteNotification";
+import Sponsors from "../../components/Sponsor";
 
 function Home() {
   const [showLoader, setShowLoader] = useState(true);
 
   useEffect(() => {
-    // Vis loader i 1 sekund når siden lastes
     const timer = setTimeout(() => {
       setShowLoader(false);
     }, 1000);
@@ -20,13 +21,10 @@ function Home() {
       ) : (
         <div className="flex flex-col items-center justify-center">
           <div className="border-b-2 border-gray-600 pb-4 w-full">
-            <h1 className="text-2xl md:text-4xl font-anton font-bold mb-4 text-center uppercase">
+            <h1 className="text-3xl md:text-4xl font-anton font-bold mb-4 text-center uppercase">
               Velkommen til KIL Håndball
             </h1>
-            <p className="text-base text-center font-roboto font-normal text-gray-600">
-              Vi holder på å fornye nettsiden vår. Det vil komme oppdatert
-              informasjon løpende.
-            </p>
+            <SiteNotification />
           </div>
           <div className="p-6 md:p-8 mx-auto mt-8 md:mt-16">
             <h2 className="text-xl md:text-2xl font-bold font-anton text-kilsvart mb-4">
@@ -86,6 +84,7 @@ function Home() {
             <p className="font-medium text-lg font-roboto">Med vennlig hilsen</p>
             <p className="font-semibold text-lg font-roboto">Styret</p>
           </div>
+          <Sponsors />
         </div>
       )}
     </>

@@ -56,7 +56,7 @@ function NavBar() {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3, ease: 'easeInOut' }}
               tabIndex={-1}
-              className={`absolute top-20 left-0 right-0 bg-kilred p-4 flex flex-col items-center gap-4 focus:outline-none 
+              className={`absolute top-20 left-0 right-0 bg-kilred flex flex-col items-center gap-4 focus:outline-none 
         md:flex md:flex-row md:static md:gap-6`}
               onKeyDown={(e) => e.key === 'Escape' && setMenuOpen(false)}
             >
