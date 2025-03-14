@@ -7,6 +7,10 @@ import Contact from './pages/Contact';
 import PraktiskInfo from './components/PraktiskInfo';
 import Hjemmearrangement from './components/Veiledninger/Hjemmearrangement';
 import HandballLive from './components/Veiledninger/HandballLive';
+import Dommer from './components/Veiledninger/Dommer';
+import Rullestol from './components/Veiledninger/Rullestol';
+import Sportslig from './components/Veiledninger/Sportslig';
+import Klubbdrift from './components/Veiledninger/Klubbdrift';
 
 
 function App() {
@@ -19,6 +23,10 @@ function App() {
           <Route path="/praktisk-info" element={<PraktiskInfo />} />
           <Route path="/praktisk-info/hjemmearrangement" element={<Hjemmearrangement />} />
           <Route path="/praktisk-info/handball-live" element={<HandballLive />} />
+          <Route path="/praktisk-info/dommer" element={<Dommer />} />
+          <Route path="/praktisk-info/rullestolhandball" element={<Rullestol />} />
+          <Route path="/praktisk-info/sportslig" element={<Sportslig />} />
+          <Route path="/praktisk-info/klubbdrift" element={<Klubbdrift />} />
           <Route path="/kontakt" element={<Contact />} />
         </Route>
       </Routes>

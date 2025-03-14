@@ -23,7 +23,7 @@ function PraktiskInfo() {
       icon: <Volleyball size={24} />,
       title: 'Sportslig informasjon',
       description: 'Informasjon om sportslig drift',
-      link: '/praktisk-info/sportslig-informasjon',
+      link: '/praktisk-info/sportslig',
     },
     {
       icon: <Accessibility size={24} />,

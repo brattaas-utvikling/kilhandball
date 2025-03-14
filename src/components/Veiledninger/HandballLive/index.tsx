@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 function HandballLive() {
   return (
-    <div className="container mx-auto py-12">
+    <div className="container mx-auto pb-12">
       <div className="mb-6">
         <Link to="/praktisk-info" className="text-kilred hover:underline flex items-center">
           ← Tilbake til praktisk info
@@ -30,7 +30,7 @@ function HandballLive() {
             <div>
               <h3 className="font-bold mb-2">Enkel versjon - Digital kamprapport</h3>
               <ul className="list-disc pl-6">
-                <li>Kun registrere målscore lag, som kampur i hallen</li>
+                <li>Kun registrere målscore lag, som kamp-ur i hallen</li>
                 <li>Brukes i klassene 12 år og yngre</li>
               </ul>
             </div>
