@@ -5,49 +5,49 @@ const sponsorsData = [
   {
     id: 1,
     name: 'SpareBank 1',
-    imageUrl: '/bilder/sponsorer/sparebank1.webp',
+    imageUrl: '/bilder/partnere/sparebank1.webp',
     websiteUrl: 'https://www.sparebank1.no/nb/ostlandet/privat.html'
   },
   {
     id: 2,
     name: 'Eidsiva',
-    imageUrl: '/bilder/sponsorer/eidsiva.png',
+    imageUrl: '/bilder/partnere/eidsiva.png',
     websiteUrl: 'https://www.eidsiva.no/'
   },
   {
     id: 3,
     name: 'Rimfelt-Eiendom',
-    imageUrl: '/bilder/sponsorer/rimfeldt-eiendom.jpg',
+    imageUrl: '/bilder/partnere/rimfeldt-eiendom.jpg',
     websiteUrl: 'https://rimfeldteiendom.no/'
   },
   {
     id: 4,
     name: 'Sport1 Kongsvinger',
-    imageUrl: '/bilder/sponsorer/sport1.jpg',
+    imageUrl: '/bilder/partnere/sport1.jpg',
     websiteUrl: 'https://www.sport1.no/'
   },
   {
     id: 5,
     name: 'Glåmdalen',
-    imageUrl: '/bilder/sponsorer/glamdalen.png',
+    imageUrl: '/bilder/partnere/glamdalen.png',
     websiteUrl: 'https://www.glomdalen.no/'
   },
   {
     id: 6,
     name: 'Kobbl',
-    imageUrl: '/bilder/sponsorer/kobbl.jpg',
+    imageUrl: '/bilder/partnere/kobbl.jpg',
     websiteUrl: 'https://www.kobbl.no'
   },
   {
     id: 7,
     name: 'Sulland',
-    imageUrl: '/bilder/sponsorer/sulland.jpg',
+    imageUrl: '/bilder/partnere/sulland.jpg',
     websiteUrl: 'https://www.sulland.no/'
   },
   {
     id: 8,
     name: 'Betong ØST',
-    imageUrl: '/bilder/sponsorer/betong_ost.png',
+    imageUrl: '/bilder/partnere/betong_ost.png',
     websiteUrl: 'https://www.betongost.no/'
   }
 ];
