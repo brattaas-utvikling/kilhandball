@@ -1,7 +1,7 @@
 import { Sponsor } from "../../types/Sponsor";
 import sparebank1 from '../../assets/sparebank1.webp';
 import eidsiva from '../../assets/eidsiva.png';
-import rimfeldtEiendom from '../../assets/rimfeldt-eiendom.jpg';
+import rimfeldt from '../../assets/rimfeldt-eiendom.jpg';
 import sport1 from '../../assets/sport1.jpg';
 import glåmdalen from '../../assets/glåmdalen.png';
 import kobbl from '../../assets/kobbl.jpg';
@@ -25,7 +25,7 @@ const sponsorsData = [
   {
     id: 3,
     name: 'Rimfelt-Eiendom',
-    imageUrl: rimfeldtEiendom,
+    imageUrl: rimfeldt,
     websiteUrl: 'https://rimfeldteiendom.no/'
   },
   {
