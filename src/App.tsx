@@ -4,6 +4,10 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Layout from './components/Layout';
 import Contact from './pages/Contact';
+import PraktiskInfo from './components/PraktiskInfo';
+import Hjemmearrangement from './components/Veiledninger/Hjemmearrangement';
+import HandballLive from './components/Veiledninger/HandballLive';
+
 
 function App() {
   return (
@@ -12,7 +16,9 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="/om-oss" element={<About />} />
-          <Route path="/praktisk-info" element={<Contact />} />
+          <Route path="/praktisk-info" element={<PraktiskInfo />} />
+          <Route path="/praktisk-info/hjemmearrangement" element={<Hjemmearrangement />} />
+          <Route path="/praktisk-info/handball-live" element={<HandballLive />} />
           <Route path="/kontakt" element={<Contact />} />
         </Route>
       </Routes>
