@@ -1,7 +1,7 @@
 import { FaFacebook, FaInstagram } from 'react-icons/fa6';
 import Logo from '../../assets/kil_logo.png';
 import { Link } from 'react-router-dom';
-import sparebank1 from "../../assets/sparebank1.webp";
+
 function Footer() {
   return (
     <footer className="bg-kilsvart py-10 px-6 w-full">
@@ -38,7 +38,7 @@ function Footer() {
     className="inline-block transition-transform hover:scale-102"
   >
     <img 
-      src={sparebank1} 
+      src='public/images/sponsorer/sparebank1.webp'
       className='max-h-12 md:max-h-20 w-auto rounded-md' 
       alt="SpareBank1 logo" 
     />

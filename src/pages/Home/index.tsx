@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import StyledLoader from "../../components/styles/StyledLoader";
 import SiteNotification from "../../components/SiteNotification";
-import Sponsors from "../../components/Sponsor";
+import Sponsorer from "../../components/Sponsorer";
 
 function Home() {
   const [showLoader, setShowLoader] = useState(true);
@@ -84,7 +84,7 @@ function Home() {
             <p className="font-medium text-lg font-roboto">Med vennlig hilsen</p>
             <p className="font-semibold text-lg font-roboto">Styret</p>
           </div>
-          <Sponsors />
+          <Sponsorer />
         </div>
       )}
     </>
