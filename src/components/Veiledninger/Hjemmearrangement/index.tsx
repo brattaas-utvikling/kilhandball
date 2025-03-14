@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 function Hjemmearrangement() {
   return (
-    <div className="container mx-auto py-12 px-4">
+    <div className="container mx-auto py-12">
       <div className="mb-6">
         <Link to="/praktisk-info" className="text-kilred hover:underline flex items-center">
           ← Tilbake til praktisk info
