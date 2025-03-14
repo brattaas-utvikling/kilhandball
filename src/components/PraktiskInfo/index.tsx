@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
-import { House, TvMinimalPlay } from "lucide-react";
+import { Accessibility, Cog, House, TvMinimalPlay, Volleyball } from "lucide-react";
 import { FaChevronRight } from "react-icons/fa6";
 import Logo from '../../assets/kil_logo.png';
 import Banner from '../../assets/kil_banner.jpg';
+import { GiWhistle } from 'react-icons/gi';
 function PraktiskInfo() {
   // Forenklet datastruktur for informasjonselementer
   const informasjonsElementer = [
@@ -18,6 +19,30 @@ function PraktiskInfo() {
       description: 'Brukerveiledninger for Håndball Live',
       link: '/praktisk-info/handball-live',
     },
+    {
+      icon: <Volleyball size={24} />,
+      title: 'Sportslig informasjon',
+      description: 'Informasjon om sportslig drift',
+      link: '/praktisk-info/sportslig-informasjon',
+    },
+    {
+      icon: <Accessibility size={24} />,
+      title: 'Rullestolhåndball',
+      description: 'Informasjon om rullestolhåndball',
+      link: '/praktisk-info/rullestolhandball',
+    },
+    {
+      icon: <GiWhistle size={24} />,
+      title: 'Dommer',
+      description: 'Informasjon for dommere',
+      link: '/praktisk-info/dommer',
+    },
+    {
+      icon: <Cog size={24} />,
+      title: 'Klubbdrift',
+      description: 'Informasjon om klubbdrift',
+      link: '/praktisk-info/klubbdrift',
+    }
     // Legg til flere elementer her ved behov
   ];
 
@@ -47,7 +72,7 @@ function PraktiskInfo() {
       </div>
 
       {/* Main content container */}
-      <div className="container mx-auto mt-52 md:mt-56 lg:mt-64 px-4">
+      <div className="container mx-auto mt-52 md:mt-56 lg:mt-64">
         {/* Kort introduksjon */}
         <div className="text-center mb-12 max-w-2xl mx-auto">
           <p className="text-lg text-gray-700">
