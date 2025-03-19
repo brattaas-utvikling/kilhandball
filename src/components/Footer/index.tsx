@@ -17,7 +17,7 @@ function Footer() {
               className="max-h-20 w-auto"
 
             />
-             <p className="text-kilblue font-bold text-sm tracking-wider mt-1 uppercase font-serif">
+            <p className="text-kilblue font-bold text-sm tracking-wider mt-1 uppercase font-serif">
     KIL HÅNDBALL
   </p>
           </div>
@@ -38,7 +38,7 @@ function Footer() {
     className="inline-block transition-transform hover:scale-102"
   >
     <img 
-      src='public/images/sponsorer/sparebank1.webp'
+      src='/bilder/partnere/sparebank1.webp'
       className='max-h-12 md:max-h-20 w-auto rounded-md' 
       alt="SpareBank1 logo" 
     />
