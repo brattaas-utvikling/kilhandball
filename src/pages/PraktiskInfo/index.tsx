@@ -56,7 +56,7 @@ function PraktiskInfo() {
   return (
     <div className="w-full min-h-screen bg-white pb-12">
       {/* Hero banner */}
-      <div className="relative w-full h-48 md:h-64">
+      <div className="relative w-full h-48 md:h-96">
         <img
           src={Banner || 'https://placehold.co/1200x300'}
           alt="KIL banner"
