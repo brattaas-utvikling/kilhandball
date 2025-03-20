@@ -4,7 +4,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Layout from './components/Layout';
 import Contact from './pages/Contact';
-import PraktiskInfo from './components/PraktiskInfo';
+import PraktiskInfo from './pages/PraktiskInfo';
 import Hjemmearrangement from './components/Veiledninger/Hjemmearrangement';
 import HandballLive from './components/Veiledninger/HandballLive';
 import Dommer from './components/Veiledninger/Dommer';

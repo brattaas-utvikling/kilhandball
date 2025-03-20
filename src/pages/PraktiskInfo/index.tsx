@@ -8,8 +8,9 @@ import {
 } from 'lucide-react';
 import { FaChevronRight } from 'react-icons/fa6';
 import Logo from '../../assets/kil_logo.png';
-import Banner from '../../assets/kil_banner.jpg';
+import Banner from '../../assets/banner.webp';
 import { GiWhistle } from 'react-icons/gi';
+
 function PraktiskInfo() {
   // Forenklet datastruktur for informasjonselementer
   const informasjonsElementer = [
@@ -59,11 +60,11 @@ function PraktiskInfo() {
         <img
           src={Banner || 'https://placehold.co/1200x300'}
           alt="KIL banner"
-          className="w-full h-full object-cover object-center aspect-video overflow-hidden"
+          className="w-full h-full rounded-t-md object-cover object-center aspect-video overflow-hidden"
         />
       </div>
 
-      {/* Profile card */}
+      {/* Info Card */}
       <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/3 bg-white shadow-lg rounded-lg p-6 max-w-lg md:max-w-2xl text-center w-11/12 sm:w-9/12 md:w-8/12 lg:w-6/12">
         <div className="flex flex-col items-center">
           <img

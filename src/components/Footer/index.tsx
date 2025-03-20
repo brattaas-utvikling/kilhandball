@@ -53,16 +53,16 @@ function Footer() {
           <ul className="flex flex-wrap justify-center items-center gap-x-2 text-base font-roboto mb-4 md:mb-0">
             <li>
               <Link
-                to="/om-oss"
-                className="hover:text-secondary cursor-pointer transition"
+                to="/praktisk-info"
+                className="hover:text-white cursor-pointer transition-colors duration-200"
               >
-                Om oss
+                Praktisk info
               </Link>
             </li>
             <li>
               <Link
                 to="/kontakt"
-                className="hover:text-white cursor-pointer transition"
+                className="hover:text-white cursor-pointer transition-colors duration-200"
               >
                 Kontakt
               </Link>
@@ -82,7 +82,7 @@ function Footer() {
           <p className="text-base font-roboto mb-4 md:mb-0">
             Designet og utviklet av{' '}
             <a
-              className="text-kilblue text-lg hover:underline"
+              className="text-kilblue text-lg hover:underline hover:text-white transition-all duration-200"
               target="_blank"
               rel="noopener noreferrer"
               href="https://www.brattaasutvikling.no"
@@ -104,7 +104,7 @@ function Footer() {
               <FaFacebook />
             </a>
             <a
-              href="https://www.instagram.com"
+              href="https://www.instagram.com/kilhandball/"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-kilblue transition-colors duration-200"

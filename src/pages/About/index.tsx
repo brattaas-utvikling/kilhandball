@@ -33,14 +33,14 @@ export default function About() {
           </p>
           <p className="text-base md:text-lg font-roboto text-gray-700 leading-relaxed mt-4">
             KIL Håndballs verdier: <br />
-            <ul className="list-disc ml-8">
+          </p>
+            <ul className="list-disc text-base md:text-lg font-roboto text-gray-700 ml-8">
               <li>Mestring</li>
               <li>Allsidighet</li>
               <li>Lek</li>
               <li>Idrettsglede</li>
               <li>Fellesskap-trygghet-respekt</li>
             </ul>
-          </p>
         </div>
       )}
     </>
