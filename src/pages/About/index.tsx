@@ -23,21 +23,22 @@ export default function About() {
             Om oss
           </h1>
           <p className="text-lg md:text-xl font-roboto text-center text-kilred font-semibold mb-8">
-            Velkommen til Håndballavdelingen i Kongsvinger IL
+            Velkommen til Kongsvinger IL Håndball
           </p>
           <p className="text-base md:text-lg font-roboto text-gray-700 leading-relaxed">
             Kongsvinger Idrettslag, med en stolt historie som strekker seg tilbake
             til 1892, er mer enn bare en idrettsklubb; det er et fellesskap som
             binder sammen generasjoner av idrettsentusiaster i Kongsvinger kommune.
-            Håndballavdelingen vår er et skinnende eksempel på denne arven, hvor
-            lidenskap og samhold står sentralt.
           </p>
           <p className="text-base md:text-lg font-roboto text-gray-700 leading-relaxed mt-4">
-            Vi er stolte av å kunne tilby et bredt spekter av aktiviteter for
-            barn, ungdom og voksne, og vi er alltid på jakt etter nye talenter
-            som ønsker å bli en del av vårt fellesskap. Uansett om du er en
-            erfaren spiller eller en nybegynner, er du hjertelig velkommen til
-            å ta kontakt med oss for en uforpliktende prat.
+          KIL Håndballs verdier: <br />
+          <ul className="list-disc ml-8">
+            <li>Mestring</li>
+            <li>Allsidighet</li>
+            <li>Lek</li>
+            <li>Idrettsglede</li>
+            <li>Fellesskap-trygghet-respekt</li>
+          </ul>
           </p>
         </div>
       )}

@@ -27,10 +27,10 @@ function Contact() {
             <div>
               <p className="mb-4 text-lg font-roboto font-normal">
                 Vi hører gjerne fra deg! Enten du er interessert i å bli med i
-                klubben, har spørsmål om våre programmer, eller ønsker å bidra som
-                frivillig, er vi her for å hjelpe.
+                klubben, har spørsmål om våre lag, eller ønsker å bidra som
+                frivillig, er vi her for å hjelpe!
               </p>
-              <p className="mb-4 text-lg font-roboto font-normal">
+              <p className="mb-8 text-lg font-roboto font-normal">
                 For generelle hendvendelser, send en e-post til{' '}
                 <a
                   href="mailto:post@kilhandball.no"
@@ -67,7 +67,7 @@ function Contact() {
               <p className="text-lg font-roboto font-regular mb-4">
                 Styret til KIL Håndball består av Bent Rode-Christoffersen, Vidar
                 Svartkjønnli, Svein Thorstensen, Elin Maria Vendela Skoglund,
-                Ole-Erik Ruud, Bjørn erik Johnsen, Linda skarstad og Hanne Fiskerud.
+                Ole-Erik Ruud, Bjørn Erik Johnsen, Linda skarstad og Hanne Fiskerud.
               </p>
               <h3 className="text-xl font-anton font-bold mb-2">Styreleder</h3>
               <p className="text-lg font-roboto font-medium">
@@ -120,9 +120,8 @@ function Contact() {
                 Sportslig utvalg
               </h3>
               <p className="text-lg font-roboto font-medium">
-                Sportslig utvalg består av Erik Elseth, Sara Bourne, Charlotte
-                Egnersson og Jon Are Haveråen-Brattås. Har du spørsmål til
-                sportslig, send mail eller ring Jon Are på kontaktinfo under.
+                Sportslig utvalg består av Erik Elseth, Sara Bourne Holtet, Charlotte
+                Egnersson og Jon Are Haveråen-Brattås.
               </p>
               <ul className="text-lg font-roboto">
                 <li>

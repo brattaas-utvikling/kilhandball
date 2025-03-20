@@ -16,7 +16,7 @@ function Hjemmearrangement() {
         
         <div className="prose max-w-none">
           <p>
-            Her kommer informasjon om hjemmearrangement. Du kan legge til tekst, bilder, nedlastbare filer eller annet innhold som er relevant for hjemmearrangement.
+            Her kommer informasjon om hjemmearrangement.
           </p>
           
           {/* Eksempelseksjoner - erstatt med faktisk innhold */}
