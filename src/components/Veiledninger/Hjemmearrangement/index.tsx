@@ -4,21 +4,26 @@ function Hjemmearrangement() {
   return (
     <div className="container mx-auto pb-12">
       <div className="mb-6">
-        <Link to="/praktisk-info" className="text-kilred hover:underline flex items-center">
+        <Link
+          to="/praktisk-info"
+          className="text-kilred hover:underline flex items-center"
+        >
           ← Tilbake til praktisk info
         </Link>
       </div>
-      
-      <h1 className="text-3xl font-bold mb-8 text-kilsvart">Hjemmearrangement</h1>
-      
+
+      <h1 className="text-3xl font-bold mb-8 text-kilsvart">
+        Hjemmearrangement
+      </h1>
+
       <div className="bg-white rounded-lg shadow-md p-6">
-        <h2 className="text-xl font-semibold mb-4 text-kilred">Brukerveiledning for hjemmearrangement</h2>
-        
+        <h2 className="text-xl font-semibold mb-4 text-kilred">
+          Brukerveiledning for hjemmearrangement
+        </h2>
+
         <div className="prose max-w-none">
-          <p>
-            Her kommer informasjon om hjemmearrangement.
-          </p>
-          
+          <p>Her kommer informasjon om hjemmearrangement.</p>
+
           {/* Eksempelseksjoner - erstatt med faktisk innhold */}
           <h3 className="mt-6 mb-2 text-lg font-medium">Før kampen</h3>
           <ul className="list-disc pl-6 mb-4">
@@ -26,14 +31,14 @@ function Hjemmearrangement() {
             <li>Oppsett av sekretariat</li>
             <li>Forberedelser for dommere</li>
           </ul>
-          
+
           <h3 className="mt-6 mb-2 text-lg font-medium">Under kampen</h3>
           <ul className="list-disc pl-6 mb-4">
             <li>Føring av kamprapport</li>
             <li>Hallvaktens oppgaver</li>
             <li>Håndtering av publikum</li>
           </ul>
-          
+
           <h3 className="mt-6 mb-2 text-lg font-medium">Etter kampen</h3>
           <ul className="list-disc pl-6 mb-4">
             <li>Rapportering av resultater</li>

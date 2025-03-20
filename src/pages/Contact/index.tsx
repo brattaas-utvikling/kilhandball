@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import StyledLoader from "../../components/styles/StyledLoader";
+import { useEffect, useState } from 'react';
+import StyledLoader from '../../components/styles/StyledLoader';
 
 function Contact() {
   const [showLoader, setShowLoader] = useState(true);
@@ -9,7 +9,7 @@ function Contact() {
     const timer = setTimeout(() => {
       setShowLoader(false);
     }, 1000);
-    
+
     return () => clearTimeout(timer);
   }, []);
 
@@ -40,7 +40,9 @@ function Contact() {
                 </a>
               </p>
               <div>
-                <h3 className="text-xl font-anton font-bold mb-2">Besøksadresse</h3>
+                <h3 className="text-xl font-anton font-bold mb-2">
+                  Besøksadresse
+                </h3>
                 <address className="text-lg font-roboto">
                   Markensvegen 20, 2212 Kongsvinger
                 </address>
@@ -65,9 +67,10 @@ function Contact() {
             <div>
               <h2 className="text-2xl font-bold font-anton mb-2">Styret</h2>
               <p className="text-lg font-roboto font-regular mb-4">
-                Styret til KIL Håndball består av Bent Rode-Christoffersen, Vidar
-                Svartkjønnli, Svein Thorstensen, Elin Maria Vendela Skoglund,
-                Ole-Erik Ruud, Bjørn Erik Johnsen, Linda skarstad og Hanne Fiskerud.
+                Styret til KIL Håndball består av Bent Rode-Christoffersen,
+                Vidar Svartkjønnli, Svein Thorstensen, Elin Maria Vendela
+                Skoglund, Ole-Erik Ruud, Bjørn Erik Johnsen, Linda skarstad og
+                Hanne Fiskerud.
               </p>
               <h3 className="text-xl font-anton font-bold mb-2">Styreleder</h3>
               <p className="text-lg font-roboto font-medium">
@@ -93,8 +96,12 @@ function Contact() {
                   </a>
                 </li>
               </ul>
-              <h3 className="text-xl font-anton font-bold mb-2">Dommerkontakt</h3>
-              <p className="text-lg font-roboto font-medium">Ingvald Moe Gimse</p>
+              <h3 className="text-xl font-anton font-bold mb-2">
+                Dommerkontakt
+              </h3>
+              <p className="text-lg font-roboto font-medium">
+                Ingvald Moe Gimse
+              </p>
               <ul className="mb-4 text-lg font-roboto">
                 <li>
                   <strong>E-post:</strong>{' '}
@@ -120,8 +127,8 @@ function Contact() {
                 Sportslig utvalg
               </h3>
               <p className="text-lg font-roboto font-medium">
-                Sportslig utvalg består av Erik Elseth, Sara Bourne Holtet, Charlotte
-                Egnersson og Jon Are Haveråen-Brattås.
+                Sportslig utvalg består av Erik Elseth, Sara Bourne Holtet,
+                Charlotte Egnersson og Jon Are Haveråen-Brattås.
               </p>
               <ul className="text-lg font-roboto">
                 <li>

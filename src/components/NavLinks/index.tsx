@@ -14,9 +14,10 @@ function NavLinks({ toggleMenu }: { toggleMenu: () => void }) {
             to={path}
             className={({ isActive }) =>
               `block w-full text-center font-roboto after:text-lg px-4 py-2 transition-all duration-100 md:h-full md:flex md:items-center
-              ${isActive
-                ? ' md:rounded-lg md:border-b-2 md:border-t-0 md:border-white md:bg-kilred md:text-white bg-white text-kilred'
-                : 'text-white hover:bg-white hover:text-kilred md:hover:bg-transparent md:hover:text-white md:hover:rounded-lg md:hover:border-b-2 md:hover:border-t-0 md:hover:border-white'
+              ${
+                isActive
+                  ? ' md:rounded-lg md:border-b-2 md:border-t-0 md:border-white md:bg-kilred md:text-white bg-white text-kilred'
+                  : 'text-white hover:bg-white hover:text-kilred md:hover:bg-transparent md:hover:text-white md:hover:rounded-lg md:hover:border-b-2 md:hover:border-t-0 md:hover:border-white'
               }`
             }
             onClick={() => toggleMenu()}

@@ -1,6 +1,12 @@
 import { Link } from 'react-router-dom';
-import { Accessibility, Cog, House, TvMinimalPlay, Volleyball } from "lucide-react";
-import { FaChevronRight } from "react-icons/fa6";
+import {
+  Accessibility,
+  Cog,
+  House,
+  TvMinimalPlay,
+  Volleyball,
+} from 'lucide-react';
+import { FaChevronRight } from 'react-icons/fa6';
 import Logo from '../../assets/kil_logo.png';
 import Banner from '../../assets/kil_banner.jpg';
 import { GiWhistle } from 'react-icons/gi';
@@ -42,7 +48,7 @@ function PraktiskInfo() {
       title: 'Klubbdrift',
       description: 'Informasjon om klubbdrift',
       link: '/praktisk-info/klubbdrift',
-    }
+    },
     // Legg til flere elementer her ved behov
   ];
 
@@ -52,7 +58,7 @@ function PraktiskInfo() {
       <div className="relative w-full h-48 md:h-64">
         <img
           src={Banner || 'https://placehold.co/1200x300'}
-          alt='KIL banner'
+          alt="KIL banner"
           className="w-full h-full object-cover object-center aspect-video overflow-hidden"
         />
       </div>
@@ -62,7 +68,7 @@ function PraktiskInfo() {
         <div className="flex flex-col items-center">
           <img
             src={Logo || 'https://placehold.co/150'}
-            alt='KIL logo'
+            alt="KIL logo"
             className="w-24 h-24 md:w-32 md:h-32 rounded-full border border-gray-200 object-cover object-center aspect-square"
           />
           <h1 className="text-2xl md:text-3xl font-bold mt-4 text-kilsvart">
@@ -76,7 +82,8 @@ function PraktiskInfo() {
         {/* Kort introduksjon */}
         <div className="text-center mb-12 max-w-2xl mx-auto">
           <p className="text-lg text-gray-700">
-            Her finner du praktisk informasjon og nyttige ressurser for medlemmer, trenere og foreldre i KIL Håndball.
+            Her finner du praktisk informasjon og nyttige ressurser for
+            medlemmer, trenere og foreldre i KIL Håndball.
           </p>
         </div>
 

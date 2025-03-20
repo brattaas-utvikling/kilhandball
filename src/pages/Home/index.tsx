@@ -1,18 +1,28 @@
-import { useEffect, useState } from "react";
-import StyledLoader from "../../components/styles/StyledLoader";
-import SiteNotification from "../../components/SiteNotification";
-import Sponsorer from "../../components/Sponsorer";
+import { useEffect, useState } from 'react';
+import StyledLoader from '../../components/styles/StyledLoader';
+import SiteNotification from '../../components/SiteNotification';
+import Sponsorer from '../../components/Sponsorer';
+import { useNavigate } from 'react-router-dom';
+import arsmotepapirer from '../../assets/pdfs/Arsmotepapirer_v2025.pdf';
 
 function Home() {
   const [showLoader, setShowLoader] = useState(true);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowLoader(false);
     }, 1000);
-    
+
     return () => clearTimeout(timer);
   }, []);
+  const openPdfWithState = (pdfUrl: string, pdfTitle: string) => {
+    navigate('/pdf/view', {
+      state: {
+        pdfUrl,
+        pdfTitle,
+      },
+    });
+  };
 
   return (
     <>
@@ -32,8 +42,8 @@ function Home() {
             </h2>
             <p className="mb-4 text-lg font-roboto font-normal">
               Styret innkaller herved til årsmøte i Kongsvinger IL Håndball.
-              Årsmøtet avholdes <strong>27. mars kl. 18.00</strong> i peisestua på
-              Gjemselund.
+              Årsmøtet avholdes <strong>27. mars kl. 18.00</strong> i peisestua
+              på Gjemselund.
             </p>
             <p className="mb-4 text-lg font-roboto font-normal">
               Saker som et medlem ønsker behandlet på årsmøtet, må sendes styret
@@ -48,26 +58,26 @@ function Home() {
             </p>
             <p className="mb-4 text-lg font-roboto font-normal">
               Fullstendig sakliste med alle saksdokumenter vil bli gjort
-              tilgjengelig for medlemmene senest én uke før årsmøtet på
-              <a
-                href="https://www.kilhandball.no"
-                className="text-kilred font-semibold hover:underline"
-              >
-                {' '}
-                www.kilhandball.no
-              </a>
-              .
+              tilgjengelig for medlemmene senest én uke før årsmøtet her:
+            </p>
+            <button
+              onClick={() =>
+                openPdfWithState(arsmotepapirer, 'Årsmøtepapirer 2025')
+              }
+              className="px-4 py-2 bg-kilred text-white font-medium rounded hover:bg-red-700 transition-colors duration-200 mb-4"
+            >
+              Se årsmøtepapirer for 2025
+            </button>
+            <p className="mb-4 text-lg font-roboto font-normal">
+              For å ha stemmerett og kunne velges til verv må man ha vært medlem
+              av Kongsvinger IL Håndball i minst én måned, fylle minst 15 år i
+              det kalenderåret årsmøtet avholdes, og ha gjort opp sine
+              økonomiske forpliktelser til klubben. Alle medlemmer har uansett
+              møterett, talerett og forslagsrett.
             </p>
             <p className="mb-4 text-lg font-roboto font-normal">
-              For å ha stemmerett og kunne velges til verv må man ha vært medlem av
-              Kongsvinger IL Håndball i minst én måned, fylle minst 15 år i det
-              kalenderåret årsmøtet avholdes, og ha gjort opp sine økonomiske
-              forpliktelser til klubben. Alle medlemmer har uansett møterett,
-              talerett og forslagsrett.
-            </p>
-            <p className="mb-4 text-lg font-roboto font-normal">
-              For mer informasjon om årsmøte samt regler om stemmerett, valgbarhet,
-              forslagsrett mv., se Kongsvinger IL Håndballs lov.
+              For mer informasjon om årsmøte samt regler om stemmerett,
+              valgbarhet, forslagsrett mv., se Kongsvinger IL Håndballs lov.
             </p>
             <p className="mb-4 text-lg font-roboto font-normal">
               Ved spørsmål som gjelder årsmøtet, send mail til:{' '}
@@ -81,7 +91,9 @@ function Home() {
             <p className="mt-6 font-semibold text-lg font-roboto">
               Velkommen til årsmøte!
             </p>
-            <p className="font-medium text-lg font-roboto">Med vennlig hilsen</p>
+            <p className="font-medium text-lg font-roboto">
+              Med vennlig hilsen
+            </p>
             <p className="font-semibold text-lg font-roboto">Styret</p>
           </div>
           <Sponsorer />

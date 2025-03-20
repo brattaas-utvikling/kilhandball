@@ -11,7 +11,7 @@ import Dommer from './components/Veiledninger/Dommer';
 import Rullestol from './components/Veiledninger/Rullestol';
 import Sportslig from './components/Veiledninger/Sportslig';
 import Klubbdrift from './components/Veiledninger/Klubbdrift';
-
+import PDFViewerPage from './components/PDFViewerPage';
 
 function App() {
   return (
@@ -19,12 +19,22 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
+          <Route path="/pdf/view" element={<PDFViewerPage />} />
           <Route path="/om-oss" element={<About />} />
           <Route path="/praktisk-info" element={<PraktiskInfo />} />
-          <Route path="/praktisk-info/hjemmearrangement" element={<Hjemmearrangement />} />
-          <Route path="/praktisk-info/handball-live" element={<HandballLive />} />
+          <Route
+            path="/praktisk-info/hjemmearrangement"
+            element={<Hjemmearrangement />}
+          />
+          <Route
+            path="/praktisk-info/handball-live"
+            element={<HandballLive />}
+          />
           <Route path="/praktisk-info/dommer" element={<Dommer />} />
-          <Route path="/praktisk-info/rullestolhandball" element={<Rullestol />} />
+          <Route
+            path="/praktisk-info/rullestolhandball"
+            element={<Rullestol />}
+          />
           <Route path="/praktisk-info/sportslig" element={<Sportslig />} />
           <Route path="/praktisk-info/klubbdrift" element={<Klubbdrift />} />
           <Route path="/kontakt" element={<Contact />} />

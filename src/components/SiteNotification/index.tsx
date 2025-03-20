@@ -24,7 +24,7 @@ function SiteNotification() {
     <div className="fixed top-24 right-4 z-50 max-w-xs bg-white border border-kilred rounded-lg shadow-lg p-4 text-sm">
       <div className="flex justify-between items-start">
         <div className="text-kilred font-medium mb-1">Obs!</div>
-        <button 
+        <button
           onClick={closeNotification}
           className="text-gray-500 hover:text-gray-700 transition-colors"
           aria-label="Lukk melding"
@@ -33,7 +33,8 @@ function SiteNotification() {
         </button>
       </div>
       <p className="text-gray-800">
-        Vi holder på å fornye nettsiden vår. Det vil komme oppdatert informasjon løpende.
+        Vi holder på å fornye nettsiden vår. Det vil komme oppdatert informasjon
+        løpende.
       </p>
     </div>
   );

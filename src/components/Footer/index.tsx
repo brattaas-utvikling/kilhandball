@@ -15,11 +15,10 @@ function Footer() {
               src={Logo}
               alt="KIL Håndball Logo"
               className="max-h-20 w-auto"
-
             />
             <p className="text-kilblue font-bold text-sm tracking-wider mt-1 uppercase font-serif">
-    KIL HÅNDBALL
-  </p>
+              KIL HÅNDBALL
+            </p>
           </div>
 
           {/* Tekst - sentrert på mobil, høyre på desktop */}
@@ -29,21 +28,21 @@ function Footer() {
               hvor vi sammen skaper idrettsglede og bygger karakter.
             </p>
           </div>
-          <div className='max-w-md'>
-  <a 
-    href="https://www.sparebank1.no/nb/ostlandet/privat.html" 
-    target="_blank" 
-    rel="noopener noreferrer"
-    aria-label="Besøk SpareBank1 sin nettside"
-    className="inline-block transition-transform hover:scale-102"
-  >
-    <img 
-      src='/bilder/partnere/sparebank1.webp'
-      className='max-h-12 md:max-h-20 w-auto rounded-md' 
-      alt="SpareBank1 logo" 
-    />
-  </a>
-</div>
+          <div className="max-w-md">
+            <a
+              href="https://www.sparebank1.no/nb/ostlandet/privat.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Besøk SpareBank1 sin nettside"
+              className="inline-block transition-transform hover:scale-102"
+            >
+              <img
+                src="/bilder/partnere/sparebank1.webp"
+                className="max-h-12 md:max-h-20 w-auto rounded-md"
+                alt="SpareBank1 logo"
+              />
+            </a>
+          </div>
         </div>
       </div>
 
@@ -68,7 +67,10 @@ function Footer() {
                 Kontakt
               </Link>
             </li>
-            <li className="font-roboto text-2xl items-center" aria-hidden="true">
+            <li
+              className="font-roboto text-2xl items-center"
+              aria-hidden="true"
+            >
               |
             </li>
             <li>

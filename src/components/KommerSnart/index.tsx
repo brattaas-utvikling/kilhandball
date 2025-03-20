@@ -12,7 +12,8 @@ function KommerSnart() {
         Vi jobber med denne siden!
       </p>
       <p className="text-base md:text-lg text-gray-600 max-w-lg mb-12">
-        Her kommer det mer informasjon løpende. Vi oppdaterer nettsiden jevnlig med nytt innhold.
+        Her kommer det mer informasjon løpende. Vi oppdaterer nettsiden jevnlig
+        med nytt innhold.
       </p>
       <div className="w-full max-w-xs">
         <Link
