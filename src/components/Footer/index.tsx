@@ -1,6 +1,5 @@
 import { FaFacebook, FaInstagram } from 'react-icons/fa6';
 import Logo from '../../assets/kil_logo.png';
-import { Link } from 'react-router-dom';
 
 function Footer() {
   return (
@@ -23,9 +22,11 @@ function Footer() {
 
           {/* Tekst - sentrert på mobil, høyre på desktop */}
           <div className="md:max-w-xl">
-            <p className="text-base md:text-lg text-center font-thin font-roboto text-gray-400 leading-relaxed italic py-4">
-              Bli en del av vårt fellesskap i Kongsvinger IL Håndball – <br />{' '}
-              hvor vi sammen skaper idrettsglede og bygger karakter.
+          <p className="text-base text-wrap md:text-lg text-center font-thin font-roboto text-gray-400 leading-relaxed italic pt-4">
+          Flest mulig - Lengst mulig
+          </p>
+            <p className="text-base text-wrap md:text-lg text-center font-thin font-roboto text-gray-400 leading-relaxed italic py-4">
+            Begeistring - Fair play - Respekt - Innsatsvilje 
             </p>
           </div>
           <div className="max-w-md">
@@ -48,54 +49,22 @@ function Footer() {
 
       {/* Bunnseksjon med lenker og sosiale medier */}
       <div className="container mx-auto mt-8 text-gray-400 border-t-2 border-gray-400">
-        <div className="flex flex-col md:flex-row justify-between items-center mt-4">
-          {/* Første seksjon - Om oss, Kontakt, Copyright */}
-          <ul className="flex flex-wrap justify-center items-center gap-x-2 text-base font-roboto mb-4 md:mb-0">
-            <li>
-              <Link
-                to="/praktisk-info"
-                className="hover:text-white cursor-pointer transition-colors duration-200"
-              >
-                Praktisk info
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/kontakt"
-                className="hover:text-white cursor-pointer transition-colors duration-200"
-              >
-                Kontakt
-              </Link>
-            </li>
-            <li
-              className="font-roboto text-2xl items-center"
-              aria-hidden="true"
-            >
-              |
-            </li>
-            <li>
-              <p>&copy; 2025 KIL Håndball</p>
-            </li>
-          </ul>
-
-          {/* Andre seksjon - Designet av */}
-          <p className="text-base font-roboto mb-4 md:mb-0">
-            Designet og utviklet av{' '}
-            <a
-              className="text-kilblue text-lg hover:underline hover:text-white transition-all duration-200"
+        <div className="flex flex-col md:flex-row md:justify-between items-center mt-4">
+          {/* Første seksjon - Copyright */}
+          <p className="text-base font-roboto mb-4 md:mb-0">&copy; 2025 KIL Håndball |  Designet og utviklet av{' '}       <a
+              className="text-kilblue/80 text-lg hover:underline hover:text-white/80 transition-all duration-200"
               target="_blank"
               rel="noopener noreferrer"
               href="https://www.brattaasutvikling.no"
               aria-label="Nettsiden til Brattås Utvikling"
             >
               Brattås Utvikling
-            </a>
-          </p>
+            </a></p>
 
           {/* Tredje seksjon - Sosiale medier ikoner */}
-          <div className="flex gap-4 text-2xl text-white">
+          <div className="flex gap-4 text-2xl md:text-3xl text-white">
             <a
-              href="https://www.facebook.com"
+              href="https://www.facebook.com/profile.php?id=61574599328594"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-kilblue transition-colors duration-200"

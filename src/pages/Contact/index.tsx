@@ -19,7 +19,7 @@ function Contact() {
         <StyledLoader />
       ) : (
         <div className="mx-auto pb-8">
-          <h1 className="text-3xl font-anton font-bold mb-6 text-center border-b-2 border-gray-600 pb-4 w-full">
+          <h1 className="text-3xl font-anton font-bold mb-6 text-center border-b-2 border-gray-600 py-4 w-full">
             Kontaktinformasjon
           </h1>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

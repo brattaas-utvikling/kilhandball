@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
-import StyledLoader from '../../components/styles/StyledLoader';
-import SiteNotification from '../../components/SiteNotification';
-import Sponsorer from '../../components/Sponsorer';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import StyledLoader from "../../components/styles/StyledLoader";
+import SiteNotification from "../../components/SiteNotification";
+import Sponsorer from "../../components/Sponsorer";
+import { HeroSection } from "../../components/HeroSection";
+import { useNavigate } from "react-router-dom";
 import arsmotepapirer from '../../assets/pdfs/Arsmotepapirer_v2025.pdf';
 
 function Home() {
@@ -30,10 +31,11 @@ function Home() {
         <StyledLoader />
       ) : (
         <div className="flex flex-col items-center justify-center">
+          <HeroSection />
           <div className="border-b-2 border-gray-600 pb-4 w-full">
-            <h1 className="text-3xl md:text-4xl font-anton font-bold mb-4 text-center uppercase">
-              Velkommen til KIL Håndball
-            </h1>
+            <h2 className="text-3xl font-anton font-bold mb-4 text-center uppercase">
+              Siste nyheter
+            </h2>
             <SiteNotification />
           </div>
           <div className="p-6 md:p-8 mx-auto mt-8 md:mt-16">

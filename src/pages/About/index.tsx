@@ -18,7 +18,7 @@ export default function About() {
       {showLoader ? (
         <StyledLoader />
       ) : (
-        <div className="mx-auto pb-20">
+        <div className="mx-auto py-4">
           <h1 className="text-3xl md:text-4xl font-anton font-bold text-kilsvart text-center uppercase mb-6 animate-fade-in border-b-2 border-gray-600 pb-4 w-full">
             Om oss
           </h1>
@@ -32,14 +32,20 @@ export default function About() {
             Kongsvinger kommune.
           </p>
           <p className="text-base md:text-lg font-roboto text-gray-700 leading-relaxed mt-4">
+            KIL Håndballs visjon: <br />
+          </p>
+            <ul className="list-disc text-base md:text-lg font-roboto text-gray-700 ml-8">
+              <li>Flest mulig</li>
+              <li>Lengst mulig</li>
+            </ul>
+          <p className="text-base md:text-lg font-roboto text-gray-700 leading-relaxed mt-4">
             KIL Håndballs verdier: <br />
           </p>
             <ul className="list-disc text-base md:text-lg font-roboto text-gray-700 ml-8">
-              <li>Mestring</li>
-              <li>Allsidighet</li>
-              <li>Lek</li>
-              <li>Idrettsglede</li>
-              <li>Fellesskap-trygghet-respekt</li>
+              <li>Begeistring</li>
+              <li>Fair Play</li>
+              <li>Respekt</li>
+              <li>Innsatsvilje</li>
             </ul>
         </div>
       )}
