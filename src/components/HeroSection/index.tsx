@@ -39,8 +39,8 @@ export function HeroSection() {
                     <div className="mt-4">
                         <h3 className="text-xl font-medium mb-4">Kommende hjemmekamper</h3>
                         <div className="w-48 h-1 bg-white/30 mb-6"></div>
-                    <div className="flex flex-wrap gap-4 pt-2">
-                        <p>Match Schedule</p>
+                    <div className="flex flex-wrap gap-4 pt-2 text-sm text-white/30">
+                        <p>Denne tjenesten kommer iløpet av våren 2025</p>
                     </div>
                     </div>
                 </div>
