@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import StyledLoader from '../../components/styles/StyledLoader';
+import StyledLoader from '../../styles/StyledLoader';
 
 export default function About() {
   const [showLoader, setShowLoader] = useState(true);

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import StyledLoader from '../../components/styles/StyledLoader';
+import StyledLoader from '../../styles/StyledLoader';
 
 function Contact() {
   const [showLoader, setShowLoader] = useState(true);

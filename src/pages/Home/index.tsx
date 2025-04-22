@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import StyledLoader from "../../components/styles/StyledLoader";
+import StyledLoader from "../../styles/StyledLoader";
 import SiteNotification from "../../components/SiteNotification";
 import Sponsorer from "../../components/Sponsorer";
 import { HeroSection } from "../../components/HeroSection";

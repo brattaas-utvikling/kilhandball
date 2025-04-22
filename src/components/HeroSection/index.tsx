@@ -25,11 +25,11 @@ export function HeroSection() {
     return (
         <section className="bg-gradient-to-b from-kilred to-kilred/70 overflow-hidden mb-32 -mx-[calc((100vw-100%)/2)] w-screen relative">
         {/* Main content container */}
-        <div className="container mx-auto py-16 px-4 md:px-8 md:py-24">
-            <div className="grid md:grid-cols-2 gap-8 items-center">
+        <div className="mx-auto py-16 md:py-24 w-10/12">
+            <div className="grid sm:grid-cols-2 gap-8 items-center">
                 {/* Left side - Text content */}
-                <div className="flex flex-col justify-center text-white order-2 md:order-1">
-                    <h1 className="text-5xl md:text-6xl font-extrabold leading-tight mb-6 uppercase">
+                <div className="flex flex-col justify-center text-white text-clip text-balance order-1">
+                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6 uppercase">
                     Velkommen til <br />
                     Kongsvinger IL Håndball
                     </h1>
@@ -40,13 +40,13 @@ export function HeroSection() {
                         <h3 className="text-xl font-medium mb-4">Kommende hjemmekamper</h3>
                         <div className="w-48 h-1 bg-white/30 mb-6"></div>
                     <div className="flex flex-wrap gap-4 pt-2 text-sm text-white/30">
-                        <p>Denne tjenesten kommer iløpet av våren 2025</p>
+                        <p>Denne tjenesten kommer iløpet av 2025</p>
                     </div>
                     </div>
                 </div>
                 
                 {/* Right side - Carousel */}
-                <div className="w-full h-[400px] md:h-[500px] overflow-hidden rounded-lg order-1 md:order-2">
+                <div className="w-full h-[400px] md:h-[500px] overflow-hidden rounded-lg order-2">
                     <Swiper
                         modules={[Autoplay, Pagination, EffectFade]}
                         effect="fade"
@@ -69,7 +69,7 @@ export function HeroSection() {
                                 <img 
                                     src={image || "/placeholder.svg"} 
                                     alt={`Handball action ${index + 1}`} 
-                                    className="w-full h-full object-cover object-center rounded-lg"
+                                    className="w-full h-full object-cover object-center rounded-md md:rounded-lg"
                                 />
                             </SwiperSlide>
                         ))}
