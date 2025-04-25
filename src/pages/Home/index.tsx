@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import StyledLoader from "../../styles/StyledLoader";
-import SiteNotification from "../../components/SiteNotification";
-import Sponsorer from "../../components/Sponsorer";
-import { HeroSection } from "../../components/HeroSection";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import StyledLoader from '../../styles/StyledLoader';
+import SiteNotification from '../../components/SiteNotification';
+import Sponsorer from '../../components/Sponsorer';
+import { HeroSection } from '../../components/HeroSection';
+import { useNavigate } from 'react-router-dom';
 import arsmotepapirer from '../../assets/pdfs/Arsmotepapirer_v2025.pdf';
 
 function Home() {

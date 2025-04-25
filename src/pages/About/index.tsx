@@ -34,19 +34,19 @@ export default function About() {
           <p className="text-base md:text-lg font-roboto text-gray-700 leading-relaxed mt-4">
             KIL Håndballs visjon: <br />
           </p>
-            <ul className="list-disc text-base md:text-lg font-roboto text-gray-700 ml-8">
-              <li>Flest mulig</li>
-              <li>Lengst mulig</li>
-            </ul>
+          <ul className="list-disc text-base md:text-lg font-roboto text-gray-700 ml-8">
+            <li>Flest mulig</li>
+            <li>Lengst mulig</li>
+          </ul>
           <p className="text-base md:text-lg font-roboto text-gray-700 leading-relaxed mt-4">
             KIL Håndballs verdier: <br />
           </p>
-            <ul className="list-disc text-base md:text-lg font-roboto text-gray-700 ml-8">
-              <li>Begeistring</li>
-              <li>Fair Play</li>
-              <li>Respekt</li>
-              <li>Innsatsvilje</li>
-            </ul>
+          <ul className="list-disc text-base md:text-lg font-roboto text-gray-700 ml-8">
+            <li>Begeistring</li>
+            <li>Fair Play</li>
+            <li>Respekt</li>
+            <li>Innsatsvilje</li>
+          </ul>
         </div>
       )}
     </>

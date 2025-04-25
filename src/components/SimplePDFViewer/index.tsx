@@ -6,7 +6,10 @@ interface PDFViewerProps {
   pdfTitle?: string;
 }
 
-const SimplePDFViewer: React.FC<PDFViewerProps> = ({ pdfUrl, pdfTitle = 'dokument' }) => {
+const SimplePDFViewer: React.FC<PDFViewerProps> = ({
+  pdfUrl,
+  pdfTitle = 'dokument',
+}) => {
   // Funksjon for å laste ned PDF-en
   const handleDownload = () => {
     const link = document.createElement('a');
@@ -30,17 +33,20 @@ const SimplePDFViewer: React.FC<PDFViewerProps> = ({ pdfUrl, pdfTitle = 'dokumen
       </div>
 
       <div className="w-full max-w-4xl h-screen border border-gray-300 rounded shadow-lg">
-        <iframe 
-          src={pdfUrl} 
+        <iframe
+          src={pdfUrl}
           title="PDF Viewer"
           className="w-full h-full"
           style={{ border: 'none' }}
         />
       </div>
-      
+
       {/* Melding for mobilbrukere */}
       <div className="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded text-sm md:hidden">
-        <p>Problemer med å vise PDF-en? Bruk nedlastningsknappen over for å åpne dokumentet direkte på enheten din.</p>
+        <p>
+          Problemer med å vise PDF-en? Bruk nedlastningsknappen over for å åpne
+          dokumentet direkte på enheten din.
+        </p>
       </div>
     </div>
   );

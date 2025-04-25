@@ -22,11 +22,11 @@ function Footer() {
 
           {/* Tekst - sentrert på mobil, høyre på desktop */}
           <div className="md:max-w-xl">
-          <p className="text-base text-wrap md:text-lg text-center font-thin font-roboto text-gray-400 leading-relaxed italic pt-4">
-          Flest mulig - Lengst mulig
-          </p>
+            <p className="text-base text-wrap md:text-lg text-center font-thin font-roboto text-gray-400 leading-relaxed italic pt-4">
+              Flest mulig - Lengst mulig
+            </p>
             <p className="text-base text-wrap md:text-lg text-center font-thin font-roboto text-gray-400 leading-relaxed italic py-4">
-            Begeistring - Fair play - Respekt - Innsatsvilje 
+              Begeistring - Fair play - Respekt - Innsatsvilje
             </p>
           </div>
           <div className="max-w-md">
@@ -51,7 +51,9 @@ function Footer() {
       <div className="container mx-auto mt-8 text-gray-400 border-t-2 border-gray-400">
         <div className="flex flex-col md:flex-row md:justify-between items-center mt-4">
           {/* Første seksjon - Copyright */}
-          <p className="text-base font-roboto mb-4 md:mb-0">&copy; 2025 KIL Håndball |  Designet og utviklet av{' '}       <a
+          <p className="text-base font-roboto mb-4 md:mb-0">
+            &copy; 2025 KIL Håndball | Designet og utviklet av{' '}
+            <a
               className="text-kilblue/80 text-lg hover:underline hover:text-white/80 transition-all duration-200"
               target="_blank"
               rel="noopener noreferrer"
@@ -59,7 +61,8 @@ function Footer() {
               aria-label="Nettsiden til Brattås Utvikling"
             >
               Brattås Utvikling
-            </a></p>
+            </a>
+          </p>
 
           {/* Tredje seksjon - Sosiale medier ikoner */}
           <div className="flex gap-4 text-2xl md:text-3xl text-white">
