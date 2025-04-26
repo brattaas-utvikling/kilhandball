@@ -1,20 +1,45 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { navLinks } from '../links/links';
 import { Menu, X } from 'lucide-react';
+import { useOutsideClick } from '../../hooks/useOutsideClick';
 
 function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
   
-  // Varianter for ikonanimasjon
+  const handleClose = useCallback(() => {
+    if (isOpen) setIsOpen(false);
+  }, [isOpen]);
+  
+  const navRef = useOutsideClick(handleClose);
+
+  const menuVariants = {
+    closed: {
+      clipPath: "inset(0% 0% 100% 0%)",
+      opacity: 0,
+      transition: { duration: 0.3, ease: "easeInOut" }
+    },
+    open: {
+      clipPath: "inset(0% 0% 0% 0%)",
+      opacity: 1,
+      transition: { duration: 0.4, ease: "easeInOut", staggerChildren: 0.05 }
+    }
+  };
+  
+  
+  const itemVariants = {
+    closed: { opacity: 0, y: -10 },
+    open: { opacity: 1, y: 0 }
+  };
+  
   const iconVariants = {
-    open: { rotate: 90, scale: 1 },
-    closed: { rotate: 0, scale: 1 }
+    closed: { rotate: 0 },
+    open: { rotate: 90 }
   };
   
   return (
-    <div className="md:hidden">
+    <div className="md:hidden " ref={navRef}>
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
         className="text-white w-full relative"
@@ -22,9 +47,9 @@ function MobileNav() {
         aria-expanded={isOpen}
         animate={isOpen ? "open" : "closed"}
         variants={iconVariants}
-        transition={{ duration: 0.3 }}
+        transition={{ duration: 0.2 }}
       >
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode="wait" initial={false}>
           {isOpen ? (
             <motion.div
               key="close"
@@ -53,13 +78,14 @@ function MobileNav() {
         {isOpen && (
           <motion.ul
             className="absolute top-16 left-0 w-full bg-kilred text-white flex flex-col items-center shadow-sm"
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
+            initial="closed"
+            animate="open"
+            exit="closed"
+            variants={menuVariants}
             transition={{ duration: 0.3 }}
           >
             {navLinks.map(({ path, label }) => (
-              <li key={path} className="py-2 px-4 w-full">
+              <motion.li key={path} className="py-2 px-4 w-full" variants={itemVariants}>
                 <NavLink
                   to={path}
                   className={({ isActive }) =>
@@ -69,11 +95,11 @@ function MobileNav() {
                         : 'text-white hover:bg-white/10'
                     }`
                   }
-                  onClick={() => setIsOpen(false)}
+                  onClick={handleClose}
                 >
                   {label}
                 </NavLink>
-              </li>
+              </motion.li>
             ))}
           </motion.ul>
         )}
