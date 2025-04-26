@@ -66,7 +66,7 @@ export function HeroSection() {
               {images.map((image, index) => (
                 <SwiperSlide key={index} className="w-full h-full">
                   <img
-                    src={image || '/placeholder.svg'}
+                    src={image || 'https://placehold.co/600x400'}
                     alt={`Handball action ${index + 1}`}
                     className="w-full h-full object-cover object-center rounded-md md:rounded-lg"
                   />

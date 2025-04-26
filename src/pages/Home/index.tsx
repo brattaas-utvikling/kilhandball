@@ -5,6 +5,7 @@ import Sponsorer from '../../components/Sponsorer';
 import { HeroSection } from '../../components/HeroSection';
 import { useNavigate } from 'react-router-dom';
 import arsmotepapirer from '../../assets/pdfs/Arsmotepapirer_v2025.pdf';
+import arsmotepapirer_signert from '../../assets/pdfs/Arsmotepapirer_v2025_signert.pdf';
 
 function Home() {
   const [showLoader, setShowLoader] = useState(true);
@@ -16,6 +17,7 @@ function Home() {
 
     return () => clearTimeout(timer);
   }, []);
+
   const openPdfWithState = (pdfUrl: string, pdfTitle: string) => {
     navigate('/pdf/view', {
       state: {
@@ -37,6 +39,18 @@ function Home() {
               Siste nyheter
             </h2>
             <SiteNotification />
+          </div>
+          
+          <div className='p-6 md:p-8 mx-auto mt-8 md:mt-16'>
+          <button
+              onClick={() =>
+                openPdfWithState(arsmotepapirer_signert, 'Årsmøtepapirer 2025 Signert')
+              }
+              className="w-full sm:w-auto px-6 py-3 bg-kilred text-white font-semibold text-base rounded-2xl shadow-md hover:bg-kilred/80 focus:outline-none focus:ring-2 focus:ring-kilred/50 transition-all duration-300"
+            >
+              Signerte årsmøtepapirer for 2025
+            </button>
+
           </div>
           <div className="p-6 md:p-8 mx-auto mt-8 md:mt-16">
             <h2 className="text-xl md:text-2xl font-bold font-anton text-kilsvart mb-4">
@@ -66,7 +80,7 @@ function Home() {
               onClick={() =>
                 openPdfWithState(arsmotepapirer, 'Årsmøtepapirer 2025')
               }
-              className="px-4 py-2 bg-kilred text-white font-medium rounded hover:bg-red-700 transition-colors duration-200 mb-4"
+              className="px-4 py-2 bg-kilsvart text-white font-medium rounded hover:bg-kilsvart/80 transition-colors duration-200 mb-4"
             >
               Se årsmøtepapirer for 2025
             </button>
