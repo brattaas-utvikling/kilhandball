@@ -122,7 +122,11 @@ function OrganisasjonsKart() {
           role: 'Styremedlem',
           email: 'erse@omfjeld.no',
           phone: 92097978,
-          responsibilities: ['Læregutt'],
+          responsibilities: [
+            "Spond",
+            "Økonomisk Dugnadsansvarlig",
+            "Prosjekt ny hall"
+          ],
         },
         {
           name: 'Bjørn Erik Johnsen',
