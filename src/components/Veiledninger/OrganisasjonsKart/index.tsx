@@ -2,15 +2,14 @@ import { useState } from 'react';
 import {
   Users,
   User,
-  Trophy,
-  Briefcase,
-  ShoppingCart,
   ChevronDown,
   ChevronRight,
   Mail,
   Phone,
+  Volleyball,
 } from 'lucide-react';
 import { GiWhistle } from 'react-icons/gi';
+import { Link } from 'react-router-dom';
 
 // Define types for the component
 type Responsibility = string;
@@ -163,7 +162,7 @@ function OrganisasjonsKart() {
     },
     sportsligUtvalg: {
       title: 'Sportslig Utvalg',
-      icon: <Trophy size={24} />,
+      icon: <Volleyball size={24} />,
       members: [
         {
           name: 'Erik Elseth',
@@ -251,23 +250,23 @@ function OrganisasjonsKart() {
               <User size={20} className="text-kilred" />
             </div>
             <div className="ml-3">
-              <h4 className="text-body-medium-mobile md:text-body-medium-desktop font-medium text-kilsvart">
+              <h4 className="text-body-medium-mobile md:text-body-medium-desktop font-semibold font-anton text-kilsvart">
                 {member.name}
               </h4>
-              <div className="flex items-center">
+              <div className="flex items-center font-roboto">
                 <p className="text-sm text-gray-600 mb-2">{member.role}</p>
               </div>
               <div className="">
                 <a
                   href={`mailto:${member.email}`}
-                  className="text-sm text-gray-500 mt-auto flex items-center break-all mb-1"
+                  className="text-sm text-gray-500 mt-auto flex items-center break-all mb-1 font-roboto"
                 >
                   <Mail size={14} className="mr-1 flex-shrink-0 text-kilred" />{' '}
                   {member.email}
                 </a>
                 <a
                   href={`tel:${member.phone}`}
-                  className="text-sm text-gray-500 mt-auto flex items-center"
+                  className="text-sm text-gray-500 mt-auto flex items-center font-roboto"
                 >
                   <Phone size={14} className="mr-1 text-kilred" />{' '}
                   {member.phone}
@@ -308,7 +307,7 @@ function OrganisasjonsKart() {
   const renderSection = (data: OrganizationSection) => {
     return (
       <div className="mb-10">
-        <div className="w-full mb-4">
+        <div className="w-full mb-4 font-anton">
           <h2 className="text-2xl font-semibold text-kilsvart inline-flex items-center border-b-2 border-kilred pb-2">
             {data.icon && <span className="text-kilred mr-3">{data.icon}</span>}
             {data.title}
@@ -324,11 +323,19 @@ function OrganisasjonsKart() {
 
   return (
     <div className="w-full min-h-screen bg-white pb-12">
+        <div className="my-6">
+        <Link
+          to="/praktisk-info"
+          className="text-kilred hover:underline flex items-center"
+        >
+          ← Tilbake til praktisk info
+        </Link>
+      </div>
       {/* Header */}
-      <div className="bg-kilsvart text-white py-8">
+      <div className="text-kilsvart pb-24">
         <div className="container mx-auto px-4">
-          <h1 className="text-2xl md:text-3xl font-bold">Organisasjonskart</h1>
-          <p className="mt-2">KIL Håndball</p>
+          <h1 className="text-2xl md:text-3xl font-bold font-anton">Organisasjonskart</h1>
+          <p className='text-normal text-gray-600 mt-2 font-roboto'>KIL Håndball</p>
         </div>
       </div>
 
@@ -336,7 +343,7 @@ function OrganisasjonsKart() {
       <div className="container mx-auto px-4 mt-8 md:mt-12">
         {/* Kort introduksjon */}
         <div className="mb-8">
-          <p className="text-lg text-gray-700">
+          <p className="text-lg text-gray-700 font-roboto">
             Her finner du oversikt over klubbens organisasjon med
             kontaktinformasjon og ansvarsområder. Klikk på personen for å se
             vedkommendes ansvarsområder.
