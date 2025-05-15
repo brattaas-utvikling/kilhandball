@@ -4,7 +4,6 @@ import Logo from '../../assets/kil_logo.png';
 import DesktopNav from '../DesktopNav/DesktopNav';
 import MobileNav from '../MobileNav/MobileNav';
 
-
 function Header() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-kilred border-b border-white/20">
@@ -14,7 +13,7 @@ function Header() {
             src={Logo || '/placeholder.svg'}
             alt="KIL logo"
             className="h-12 md:h-14 "
-            />
+          />
         </Link>
         <DesktopNav />
         <MobileNav />

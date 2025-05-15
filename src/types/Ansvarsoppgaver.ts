@@ -1,4 +1,4 @@
-import { AnsvarMedlem } from "./AnsvarMedlem";
+import { AnsvarMedlem } from './AnsvarMedlem';
 
 export type Ansvarsoppgaver = {
   title: string;

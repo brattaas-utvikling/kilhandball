@@ -7,5 +7,5 @@ export type AnsvarMedlem = {
     role: string;
     email: string;
     phone: number;
-  }
+  };
 };

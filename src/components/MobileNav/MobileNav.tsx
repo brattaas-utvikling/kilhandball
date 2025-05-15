@@ -7,37 +7,36 @@ import { useOutsideClick } from '../../hooks/useOutsideClick';
 
 function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
-  
+
   const handleClose = useCallback(() => {
     if (isOpen) setIsOpen(false);
   }, [isOpen]);
-  
+
   const navRef = useOutsideClick(handleClose);
 
   const menuVariants = {
     closed: {
-      clipPath: "inset(0% 0% 100% 0%)",
+      clipPath: 'inset(0% 0% 100% 0%)',
       opacity: 0,
-      transition: { duration: 0.3, ease: "easeInOut" }
+      transition: { duration: 0.3, ease: 'easeInOut' },
     },
     open: {
-      clipPath: "inset(0% 0% 0% 0%)",
+      clipPath: 'inset(0% 0% 0% 0%)',
       opacity: 1,
-      transition: { duration: 0.4, ease: "easeInOut", staggerChildren: 0.05 }
-    }
+      transition: { duration: 0.4, ease: 'easeInOut', staggerChildren: 0.05 },
+    },
   };
-  
-  
+
   const itemVariants = {
     closed: { opacity: 0, y: -10 },
-    open: { opacity: 1, y: 0 }
+    open: { opacity: 1, y: 0 },
   };
-  
+
   const iconVariants = {
     closed: { rotate: 0 },
-    open: { rotate: 90 }
+    open: { rotate: 90 },
   };
-  
+
   return (
     <div className="md:hidden " ref={navRef}>
       <motion.button
@@ -45,7 +44,7 @@ function MobileNav() {
         className="text-white w-full relative"
         aria-label={isOpen ? 'Lukk meny' : 'Åpne meny'}
         aria-expanded={isOpen}
-        animate={isOpen ? "open" : "closed"}
+        animate={isOpen ? 'open' : 'closed'}
         variants={iconVariants}
         transition={{ duration: 0.2 }}
       >
@@ -73,7 +72,7 @@ function MobileNav() {
           )}
         </AnimatePresence>
       </motion.button>
-      
+
       <AnimatePresence>
         {isOpen && (
           <motion.ul
@@ -85,7 +84,11 @@ function MobileNav() {
             transition={{ duration: 0.3 }}
           >
             {navLinks.map(({ path, label }) => (
-              <motion.li key={path} className="py-2 px-4 w-full" variants={itemVariants}>
+              <motion.li
+                key={path}
+                className="py-2 px-4 w-full"
+                variants={itemVariants}
+              >
                 <NavLink
                   to={path}
                   className={({ isActive }) =>

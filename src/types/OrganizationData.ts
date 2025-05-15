@@ -1,4 +1,4 @@
-import { OrganizationSection } from "./OrganizationSection";
+import { OrganizationSection } from './OrganizationSection';
 
 export type OrganizationData = {
   hovedStyre: OrganizationSection;

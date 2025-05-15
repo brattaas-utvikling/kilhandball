@@ -1,5 +1,5 @@
-import { Member } from "./member";
-import React from "react";
+import { Member } from './member';
+import React from 'react';
 
 export type OrganizationSection = {
   title: string;
