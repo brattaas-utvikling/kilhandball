@@ -13,6 +13,7 @@ import Sportslig from './components/Veiledninger/Sportslig';
 import Klubbdrift from './components/Veiledninger/Klubbdrift';
 import PDFViewerPage from './components/PDFViewerPage';
 import OrganisasjonsKart from './components/Veiledninger/OrganisasjonsKart';
+import ErrorPage from './components/ErrorPage';
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
           <Route path="/praktisk-info/sportslig" element={<Sportslig />} />
           <Route path="/praktisk-info/klubbdrift" element={<Klubbdrift />} />
           <Route path="/kontakt" element={<Contact />} />
+          <Route path="*" element={<ErrorPage />} />
         </Route>
       </Routes>
     </div>

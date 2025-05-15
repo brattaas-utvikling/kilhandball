@@ -11,8 +11,9 @@ import {
 import { GiWhistle } from 'react-icons/gi';
 import { ExpandedSections } from '../../../types/ExpandedSections';
 import { OrganizationData } from '../../../types/OrganizationData';
-import { Member } from '../../../types/member';
+
 import { OrganizationSection } from '../../../types/OrganizationSection';
+import { Member } from '../../../types/member';
 
 function KlubbKontakt() {
   // State for expanded sections
