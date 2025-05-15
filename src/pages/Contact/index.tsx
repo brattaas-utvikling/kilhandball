@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import StyledLoader from '../../styles/StyledLoader';
+import KlubbKontakt from '../../components/Veiledninger/Klubbkontakt';
 
 function Contact() {
   const [showLoader, setShowLoader] = useState(true);
@@ -65,11 +66,12 @@ function Contact() {
               </div>
             </div>
             <div>
-              <h2 className="text-2xl font-bold font-anton mb-2">Styret</h2>
+              <KlubbKontakt />
+              {/* <h2 className="text-2xl font-bold font-anton mb-2">Styret</h2>
               <p className="text-lg font-roboto font-regular mb-4">
                 Styret til KIL Håndball består av Bent Rode-Christoffersen,
                 Vidar Svartkjønnli, Svein Thorstensen, Elin Maria Vendela
-                Skoglund, Ole-Erik Ruud, Bjørn Erik Johnsen, Linda skarstad og
+                Skoglund, Erik Seigerud, Bjørn Erik Johnsen, Linda skarstad og
                 Hanne Fiskerud.
               </p>
               <h3 className="text-xl font-anton font-bold mb-2">Styreleder</h3>
@@ -149,7 +151,7 @@ function Contact() {
                     91607759
                   </a>
                 </li>
-              </ul>
+              </ul> */}
             </div>
           </div>
         </div>

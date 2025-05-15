@@ -3,6 +3,7 @@ import {
   Accessibility,
   Cog,
   House,
+  SquareChartGantt,
   TvMinimalPlay,
   Volleyball,
 } from 'lucide-react';
@@ -25,6 +26,12 @@ function PraktiskInfo() {
       title: 'Håndball Live',
       description: 'Brukerveiledninger for Håndball Live',
       link: '/praktisk-info/handball-live',
+    },
+    {
+      icon: <SquareChartGantt size={24} />,
+      title: 'Organisasjonskart',
+      description: 'Oversikt over organisasjonen',
+      link: '/praktisk-info/organisasjonskart',
     },
     {
       icon: <Volleyball size={24} />,

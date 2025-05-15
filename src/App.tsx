@@ -12,6 +12,7 @@ import Rullestol from './components/Veiledninger/Rullestol';
 import Sportslig from './components/Veiledninger/Sportslig';
 import Klubbdrift from './components/Veiledninger/Klubbdrift';
 import PDFViewerPage from './components/PDFViewerPage';
+import OrganisasjonsKart from './components/Veiledninger/OrganisasjonsKart';
 
 function App() {
   return (
@@ -29,6 +30,10 @@ function App() {
           <Route
             path="/praktisk-info/handball-live"
             element={<HandballLive />}
+          />
+          <Route
+            path="/praktisk-info/organisasjonskart"
+            element={<OrganisasjonsKart />}
           />
           <Route path="/praktisk-info/dommer" element={<Dommer />} />
           <Route
