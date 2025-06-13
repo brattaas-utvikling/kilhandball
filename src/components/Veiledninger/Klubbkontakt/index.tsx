@@ -63,7 +63,7 @@ function KlubbKontakt() {
         },
         {
           name: 'Erik Seigerud',
-          role: 'Nestleder',
+          role: 'Styremedlem',
           email: 'erse@omfjeld.no',
           phone: 92097978,
         },
