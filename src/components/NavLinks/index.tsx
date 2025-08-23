@@ -4,6 +4,7 @@ function NavLinks({ toggleMenu }: { toggleMenu: () => void }) {
   const links = [
     { path: '/', label: 'Hjem' },
     { path: '/om-oss', label: 'Om oss' },
+    { path: '/treningstider', label: 'Treningstider' },
     { path: '/praktisk-info', label: 'Praktisk info' },
     { path: '/kontakt', label: 'Kontakt' },
   ];
