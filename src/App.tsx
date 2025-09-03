@@ -15,6 +15,7 @@ import PDFViewerPage from './components/PDFViewerPage';
 import OrganisasjonsKart from './components/Veiledninger/OrganisasjonsKart';
 import ErrorPage from './components/ErrorPage';
 import Treningsoversikt from './pages/Treningsoversikt';
+import Kamper from './components/Kamper';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="/pdf/view" element={<PDFViewerPage />} />
           <Route path="/om-oss" element={<About />} />
+          <Route path="/kamper" element={<Kamper />} />
           <Route path="/treningstider" element={<Treningsoversikt />} />
           <Route path="/praktisk-info" element={<PraktiskInfo />} />
           <Route

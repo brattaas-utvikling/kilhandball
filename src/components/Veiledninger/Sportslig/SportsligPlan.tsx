@@ -772,7 +772,7 @@ retningslinjene for godt trenervett:
                   <div className="bg-kilblue/10 p-4 rounded-lg">
                     <h4 className="font-bold text-kilsvart mb-2">Samarbeid med naboklubber</h4>
                     <p className="text-gray-700">
-                    Vi ønsker et godt samarbeid med naboklubber. Spilleroverganger og klubbsamarbeidet skal foregå på en formell og ryddig måte fra både vår og den aktuelle klubben. Leder/daglig leder/sportslig leder er den/de som skal ha dialog knyttet til dette. Trener skal ikke gjennomføre samtaler eller avtaler med andre klubbers spillere uten å involvere ledere i klubben 
+                    Vi ønsker et godt samarbeid med naboklubber. Spilleroverganger og klubbsamarbeidet skal foregå på en formell og ryddig måte fra både vår og den aktuelle klubben. Leder/daglig leder/sportslig leder er den/de som skal ha dialog knyttet til dette. Trener skal ikke gjennomføre samtaler eller avtaler med andre klubbers spillere uten å involvere ledere i klubben
                     </p>
                   </div>
 

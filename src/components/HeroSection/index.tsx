@@ -11,6 +11,7 @@ import { Autoplay, Pagination, EffectFade } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/effect-fade';
+import TrastadhallenKamper from '../TrastadhallenKamper';
 
 export function HeroSection() {
   const images = [Herrelag, Kasese, Rullestol, Damelag, KastBallen];
@@ -33,12 +34,8 @@ export function HeroSection() {
               Kongsvinger kommune.
             </p>
             <div className="mt-4">
-              <h3 className="text-xl font-medium mb-4">
-                Kommende hjemmekamper
-              </h3>
-              <div className="w-48 h-1 bg-white/30 mb-6"></div>
               <div className="flex flex-wrap gap-4 pt-2 text-sm text-white/30">
-                <p>Denne tjenesten kommer iløpet av 2025</p>
+                <TrastadhallenKamper />
               </div>
             </div>
           </div>

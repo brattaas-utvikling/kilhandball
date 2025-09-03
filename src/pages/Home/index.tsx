@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react';
-import StyledLoader from '../../styles/StyledLoader';
 import SiteNotification from '../../components/SiteNotification';
 import Sponsorer from '../../components/Sponsorer';
 import { HeroSection } from '../../components/HeroSection';
@@ -8,15 +6,7 @@ import arsmotepapirer from '../../assets/pdfs/Arsmotepapirer_v2025.pdf';
 import arsmotepapirer_signert from '../../assets/pdfs/Arsmotepapirer_v2025_signert.pdf';
 
 function Home() {
-  const [showLoader, setShowLoader] = useState(true);
   const navigate = useNavigate();
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowLoader(false);
-    }, 500);
-
-    return () => clearTimeout(timer);
-  }, []);
 
   const openPdfWithState = (pdfUrl: string, pdfTitle: string) => {
     navigate('/pdf/view', {
@@ -29,9 +19,6 @@ function Home() {
 
   return (
     <>
-      {showLoader ? (
-        <StyledLoader />
-      ) : (
         <div className="flex flex-col items-center justify-center">
           <HeroSection />
           <div className="border-b-2 border-gray-600 pb-4 w-full">
@@ -116,7 +103,6 @@ function Home() {
           </div>
           <Sponsorer />
         </div>
-      )}
     </>
   );
 }

@@ -320,7 +320,7 @@ const Treningsoversikt: React.FC = () => {
   return (
     <div className="min-h-screen w-full">
       {/* Header */}
-      <header className="bg-gradient-to-b from-kilred to-kilred/70 overflow-hidden -mx-[calc((100vw-100%)/2)]  text-white w-screed ">
+      <section className="bg-gradient-to-b from-kilred to-kilred/70 overflow-hidden -mx-[calc((100vw-100%)/2)]  text-white w-screed ">
         <div className="container mx-auto py-12 px-4 md:px-6">
           <h1 className="text-4xl md:text-5xl font-bold font-anton text-center mb-2">
             Treningsoversikt
@@ -329,7 +329,7 @@ const Treningsoversikt: React.FC = () => {
             Sist oppdatert 23. august 2025
           </p>
         </div>
-      </header>
+      </section>
 
       {/* Controls */}
       <section className="py-8 bg-white shadow-sm">
