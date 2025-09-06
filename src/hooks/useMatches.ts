@@ -1,4 +1,4 @@
-// hooks/useMatches.ts - Oppdatert versjon
+// hooks/useMatches.ts - Oppdatert versjon med forbedret error handling
 import { useState, useEffect, useCallback } from 'react';
 import { nifApi } from '../services/nifApiInstance';
 import type { NIFMatch, MatchesResult } from '../types/match.types';
@@ -42,12 +42,27 @@ export const useMatches = ({
       setIsStale(result.isStale);
       setLastUpdated(result.lastFresh || new Date());
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'En feil oppstod');
-      console.error('Error fetching matches:', err);
+      // Forbedret error handling - behold original error for ErrorDisplay
+      const errorMessage = err instanceof Error ? err.message : 'En ukjent feil oppstod ved henting av kamper';
+      setError(errorMessage);
+      
+      // Forbedret logging med mer context
+      console.error('Error fetching matches:', {
+        error: err,
+        clubId,
+        forceRefresh,
+        timestamp: new Date().toISOString()
+      });
+
+      // Hvis vi har eksisterende data, behold dem men marker som stale
+      if (matches.length > 0) {
+        setIsStale(true);
+        console.log('API failed, keeping existing data but marking as stale');
+      }
     } finally {
       setLoading(false);
     }
-  }, [clubId]);
+  }, [clubId, matches.length]);
 
   const refreshMatches = useCallback(() => {
     return fetchMatches(true);
@@ -55,31 +70,39 @@ export const useMatches = ({
 
   const clearError = useCallback(() => {
     setError(null);
-  }, []);
+    // Når error cleares, sjekk om data er stale
+    if (matches.length > 0 && isStale) {
+      setIsStale(false); // Reset stale status når error cleares
+    }
+  }, [matches.length, isStale]);
 
   // Initial fetch
   useEffect(() => {
     fetchMatches();
   }, [fetchMatches]);
 
-  // Auto refresh interval
+  // Auto refresh interval med adaptive logikk
   useEffect(() => {
     if (!autoRefresh || refreshInterval <= 0) return;
 
     const interval = setInterval(() => {
-      fetchMatches(false); // Bruk cache hvis tilgjengelig
+      // Ikke auto-refresh hvis vi har en aktiv error - la brukeren håndtere det manuelt
+      if (!error) {
+        fetchMatches(false); // Bruk cache hvis tilgjengelig
+      }
     }, refreshInterval * 60 * 1000);
 
     return () => clearInterval(interval);
-  }, [fetchMatches, refreshInterval, autoRefresh]);
+  }, [fetchMatches, refreshInterval, autoRefresh, error]);
 
   // NYTT: Page visibility detection - auto-refresh når bruker kommer tilbake
   useEffect(() => {
     const handleVisibilityChange = () => {
-      if (!document.hidden && lastUpdated) {
+      if (!document.hidden && lastUpdated && !error) {
         const timeSinceUpdate = Date.now() - lastUpdated.getTime();
         // Auto-refresh hvis mer enn 5 minutter siden siste oppdatering
-        if (timeSinceUpdate > 5 * 60 * 1000) { 
+        if (timeSinceUpdate > 5 * 60 * 1000) {
+          console.log('Page became visible, auto-refreshing stale data');
           refreshMatches();
         }
       }
@@ -87,7 +110,20 @@ export const useMatches = ({
     
     document.addEventListener('visibilitychange', handleVisibilityChange);
     return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
-  }, [lastUpdated, refreshMatches]);
+  }, [lastUpdated, refreshMatches, error]);
+
+  // NYTT: Cleanup og error recovery logic
+  useEffect(() => {
+    // Hvis vi har vært uten data i lang tid og har en error, prøv å hente data igjen
+    if (error && matches.length === 0) {
+      const retryTimeout = setTimeout(() => {
+        console.log('Attempting automatic retry after sustained error');
+        fetchMatches(false);
+      }, 30000); // Prøv igjen etter 30 sekunder
+
+      return () => clearTimeout(retryTimeout);
+    }
+  }, [error, matches.length, fetchMatches]);
 
   return {
     matches,
