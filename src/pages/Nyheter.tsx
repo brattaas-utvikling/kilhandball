@@ -53,10 +53,10 @@ export default function NewsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-white dark:bg-kilsvart-900 flex items-center justify-center">
+      <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-kilred mx-auto mb-4"></div>
-          <p className="text-kilsvart-600 dark:text-kilsvart-300 font-roboto">
+          <p className="text-kilsvart-600 font-roboto">
             Laster nyheter...
           </p>
         </div>
@@ -66,13 +66,13 @@ export default function NewsPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-white dark:bg-kilsvart-900 flex items-center justify-center">
+      <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center max-w-md mx-auto px-4">
-          <div className="bg-kilred-50 dark:bg-kilred-900/20 border border-kilred-200 dark:border-kilred-800 rounded-xl p-6">
-            <h2 className="font-anton text-anton-lg text-kilred-800 dark:text-kilred-200 mb-2">
+          <div className="bg-kilred-50 border border-kilred-200 rounded-xl p-6">
+            <h2 className="font-anton text-anton-lg text-kilred-800  mb-2">
               KUNNE IKKE LASTE NYHETER
             </h2>
-            <p className="text-kilred-600 dark:text-kilred-300 font-roboto mb-4">
+            <p className="text-kilred-600 font-roboto mb-4">
               {error}
             </p>
             <Button
@@ -89,10 +89,10 @@ export default function NewsPage() {
 
   if (filteredNews.length === 0) {
     return (
-      <div className="min-h-screen bg-white dark:bg-kilsvart-900">
+      <div className="min-h-screen w-full">
         {/* Hero Section */}
         <section className="bg-gradient-to-br from-kilblue-50 to-kildarkblue-50 dark:from-kilblue-900/20 dark:to-kildarkblue-900/20 pt-24 pb-16 relative overflow-hidden">
-          <div className="container mx-auto px-4 md:px-6 relative z-10">
+          <div className="container mx-auto py-12 px-4 md:px-6">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -123,27 +123,20 @@ export default function NewsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-kilsvart-900">
+    <div className="min-h-screen w-full">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-kilblue-50 to-kildarkblue-50 dark:from-kilblue-900/20 dark:to-kildarkblue-900/20 pt-24 pb-16 relative overflow-hidden">
-        {/* Decorative elements */}
-        <div className="absolute top-0 right-0 w-64 h-64 bg-purple-400/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-48 h-48 bg-kilred-400/10 rounded-full blur-3xl" />
-
-        <div className="container mx-auto px-4 md:px-6 relative z-10">
+      <section className="bg-gradient-to-b from-kilred to-kilred/70 overflow-hidden -mx-[calc((100vw-100%)/2)]  text-white w-screed">
+        <div className="container mx-auto py-12 px-4 md:px-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="text-center max-w-4xl mx-auto"
           >
-            <h1 className="text-base font-medium text-kilblue-600 dark:text-kilblue-400 uppercase tracking-wider mb-3 font-roboto">
+            <h1 className="font-anton text-anton-3xl md:text-anton-4xl mb-6 text-white tracking-wide uppercase">
               Nyheter
             </h1>
-            <h2 className="font-anton text-anton-3xl md:text-anton-4xl mb-6 text-kilsvart-900 dark:text-white tracking-wide">
-              HVA SKJER HOS OSS?
-            </h2>
-            <p className="text-lg text-kilsvart-600 dark:text-kilsvart-300 font-roboto leading-relaxed">
+            <p className="text-lg text-white font-roboto leading-relaxed">
               Hold deg oppdatert på alt som skjer! Fra nye produkter til spennende events og inspirerende historier.
             </p>
           </motion.div>
