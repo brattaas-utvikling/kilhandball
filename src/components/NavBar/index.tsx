@@ -1,78 +1,78 @@
-import { useState, useRef, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
-import NavLinks from '../NavLinks';
+// import { useState, useRef, useEffect } from 'react';
+// import { Menu, X } from 'lucide-react';
+// import { motion, AnimatePresence } from 'framer-motion';
+// import NavLinks from '../navLinks';
 
-function NavBar() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const menuRef = useRef<HTMLDivElement | null>(null);
+// function NavBar() {
+//   const [menuOpen, setMenuOpen] = useState(false);
+//   const menuRef = useRef<HTMLDivElement | null>(null);
 
-  function toggleMenu() {
-    setMenuOpen((prev) => !prev);
-  }
+//   function toggleMenu() {
+//     setMenuOpen((prev) => !prev);
+//   }
 
-  useEffect(() => {
-    function handleResize() {
-      if (window.innerWidth >= 768) {
-        setMenuOpen(true);
-      } else {
-        setMenuOpen(false);
-      }
-    }
+//   useEffect(() => {
+//     function handleResize() {
+//       if (window.innerWidth >= 768) {
+//         setMenuOpen(true);
+//       } else {
+//         setMenuOpen(false);
+//       }
+//     }
 
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+//     handleResize();
+//     window.addEventListener('resize', handleResize);
+//     return () => window.removeEventListener('resize', handleResize);
+//   }, []);
 
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (
-        menuRef.current &&
-        !menuRef.current.contains(event.target as Node) &&
-        window.innerWidth < 768
-      ) {
-        setMenuOpen(false);
-      }
-    }
+//   useEffect(() => {
+//     function handleClickOutside(event: MouseEvent) {
+//       if (
+//         menuRef.current &&
+//         !menuRef.current.contains(event.target as Node) &&
+//         window.innerWidth < 768
+//       ) {
+//         setMenuOpen(false);
+//       }
+//     }
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+//     document.addEventListener('mousedown', handleClickOutside);
+//     return () => document.removeEventListener('mousedown', handleClickOutside);
+//   }, []);
 
-  return (
-    <>
-      <button
-        className="text-white md:hidden flex items-center justify-center w-10 h-10 rounded-full hover:bg-white/10 transition-colors"
-        onClick={toggleMenu}
-        aria-label={menuOpen ? 'Lukk meny' : 'Åpne meny'}
-        aria-expanded={menuOpen}
-      >
-        {menuOpen ? <X size={24} /> : <Menu size={24} />}
-      </button>
+//   return (
+//     <>
+//       <button
+//         className="text-white md:hidden flex items-center justify-center w-10 h-10 rounded-full hover:bg-white/10 transition-colors"
+//         onClick={toggleMenu}
+//         aria-label={menuOpen ? 'Lukk meny' : 'Åpne meny'}
+//         aria-expanded={menuOpen}
+//       >
+//         {menuOpen ? <X size={24} /> : <Menu size={24} />}
+//       </button>
 
-      <AnimatePresence>
-        {(menuOpen || window.innerWidth >= 768) && (
-          <motion.div
-            ref={menuRef}
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3 }}
-            className={`
-              absolute top-20 left-0 right-0 bg-kilred/95 backdrop-blur-md border-b border-white/10 shadow-lg
-              md:static md:bg-transparent md:shadow-none md:border-none
-            `}
-          >
-            <NavLinks toggleMenu={toggleMenu} />
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
-  );
-}
+//       <AnimatePresence>
+//         {(menuOpen || window.innerWidth >= 768) && (
+//           <motion.div
+//             ref={menuRef}
+//             initial={{ opacity: 0, y: -10 }}
+//             animate={{ opacity: 1, y: 0 }}
+//             exit={{ opacity: 0, y: -10 }}
+//             transition={{ duration: 0.3 }}
+//             className={`
+//               absolute top-20 left-0 right-0 bg-kilred/95 backdrop-blur-md border-b border-white/10 shadow-lg
+//               md:static md:bg-transparent md:shadow-none md:border-none
+//             `}
+//           >
+//             <NavLinks toggleMenu={toggleMenu} />
+//           </motion.div>
+//         )}
+//       </AnimatePresence>
+//     </>
+//   );
+// }
 
-export default NavBar;
+// export default NavBar;
 
 // import { useState, useRef, useEffect } from 'react';
 // import { Menu, X } from 'lucide-react';
