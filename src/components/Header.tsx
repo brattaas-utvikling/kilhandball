@@ -1,10 +1,10 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, MoonIcon, SunIcon } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { useOutsideClick } from '../hooks/useOutsideClick';
 import { useIsMobile } from '../hooks/useIsMobile';
-import { navLinks } from './links/links';
+import { navLinks } from './navLinks';
 import Logo from '../assets/kil_logo.png';
 
 // Throttle utility
@@ -24,11 +24,11 @@ function throttle<T extends (...args: unknown[]) => void>(
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
-    const saved = localStorage.getItem("darkMode");
-    if (saved !== null) return JSON.parse(saved);
-    return false;
-  });
+  // const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
+  //   const saved = localStorage.getItem("darkMode");
+  //   if (saved !== null) return JSON.parse(saved);
+  //   return false;
+  // });
   const [lastScrollY, setLastScrollY] = useState(0);
 
   const headerRef = useRef<HTMLElement>(null);
@@ -83,10 +83,10 @@ function Header() {
   }, [throttledScrollHandler]);
 
   // Handle dark mode
-  useEffect(() => {
-    localStorage.setItem("darkMode", JSON.stringify(isDarkMode));
-    document.documentElement.classList.toggle("dark", isDarkMode);
-  }, [isDarkMode]);
+  // useEffect(() => {
+  //   localStorage.setItem("darkMode", JSON.stringify(isDarkMode));
+  //   document.documentElement.classList.toggle("dark", isDarkMode);
+  // }, [isDarkMode]);
 
   // Handle body scroll lock for mobile menu
   useEffect(() => {
@@ -140,12 +140,9 @@ function Header() {
   };
 
   return (
-    <motion.header
+    <header
       ref={headerRef}
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.3 }}
-      className="fixed top-0 left-0 right-0 z-50 bg-kilred dark:bg-kilsvart-900 backdrop-blur-md border-b border-white/20 dark:border-kilsvart-700/30 transition-all duration-300 ease-in-out"
+      className="fixed top-0 left-0 right-0 z-50 bg-kilred backdrop-blur-md border-b border-white/20 transition-all duration-300 ease-in-out"
     >
       <nav className="w-full max-w-7xl mx-auto px-4">
         <div className="flex justify-between items-center py-3">
@@ -179,9 +176,9 @@ function Header() {
                 <NavLink
                   to={path}
                   className={({ isActive }) =>
-                    `px-4 py-2 text-sm font-roboto font-medium transition-all duration-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-kilred ${
+                    `px-1 md:px-1.5 lg:px-4 py-2 text-sm font-roboto font-medium transition-all duration-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-kilred ${
                       isActive 
-                        ? 'text-white bg-white/20 font-semibold' 
+                        ? 'text-white font-extrabold underline underline-offset-4' 
                         : 'text-white/90 hover:text-white hover:bg-white/10'
                     }`
                   }
@@ -198,33 +195,6 @@ function Header() {
               </motion.li>
             ))}
           </ul>
-
-          {/* Right side actions */}
-          <div className="flex items-center gap-2">
-            
-            {/* Dark mode toggle */}
-            <motion.button
-              whileTap={{ scale: 0.95 }}
-              onClick={() => setIsDarkMode(prev => !prev)}
-              className="p-2 rounded-full text-white/80 hover:text-white hover:bg-white/10 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-kilred"
-              aria-label={isDarkMode ? "Bytt til lys modus" : "Bytt til mørk modus"}
-            >
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={isDarkMode ? "sun" : "moon"}
-                  initial={{ rotate: -180, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: 180, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  {isDarkMode ? (
-                    <SunIcon className="h-5 w-5" />
-                  ) : (
-                    <MoonIcon className="h-5 w-5" />
-                  )}
-                </motion.div>
-              </AnimatePresence>
-            </motion.button>
 
             {/* Mobile menu button */}
             <div className="md:hidden" ref={navRef}>
@@ -266,7 +236,7 @@ function Header() {
               <AnimatePresence>
                 {isMenuOpen && (
                   <motion.ul
-                    className="absolute top-16 left-0 w-full bg-kilred dark:bg-kilsvart-900 text-white flex flex-col items-center shadow-lg border-t border-white/20 dark:border-kilsvart-700/30"
+                    className="absolute top-16 left-0 w-full bg-kilred text-white flex flex-col items-center shadow-lg border-t border-white/20"
                     initial="closed"
                     animate="open"
                     exit="closed"
@@ -284,8 +254,8 @@ function Header() {
                           className={({ isActive }) =>
                             `block w-full text-lg text-center py-3 rounded-lg font-roboto transition-all duration-200 ${
                               isActive
-                                ? 'bg-white text-kilred dark:bg-kilsvart-700 dark:text-white font-semibold'
-                                : 'text-white hover:bg-white/10 dark:hover:bg-kilsvart-700/50'
+                                ? 'bg-white text-kilred font-semibold'
+                                : 'text-white hover:bg-white/10'
                             }`
                           }
                           onClick={() => handleNavClick(path)}
@@ -298,10 +268,9 @@ function Header() {
                 )}
               </AnimatePresence>
             </div>
-          </div>
         </div>
       </nav>
-    </motion.header>
+    </header>
   );
 }
 

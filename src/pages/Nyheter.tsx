@@ -133,7 +133,7 @@ export default function NewsPage() {
             transition={{ duration: 0.8 }}
             className="text-center max-w-4xl mx-auto"
           >
-            <h1 className="font-anton text-anton-3xl md:text-anton-4xl mb-6 text-white tracking-wide uppercase">
+            <h1 className="font-anton font-bold text-anton-4xl md:text-anton-5xl mb-6 text-white tracking-wide uppercase text-center">
               Nyheter
             </h1>
             <p className="text-lg text-white font-roboto leading-relaxed">

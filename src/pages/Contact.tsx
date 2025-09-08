@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import StyledLoader from '../../styles/StyledLoader';
-import KlubbKontakt from '../../components/Veiledninger/Klubbkontakt';
+import StyledLoader from '../styles/StyledLoader';
+import KlubbKontakt from '../components/Veiledninger/Klubbkontakt';
 
 function Contact() {
   const [showLoader, setShowLoader] = useState(true);

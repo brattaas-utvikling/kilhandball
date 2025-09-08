@@ -1,8 +1,9 @@
 export const navLinks = [
   { path: '/', label: 'Hjem' },
   { path: '/lag', label: 'Lag' },
-  { path: '/treninger', label: 'Treninger' },
+  { path: '/treningstider', label: 'Treninger' },
   { path: '/kamper', label: 'Kamper' },
+  { path: '/praktisk-info', label: 'Praktisk info' },
   { path: '/nyheter', label: 'Nyheter' },
   { path: '/om-oss', label: 'Om oss' },
   { path: '/kontakt', label: 'Kontakt' },

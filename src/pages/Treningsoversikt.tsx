@@ -279,9 +279,10 @@ const Treningsoversikt: React.FC = () => {
       </div>
       
       <div className="overflow-x-auto">
+        {/* Endret fra 120px repeat(5, minmax(150px, 1 fr)) */}
         <div 
           className="grid gap-px bg-slate-200 min-w-full" 
-          style={{ gridTemplateColumns: '120px repeat(5, minmax(150px, 1fr))' }}
+          style={{ gridTemplateColumns: '80px repeat(5, minmax(100px, 1fr))' }}
         >
           {/* Header row */}
           <div className="bg-slate-100 font-bold text-center py-4 text-sm text-slate-700 flex items-center justify-center">
@@ -322,7 +323,7 @@ const Treningsoversikt: React.FC = () => {
       {/* Header */}
       <section className="bg-gradient-to-b from-kilred to-kilred/70 overflow-hidden -mx-[calc((100vw-100%)/2)]  text-white w-screed">
         <div className="container mx-auto py-12 px-4 md:px-6">
-          <h1 className="text-4xl md:text-5xl font-bold font-anton text-center mb-2">
+          <h1 className="font-anton font-bold text-anton-4xl md:text-anton-5xl mb-6 text-white tracking-wide uppercase text-center">
             Treningsoversikt
           </h1>
           <p className="text-white/60 text-center text-sm font-roboto">
@@ -335,7 +336,7 @@ const Treningsoversikt: React.FC = () => {
       <section className="py-8 bg-white shadow-sm">
         <div className="container mx-auto space-y-6">
           {/* Mobile Controls */}
-          <div className="lg:hidden space-y-4">
+          <div className="md:hidden space-y-4">
             <div>
               <label className="block text-sm font-semibold text-slate-700 mb-2">
                 Velg dag
@@ -362,7 +363,7 @@ const Treningsoversikt: React.FC = () => {
           </div>
 
           {/* Desktop Controls */}
-          <div className="hidden lg:block">
+          <div className="hidden md:block">
             <HallSelector
               halls={halls}
               currentHall={currentHall}
@@ -377,10 +378,10 @@ const Treningsoversikt: React.FC = () => {
       {/* Schedule */}
       <section className="py-8">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="lg:hidden">
+          <div className="md:hidden">
             {renderMobileView()}
           </div>
-          <div className="hidden lg:block">
+          <div className="hidden md:block">
             {renderDesktopView()}
           </div>
         </div>

@@ -27,3 +27,13 @@ export interface HomepageNewsProps {
   showFeatured?: boolean;
   compact?: boolean;
 }
+
+export interface AboutArticle extends AppwriteDocument {
+  headlines: string;
+  lead: string;
+  img: string;
+  pullquote?: string;
+  "paragraph-1": string;
+  "paragraph-2": string;
+  "paragraph-3": string;
+}

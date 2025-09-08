@@ -19,9 +19,8 @@ export const databases = new Databases(client);
 export const DATABASE_ID = import.meta.env.VITE_DATABASE_ID || "main";
 
 export const COLLECTIONS = {
-  NYHETER:
-    import.meta.env.VITE_NYHETER || "nyheter",
-
+  NYHETER: import.meta.env.VITE_NYHETER || "nyheter",
+    OM_OSS: import.meta.env.VITE_OM_OSS_COLLECTION_ID || "om-oss",
 } as const;
 
 // Export Query for filtering (Appwrite v18)

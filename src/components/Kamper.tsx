@@ -470,7 +470,7 @@ const Kamper: React.FC = () => {
       {/* Hero banner - Vises alltid */}
       <section className="bg-gradient-to-b from-kilred to-kilred/70 overflow-hidden -mx-[calc((100vw-100%)/2)] text-white w-screen">
         <div className="container mx-auto py-12 px-4 md:px-6">
-          <h1 className="text-4xl md:text-5xl font-bold font-anton text-center mb-2 uppercase">
+          <h1 className="font-anton font-bold text-anton-4xl md:text-anton-5xl mb-6 text-white tracking-wide uppercase text-center">
             Kampoversikt
           </h1>
           <p className="text-white/60 text-center text-sm font-roboto">
