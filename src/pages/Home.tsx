@@ -1,9 +1,9 @@
-import SiteNotification from '../../components/SiteNotification';
-import Sponsorer from '../../components/Sponsorer';
-import { HeroSection } from '../../components/HeroSection';
+import SiteNotification from '../components/SiteNotification';
+import Sponsorer from '../components/Sponsorer';
+import { HeroSection } from '../components/HeroSection';
 import { useNavigate } from 'react-router-dom';
-import arsmotepapirer from '../../assets/pdfs/Arsmotepapirer_v2025.pdf';
-import arsmotepapirer_signert from '../../assets/pdfs/Arsmotepapirer_v2025_signert.pdf';
+import arsmotepapirer from '../assets/pdfs/Arsmotepapirer_v2025.pdf';
+import arsmotepapirer_signert from '../assets/pdfs/Arsmotepapirer_v2025_signert.pdf';
 
 function Home() {
   const navigate = useNavigate();

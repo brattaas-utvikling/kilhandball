@@ -125,13 +125,12 @@ export class NIFApiService {
         'Content-Type': 'application/json',
       },
     });
-
+  
     if (response.status === 401) {
-      // Token kan være utløpt, prøv å fornye
+      // Token renewal logic (eksisterende kode)
       this.tokenManager.clearToken();
       const newToken = await this.tokenManager.getValidToken();
       
-      // Prøv på nytt med nytt token
       const retryResponse = await fetch(url, {
         method: 'GET',
         headers: {
@@ -140,21 +139,40 @@ export class NIFApiService {
           'Content-Type': 'application/json',
         },
       });
-
+  
       if (!retryResponse.ok) {
-        throw new Error(`API request failed: ${retryResponse.status} ${retryResponse.statusText}`);
+        // Strukturert error throwing
+        throw this.createStructuredError(retryResponse.status, retryResponse.statusText);
       }
-
+  
       return retryResponse.json();
     }
-
+  
     if (!response.ok) {
-      throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+      // Strukturert error throwing
+      throw this.createStructuredError(response.status, response.statusText, await response.text());
     }
-
+  
     return response.json();
   }
-
+  
+  // Ny hjelpemetode for strukturerte feil
+  private createStructuredError(status: number, statusText: string, responseBody?: string): Error {
+    // Sjekk for spesifikke NIF API errors
+    if (responseBody?.includes('parsing column') && responseBody.includes('DateTime')) {
+      return new Error('Error parsing column DateTime - NIF API har problemer med dato-håndtering');
+    }
+    
+    if (status === 500) {
+      return new Error(`500 Internal Server Error - Serverfeil hos NIF API: ${statusText}`);
+    }
+    
+    if (status === 401) {
+      return new Error(`401 Unauthorized - Autorisasjonsfeil: ${statusText}`);
+    }
+    
+    return new Error(`API request failed: ${status} ${statusText}`);
+  }
 
 
   clearCache(clubId?: string): void {

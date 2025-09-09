@@ -12,6 +12,7 @@ import {
   X,
   Check
 } from 'lucide-react';
+import ErrorDisplay from './ErrorDisplay';
 
 // Team colors mapping - harmonisk palett basert på KIL-farger
 const TEAM_COLORS: Record<string, { primary: string; secondary: string }> = {
@@ -469,7 +470,7 @@ const Kamper: React.FC = () => {
       {/* Hero banner - Vises alltid */}
       <section className="bg-gradient-to-b from-kilred to-kilred/70 overflow-hidden -mx-[calc((100vw-100%)/2)] text-white w-screen">
         <div className="container mx-auto py-12 px-4 md:px-6">
-          <h1 className="text-4xl md:text-5xl font-bold font-anton text-center mb-2 uppercase">
+          <h1 className="font-anton font-bold text-anton-4xl md:text-anton-5xl mb-6 text-white tracking-wide uppercase text-center">
             Kampoversikt
           </h1>
           <p className="text-white/60 text-center text-sm font-roboto">
@@ -487,31 +488,15 @@ const Kamper: React.FC = () => {
             <p className="text-gray-600">Laster kamper...</p>
           </div>
         ) : error ? (
-          /* Error state */
-          <div className="bg-white rounded-lg shadow-md p-8 text-center border border-gray-200">
-            <div className="text-kilred mb-4">
-              <svg className="w-12 h-12 mx-auto mb-2" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
-              </svg>
-              <h3 className="text-lg font-semibold">Feil oppstod</h3>
-            </div>
-            <p className="text-gray-700 mb-6">{error}</p>
-            <div className="flex gap-3 justify-center">
-              <button
-                onClick={clearError}
-                className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors"
-              >
-                Lukk
-              </button>
-              <button
-                onClick={refreshMatches}
-                disabled={loading}
-                className="px-4 py-2 bg-kilred text-white rounded-lg hover:bg-red-700 disabled:opacity-50 transition-colors"
-              >
-                {loading ? 'Prøver...' : 'Prøv igjen'}
-              </button>
-            </div>
-          </div>
+          /* Error state with ErrorDisplay */
+          <ErrorDisplay
+            error={error}
+            onRetry={refreshMatches}
+            onDismiss={clearError}
+            loading={loading}
+            variant="detailed"
+            className="mb-6"
+          />
         ) : matches.length === 0 ? (
           /* No matches */
           <div className="bg-white rounded-lg shadow-md p-12 text-center">

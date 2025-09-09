@@ -3,6 +3,7 @@ import React from 'react';
 import { useMatches } from '../hooks/useMatches';
 import type { NIFMatch } from '../types/match.types';
 import { Calendar, AlertTriangle } from 'lucide-react';
+import ErrorDisplay from './ErrorDisplay';
 
 const TrastadhallenKamper: React.FC = () => {
   const {
@@ -172,18 +173,14 @@ const TrastadhallenKamper: React.FC = () => {
 
   if (error) {
     return (
-      <div className="bg-transparent p-8 text-center">
-        <div className="text-red-400 mb-4">
-          <h3 className="text-lg font-semibold">Kunne ikke laste kamper</h3>
-          <p className="text-white/60 mt-2">{error}</p>
-        </div>
-        <button
-          onClick={refreshMatches}
-          disabled={loading}
-          className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:opacity-50 transition-colors"
-        >
-          {loading ? 'Prøver...' : 'Prøv igjen'}
-        </button>
+      <div className="bg-transparent p-8">
+        <ErrorDisplay
+          error={error}
+          onRetry={refreshMatches}
+          loading={loading}
+          variant="minimal"
+          className="text-white"
+        />
       </div>
     );
   }
