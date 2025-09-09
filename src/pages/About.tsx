@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { Button } from "../components/ui/button";
 import { listDocuments, DATABASE_ID, COLLECTIONS, Query } from "../lib/appwrite";
+import { ChevronDownIcon } from "lucide-react";
 import { AboutArticle } from "../types/Appwrite";
 
 export default function AboutPage() {
@@ -16,7 +18,7 @@ export default function AboutPage() {
 
     try {
       const response = await listDocuments(DATABASE_ID, COLLECTIONS.OM_OSS, [
-        Query.limit(1), // Hent kun den første (og sannsynligvis eneste) om oss-artikkelen
+        Query.limit(1),
       ]);
 
       if (response.documents.length > 0) {
@@ -37,65 +39,30 @@ export default function AboutPage() {
     fetchAboutData();
   }, []);
 
-  // Get non-empty paragraphs
-  const getAboutParagraphs = (article: AboutArticle): string[] => {
-    const paragraphs = [
-      article["paragraph-1"],
-      article["paragraph-2"],
-      article["paragraph-3"],
-    ];
-
-    return paragraphs.filter(
-      (paragraph) => paragraph && paragraph.trim() !== "",
-    );
-  };
-
-  // Render content with pullquote positioned correctly
-  const renderAboutContent = (article: AboutArticle, paragraphs: string[]) => {
-    if (paragraphs.length === 0) {
-      return null;
-    }
-
-    const content = [];
-
-    // Første paragraph
-    content.push(
-      <p key="paragraph-1" className="text-lg leading-relaxed font-roboto text-kilsvart-700 dark:text-kilsvart-300">
-        {paragraphs[0]}
-      </p>,
-    );
-
-    // Pullquote vises etter første paragraph hvis den eksisterer
-    if (article.pullquote && article.pullquote.trim() !== "") {
-      content.push(
-        <blockquote
-          key="pullquote"
-          className="my-8 p-6 bg-gradient-to-r from-kilred-50/50 to-kilblue-50/30 dark:from-kilred-900/10 dark:to-kilblue-900/10 rounded-xl border-l-4 border-kilred relative"
-        >
-          <div className="absolute top-4 left-4 text-kilred-300 dark:text-kilred-600 text-4xl font-serif">
-            "
-          </div>
-          <p className="text-xl font-medium text-kilred-700 dark:text-kilred-300 font-roboto leading-relaxed italic text-center px-8">
-            {article.pullquote}
-          </p>
-          <div className="absolute bottom-4 right-4 text-kilred-300 dark:text-kilred-600 text-4xl font-serif rotate-180">
-            "
-          </div>
-        </blockquote>,
-      );
-    }
-
-    // Resten av paragraphene
-    paragraphs.slice(1).forEach((paragraph, index) => {
-      content.push(
-        <p key={`paragraph-${index + 2}`} className="text-lg leading-relaxed font-roboto text-kilsvart-700 dark:text-kilsvart-300">
-          {paragraph}
-        </p>,
-      );
-    });
-
-    return content;
-  };
+  // Timeline data
+  const getTimelineData = (article: AboutArticle) => [
+    {
+      id: 1,
+      title: "Vår Historie",
+      subtitle: "Fra ydmyke begynnelser til dagens suksess - dette er historien om vårt lag",
+      content: article["paragraph-1"],
+      image: article.timeline_img_1 || "/placeholder-timeline-1.jpg",
+    },
+    {
+      id: 2,
+      title: "I Dag",
+      subtitle: "Dagens klubb er et levende bevis på at tradisjon og innovasjon kan gå hånd i hånd",
+      content: article["paragraph-2"],
+      image: article.timeline_img_2 || "/placeholder-timeline-2.jpg",
+    },
+    {
+      id: 3,
+      title: "Fremtiden",
+      subtitle: "Fremtiden for vår klubb er lysere enn noen gang",
+      content: article["paragraph-3"],
+      image: article.timeline_img_3 || "/placeholder-timeline-3.jpg",
+    },
+  ];
 
   if (loading) {
     return (
@@ -133,140 +100,254 @@ export default function AboutPage() {
     );
   }
 
-  const paragraphs = getAboutParagraphs(aboutData);
+  const timelineData = getTimelineData(aboutData);
 
   return (
     <div className="min-h-screen w-full">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-b from-kilred to-kilred/70 overflow-hidden -mx-[calc((100vw-100%)/2)] text-white w-screen">
-        <div className="container mx-auto py-12 px-4 md:px-6">
+      {/* Hero Section - Fullscreen med bilde */}
+      <section className="relative h-screen -mx-[calc((100vw-100%)/2)] w-screen overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <img
+            src={aboutData.img}
+            alt={aboutData.headlines}
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-kilsvart-900/60 via-kilsvart-900/40 to-kilsvart-900/70" />
+        </div>
+
+        {/* Content */}
+        <div className="relative z-10 flex items-center justify-center h-full px-4">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 1, delay: 0.2 }}
             className="text-center max-w-4xl mx-auto"
           >
-            <h1 className="font-anton font-bold text-anton-4xl md:text-anton-5xl mb-6 text-white tracking-wide uppercase text-center">
+            <h1 className="font-anton text-anton-4xl md:text-anton-5xl lg:text-anton-6xl text-white mb-6 tracking-wide leading-tight">
               {aboutData.headlines}
             </h1>
-            <p className="text-lg text-white font-roboto leading-relaxed">
+            <p className="text-xl md:text-2xl text-white/90 font-roboto leading-relaxed max-w-3xl mx-auto">
               {aboutData.lead}
             </p>
           </motion.div>
         </div>
-      </section>
 
-      {/* Main Content Section */}
-      <section className="py-16 bg-white dark:bg-kilsvart-900">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-              
-              {/* Image */}
-              <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="order-2 lg:order-1"
-              >
-                <div className="relative rounded-2xl overflow-hidden shadow-kilred-lg">
-                  <img
-                    src={aboutData.img}
-                    alt={aboutData.headlines}
-                    className="w-full h-[400px] md:h-[500px] object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-kilsvart-900/20 to-transparent" />
-                </div>
-              </motion.div>
-
-              {/* Content */}
-              <motion.div
-                initial={{ opacity: 0, x: 30 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-                className="order-1 lg:order-2"
-              >
-                <div className="space-y-6">
-                  {renderAboutContent(aboutData, paragraphs)}
-                </div>
-              </motion.div>
-            </div>
+        {/* Scroll indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 1.5 }}
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white/80"
+        >
+          <div className="flex flex-col items-center">
+            <span className="text-sm font-roboto mb-2 tracking-wider">SCROLL NED</span>
+            <motion.div
+              animate={{ y: [0, 10, 0] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              <ChevronDownIcon className="h-6 w-6" />
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
       </section>
 
-      {/* Additional Content Section - if there are multiple paragraphs */}
-      {paragraphs.length > 1 && (
-        <section className="py-16 bg-gradient-to-br from-kilblue-50 to-kildarkblue-50 dark:from-kilblue-900/20 dark:to-kildarkblue-900/20">
+      {/* Pullquote Section */}
+      {aboutData.pullquote && (
+        <section className="py-20 bg-gradient-to-br from-kilblue-50 to-purple-50 dark:from-kilblue-900/10 dark:to-purple-900/10">
           <div className="container mx-auto px-4 md:px-6">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
               className="max-w-4xl mx-auto"
             >
-              <div className="text-center mb-12">
-                <h2 className="font-anton text-anton-2xl md:text-anton-3xl text-kilsvart-900 dark:text-white tracking-wide mb-4">
-                  MER OM OSS
-                </h2>
-                <div className="w-20 h-1 bg-kilred mx-auto"></div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {/* Values/Mission Card */}
-                <div className="bg-white dark:bg-kilsvart-800 rounded-xl p-6 shadow-kilblue border border-kilblue-100/50 dark:border-kilblue-700/30">
-                  <h3 className="font-anton text-anton-lg text-kilsvart-900 dark:text-white tracking-wide mb-4">
-                    VÅRE VERDIER
-                  </h3>
-                  <p className="text-kilsvart-600 dark:text-kilsvart-300 font-roboto leading-relaxed">
-                    {paragraphs[1] || "Lagspill, respekt, dedikasjon og glede står i sentrum av alt vi gjør."}
-                  </p>
+              <blockquote className="relative">
+                <div className="absolute -top-4 -left-4 text-kilblue-300 dark:text-kilblue-600 text-6xl md:text-8xl font-serif opacity-50">
+                  "
                 </div>
-
-                {/* Vision Card */}
-                <div className="bg-white dark:bg-kilsvart-800 rounded-xl p-6 shadow-kilblue border border-kilblue-100/50 dark:border-kilblue-700/30">
-                  <h3 className="font-anton text-anton-lg text-kilsvart-900 dark:text-white tracking-wide mb-4">
-                    VÅR VISJON
-                  </h3>
-                  <p className="text-kilsvart-600 dark:text-kilsvart-300 font-roboto leading-relaxed">
-                    {paragraphs[2] || "Vi ønsker å være en plass hvor alle kan utvikle seg som spillere og mennesker."}
-                  </p>
+                <p className="text-2xl md:text-3xl lg:text-4xl font-medium text-kilblue-700 dark:text-kilblue-300 font-roboto leading-relaxed text-center italic px-8 md:px-16">
+                  {aboutData.pullquote}
+                </p>
+                <div className="absolute -bottom-4 -right-4 text-kilblue-300 dark:text-kilblue-600 text-6xl md:text-8xl font-serif opacity-50 rotate-180">
+                  "
                 </div>
-              </div>
+              </blockquote>
             </motion.div>
           </div>
         </section>
       )}
 
-      {/* Call to Action Section */}
-      <section className="py-16 bg-white dark:bg-kilsvart-900">
+      {/* Timeline Section - Vår Reise */}
+      <section className="py-20 bg-white dark:bg-kilsvart-900">
         <div className="container mx-auto px-4 md:px-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            className="text-center max-w-2xl mx-auto"
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
           >
-            <h2 className="font-anton text-anton-2xl md:text-anton-3xl text-kilsvart-900 dark:text-white tracking-wide mb-6">
-              BLI MED OSS!
+            <h2 className="font-anton text-anton-3xl md:text-anton-4xl text-kilsvart-900 dark:text-white tracking-wide mb-4">
+              VÅR REISE
             </h2>
-            <p className="text-lg text-kilsvart-600 dark:text-kilsvart-300 font-roboto leading-relaxed mb-8">
-              Interessert i å bli en del av KIL Håndball? Ta kontakt med oss for mer informasjon om treninger og medlemskap.
+            <p className="text-lg text-kilsvart-600 dark:text-kilsvart-300 font-roboto max-w-2xl mx-auto">
+              Fra ydmyke begynnelser til dagens suksess - dette er historien om vårt lag
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                size="lg"
-                className="font-roboto font-medium bg-kilred hover:bg-kilred-600 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300 px-8 py-3"
+          </motion.div>
+
+          {/* Timeline Items */}
+          <div className="max-w-7xl mx-auto">
+            {timelineData.map((item, index) => (
+              <motion.div
+                key={item.id}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: index * 0.2 }}
+                viewport={{ once: true }}
+                className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20 last:mb-0 ${
+                  index % 2 === 1 ? "lg:grid-flow-col-dense" : ""
+                }`}
               >
-                Kontakt oss
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="font-roboto font-medium border-kilblue text-kilblue hover:bg-kilblue hover:text-white dark:border-kilblue-400 dark:text-kilblue-400 dark:hover:bg-kilblue-600 dark:hover:text-white px-8 py-3"
+                {/* Image */}
+                <div className={`relative ${index % 2 === 1 ? "lg:col-start-2" : ""}`}>
+                  <div className="relative rounded-2xl overflow-hidden shadow-kilred-lg group">
+                    {/* Gradient placeholder hvis ikke bilde */}
+                    <div className="w-full h-[400px] bg-gradient-to-br from-kilred via-purple-500 to-kilblue flex items-center justify-center">
+                      {item.image && 
+                       item.image !== "/placeholder-timeline-1.jpg" && 
+                       item.image !== "/placeholder-timeline-2.jpg" && 
+                       item.image !== "/placeholder-timeline-3.jpg" ? (
+                        <img
+                          src={item.image}
+                          alt={item.title}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                      ) : (
+                        <div className="text-center">
+                          <div className="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span className="text-3xl font-anton text-white">{item.id}</span>
+                          </div>
+                          <p className="text-white font-roboto text-sm opacity-80">Visuell representasjon</p>
+                        </div>
+                      )}
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-kilsvart-900/20 to-transparent" />
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className={`${index % 2 === 1 ? "lg:col-start-1 lg:row-start-1" : ""}`}>
+                  <div className="relative">
+                    {/* Border line - kun synlig på desktop */}
+                    <div className={`hidden lg:block absolute top-8 w-1 h-20 bg-kilred ${
+                      index % 2 === 1 ? "-right-6" : "-left-6"
+                    }`}></div>
+                    
+                    <div className="bg-gradient-to-br from-kilred-50 to-kilblue-50 dark:from-kilred-900/20 dark:to-kilblue-900/20 rounded-xl p-8 border-l-4 border-kilred">
+                      <h3 className="font-anton text-anton-2xl text-kilsvart-900 dark:text-white tracking-wide mb-4">
+                        {item.title}
+                      </h3>
+                      <p className="text-kilsvart-600 dark:text-kilsvart-400 font-roboto text-sm mb-6 italic">
+                        {item.subtitle}
+                      </p>
+                      <p className="text-kilsvart-700 dark:text-kilsvart-300 font-roboto leading-relaxed">
+                        {item.content}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 bg-kilred text-white">
+        <div className="container mx-auto px-4 md:px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center max-w-4xl mx-auto"
+          >
+            <h2 className="font-anton text-anton-3xl md:text-anton-4xl text-white tracking-wide mb-6">
+              BLI EN DEL AV FAMILIEN
+            </h2>
+            <p className="text-lg md:text-xl text-white/90 font-roboto leading-relaxed mb-12 max-w-2xl mx-auto">
+              Uansett om du er nybegynner eller erfaren spiller, har vi plass til deg. Kom og opplev håndballgleden sammen med oss.
+            </p>
+
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+              <Link to={"/kontakt"}>
+                <Button
+                  size="lg"
+                  className="font-roboto font-medium bg-white text-kilred hover:bg-gray-100 border-0 shadow-lg hover:shadow-xl transition-all duration-300 px-8 py-4 text-lg w-full sm:w-auto"
+                >
+                  {aboutData.cta_primary_text || "Meld deg inn i dag"}
+                </Button>
+              </Link>
+              <Link to={"/kontakt"}>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="font-roboto font-medium border-2 border-white text-white hover:bg-white hover:text-kilred px-8 py-4 text-lg w-full sm:w-auto"
+                >
+                  {aboutData.cta_secondary_text || "Kontakt oss"}
+                </Button>
+              </Link>
+            </div>
+
+            {/* Statistics */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                viewport={{ once: true }}
+                className="text-center"
               >
-                Se treninger
-              </Button>
+                <div className="text-4xl md:text-5xl font-anton text-white mb-2">
+                  {aboutData.years_tradition || 70}+
+                </div>
+                <div className="text-white/80 font-roboto text-sm tracking-widest uppercase">
+                  ÅR MED TRADISJON
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                viewport={{ once: true }}
+                className="text-center"
+              >
+                <div className="text-4xl md:text-5xl font-anton text-white mb-2">
+                  {aboutData.active_members || 200}+
+                </div>
+                <div className="text-white/80 font-roboto text-sm tracking-widest uppercase">
+                  AKTIVE MEDLEMMER
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                viewport={{ once: true }}
+                className="text-center"
+              >
+                <div className="text-4xl md:text-5xl font-anton text-white mb-2">
+                  {aboutData.number_of_teams || 15}+
+                </div>
+                <div className="text-white/80 font-roboto text-sm tracking-widest uppercase">
+                  LAG PÅ ALLE NIVÅER
+                </div>
+              </motion.div>
             </div>
           </motion.div>
         </div>

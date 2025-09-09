@@ -91,7 +91,7 @@ export default function NewsPage() {
     return (
       <div className="min-h-screen w-full">
         {/* Hero Section */}
-        <section className="bg-gradient-to-br from-kilblue-50 to-kildarkblue-50 dark:from-kilblue-900/20 dark:to-kildarkblue-900/20 pt-24 pb-16 relative overflow-hidden">
+        <section className="bg-gradient-to-br from-kilblue-50 to-kildarkblue-50 pt-24 pb-16 relative overflow-hidden">
           <div className="container mx-auto py-12 px-4 md:px-6">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -99,7 +99,7 @@ export default function NewsPage() {
               transition={{ duration: 0.8 }}
               className="text-center max-w-4xl mx-auto"
             >
-              <h1 className="text-base font-medium text-kilblue-600 dark:text-kilblue-400 uppercase tracking-wider mb-3 font-roboto">
+              <h1 className="text-base font-medium text-kilblue-600 uppercase tracking-wider mb-3 font-roboto">
                 Nyheter
               </h1>
               <h2 className="font-anton text-anton-3xl md:text-anton-4xl mb-6 text-kilsvart-900 dark:text-white tracking-wide">

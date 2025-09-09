@@ -28,7 +28,7 @@ export interface HomepageNewsProps {
   compact?: boolean;
 }
 
-export interface AboutArticle extends AppwriteDocument {
+interface AboutArticle extends AppwriteDocument {
   headlines: string;
   lead: string;
   img: string;
@@ -36,4 +36,14 @@ export interface AboutArticle extends AppwriteDocument {
   "paragraph-1": string;
   "paragraph-2": string;
   "paragraph-3": string;
+  timeline_img_1?: string;
+  timeline_img_2?: string;
+  timeline_img_3?: string;
+  years_tradition?: number;
+  active_members?: number;
+  number_of_teams?: number;
+  cta_primary_text?: string;
+  cta_secondary_text?: string;
+  cta_primary_link?: string;
+  cta_secondary_link?: string;
 }
