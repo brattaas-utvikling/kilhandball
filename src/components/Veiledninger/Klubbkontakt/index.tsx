@@ -15,6 +15,7 @@ import { OrganizationData } from '../../../types/OrganizationData';
 import { OrganizationSection } from '../../../types/OrganizationSection';
 import { Member } from '../../../types/member';
 
+
 function KlubbKontakt() {
   // State for expanded sections
   const [expandedSections, setExpandedSections] = useState<ExpandedSections>({

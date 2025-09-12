@@ -1,4 +1,4 @@
-// components/Kamper.tsx - Komplett versjon med Lucide ikoner
+// components/Kamper.tsx - Komplett versjon med Lucide ikoner og dato/tid-sortering
 import React, { useState } from 'react';
 import { useMatches } from '../hooks/useMatches';
 import type { NIFMatch } from '../types/match.types';
@@ -9,8 +9,7 @@ import {
   Clock, 
   Trophy,
   Users,
-  X,
-  Check
+  X
 } from 'lucide-react';
 import ErrorDisplay from './ErrorDisplay';
 
@@ -83,6 +82,7 @@ const getTeamInitials = (teamName: string): string => {
     'kongsvinger': 'KIL',
     'elverum': 'EH',
     'storhamar': 'SIL',
+    'skarnes': 'SH',
     'lfh09': 'LHF',
     'lhf': 'LHF',
     'larvik': 'LHK',
@@ -119,38 +119,6 @@ const getTeamInitials = (teamName: string): string => {
   
   // For enkeltord, ta kun første bokstav
   return words[0] ? words[0][0].toUpperCase() : 'X';
-};
-
-// Status functions with Lucide icons
-const getStatusIcon = (status: string) => {
-  const iconProps = { className: "w-3 h-3 sm:w-4 sm:h-4" };
-  switch (status) {
-    case 'scheduled': return <Calendar {...iconProps} />;
-    case 'postponed': return <Clock {...iconProps} />;
-    case 'cancelled': return <X {...iconProps} />;
-    case 'completed': return <Check {...iconProps} />;
-    default: return <Calendar {...iconProps} />;
-  }
-};
-
-const getStatusColor = (status: string) => {
-  switch (status) {
-    case 'scheduled': return 'text-green-700 bg-green-100 border-green-300';
-    case 'postponed': return 'text-yellow-700 bg-yellow-100 border-yellow-300';
-    case 'cancelled': return 'text-red-700 bg-red-100 border-red-300';
-    case 'completed': return 'text-blue-700 bg-blue-100 border-blue-300';
-    default: return 'text-gray-700 bg-gray-100 border-gray-300';
-  }
-};
-
-const getStatusText = (status: string) => {
-  switch (status) {
-    case 'scheduled': return 'Planlagt';
-    case 'postponed': return 'Utsatt';
-    case 'cancelled': return 'Avlyst';
-    case 'completed': return 'Ferdig';
-    default: return status;
-  }
 };
 
 // Modal Component
@@ -232,11 +200,6 @@ const MatchModal: React.FC<MatchModalProps> = ({ match, isOpen, onClose }) => {
                   <p className="text-xs text-gray-500 mt-1">Borte</p>
                 </div>
               </div>
-              
-              {/* Status */}
-              <span className={`inline-flex px-3 py-1 rounded-full text-sm font-medium border ${getStatusColor(match.status)}`}>
-                {getStatusText(match.status)}
-              </span>
             </div>
 
             {/* Match Details Grid - KIL style */}
@@ -305,7 +268,7 @@ const MatchModal: React.FC<MatchModalProps> = ({ match, isOpen, onClose }) => {
   );
 };
 
-// Match Card Component - OPPDATERT MED LUCIDE IKONER
+// Match Card Component
 interface MatchCardProps {
   match: NIFMatch;
   onClick: () => void;
@@ -331,32 +294,13 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, onClick }) => {
     }
   };
 
-  const isUpcoming = () => {
-    const matchDate = new Date(match.date);
-    const now = new Date();
-    return matchDate > now;
-  };
-
   return (
     <div 
       onClick={onClick}
-      className="relative flex items-center justify-between gap-4 px-4 sm:px-6 py-4 sm:py-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group"
+      className="flex items-center justify-between gap-4 px-4 sm:px-6 py-4 sm:py-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group"
     >
-      {/* Status badge - MED LUCIDE IKONER */}
-      <div className="absolute top-3 right-3 sm:top-4 sm:right-4">
-        <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(match.status)} flex items-center gap-1`}>
-          {getStatusIcon(match.status)}
-          <span className="hidden sm:inline">
-            {match.status === 'scheduled' && isUpcoming() ? 'Kommende' : 
-             match.status === 'completed' ? 'Ferdig' : 
-             match.status === 'postponed' ? 'Utsatt' : 
-             match.status === 'cancelled' ? 'Avlyst' : 'Planlagt'}
-          </span>
-        </span>
-      </div>
-
-      {/* Match info - OPPDATERT MED BEDRE MOBILE LAYOUT */}
-      <div className="flex items-center gap-3 sm:gap-4 flex-1 pr-16 sm:pr-20">
+      {/* Match info */}
+      <div className="flex items-center gap-3 sm:gap-4 flex-1">
         <div className="text-left flex-1 min-w-0">
           <h3 className="text-base sm:text-lg font-semibold mb-2 text-kilsvart leading-tight">
             <span className="block sm:inline">{match.homeTeam}</span>
@@ -366,7 +310,7 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, onClick }) => {
             </span>
           </h3>
           
-          {/* Match details - FORBEDRET FOR MOBIL */}
+          {/* Match details */}
           <div className="space-y-1">
             {/* Date & Time */}
             <div className="flex items-center text-xs sm:text-sm text-gray-600">
@@ -380,7 +324,7 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, onClick }) => {
               )}
             </div>
 
-            {/* Venue - FORBEDRET TRUNCATION */}
+            {/* Venue */}
             {match.venue && (
               <div className="flex items-center text-xs sm:text-sm text-gray-600">
                 <MapPin className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2 text-kilred flex-shrink-0" />
@@ -388,7 +332,7 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, onClick }) => {
               </div>
             )}
 
-            {/* Tournament - SKJULES PÅ SMÅ SKJERMER HVIS NØDVENDIG */}
+            {/* Tournament */}
             {match.tournament && (
               <div className="hidden sm:flex items-center text-sm text-gray-600">
                 <Trophy className="w-4 h-4 mr-2 text-kilred flex-shrink-0" />
@@ -399,15 +343,15 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, onClick }) => {
         </div>
       </div>
       
-      {/* Arrow - JUSTERT POSISJON */}
-      <div className="absolute right-3 bottom-3 sm:relative sm:right-auto sm:bottom-auto">
+      {/* Arrow */}
+      <div>
         <FaChevronRight className="text-gray-400 group-hover:text-kilred transition-colors w-3 h-3 sm:w-4 sm:h-4" />
       </div>
     </div>
   );
 };
 
-// Main Component - UENDRET
+// Main Component
 const Kamper: React.FC = () => {
   const [selectedMatch, setSelectedMatch] = useState<NIFMatch | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -450,6 +394,29 @@ const Kamper: React.FC = () => {
         match.homeTeam.toLowerCase().includes(selectedTeam.toLowerCase()) ||
         match.awayTeam.toLowerCase().includes(selectedTeam.toLowerCase())
       );
+
+  // Sort matches by date and time
+  const sortedMatches = [...filteredMatches].sort((a, b) => {
+    // Create date objects for comparison
+    const dateA = new Date(a.date);
+    const dateB = new Date(b.date);
+    
+    // If dates are different, sort by date
+    if (dateA.getTime() !== dateB.getTime()) {
+      return dateA.getTime() - dateB.getTime();
+    }
+    
+    // If same date, sort by start time (if available)
+    if (a.startTime && b.startTime) {
+      // Convert time strings like "19:00" to comparable format
+      const timeA = a.startTime.replace(':', '');
+      const timeB = b.startTime.replace(':', '');
+      return timeA.localeCompare(timeB);
+    }
+    
+    // If no start times, maintain current order
+    return 0;
+  });
 
   const handleMatchClick = (match: NIFMatch) => {
     setSelectedMatch(match);
@@ -574,16 +541,19 @@ const Kamper: React.FC = () => {
             {/* Results info */}
             <div className="mb-6 text-center">
               <p className="text-gray-600">
-                Viser {filteredMatches.length} kamper
+                Viser {sortedMatches.length} kamper
                 {selectedTeam !== 'all' && (
                   <span> for {selectedTeam}</span>
                 )}
+                <span className="text-sm text-gray-500 block mt-1">
+                  Sortert etter dato og tid
+                </span>
               </p>
             </div>
             
             {/* Matches grid */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-              {filteredMatches.map((match, index) => (
+              {sortedMatches.map((match, index) => (
                 <MatchCard
                   key={`${match.id}-${index}`}
                   match={match}
@@ -593,7 +563,7 @@ const Kamper: React.FC = () => {
             </div>
 
             {/* No results message */}
-            {filteredMatches.length === 0 && selectedTeam !== 'all' && (
+            {sortedMatches.length === 0 && selectedTeam !== 'all' && (
               <div className="bg-white rounded-lg shadow-md p-8 text-center">
                 <div className="text-gray-400 mb-4">
                   <svg className="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">

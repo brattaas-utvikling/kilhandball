@@ -1,3 +1,4 @@
+// types/OrganizationData.ts
 import { OrganizationSection } from './OrganizationSection';
 
 export type OrganizationData = {

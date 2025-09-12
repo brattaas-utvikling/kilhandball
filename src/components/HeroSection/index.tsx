@@ -19,7 +19,7 @@ export function HeroSection() {
   return (
     <section className="bg-gradient-to-b from-kilred to-kilred/70 overflow-hidden mb-32 -mx-[calc((100vw-100%)/2)] w-screen relative">
       {/* Main content container */}
-      <div className="mx-auto py-14 md:py-24 w-10/12 max-w-7xl ">
+      <div className="mx-auto  py-12  w-11/12 max-w-7xl ">
         <div className="grid sm:grid-cols-2 gap-8 items-center">
           {/* Left side - Text content */}
           <div className="flex flex-col justify-center text-white text-clip text-balance order-1">
@@ -41,7 +41,7 @@ export function HeroSection() {
           </div>
 
           {/* Right side - Carousel */}
-          <div className="w-full h-[400px] md:h-[500px] overflow-hidden rounded-lg order-2">
+          <div className="w-full h-[400px] md:h-[600px] overflow-hidden rounded-lg order-2">
             <Swiper
               modules={[Autoplay, Pagination, EffectFade]}
               effect="fade"
@@ -76,7 +76,7 @@ export function HeroSection() {
 
       {/* Triangle shape at bottom */}
       <div
-        className="absolute bottom-0 left-0 right-0 h-16 bg-white"
+        className="absolute bottom-0 left-0 right-0 h-8 bg-white"
         style={{ clipPath: 'polygon(0 100%, 100% 100%, 100% 0, 0 100%)' }}
       ></div>
     </section>

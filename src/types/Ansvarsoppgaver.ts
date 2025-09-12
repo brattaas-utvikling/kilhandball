@@ -1,3 +1,5 @@
+//Ansvarsoppgaver.ts
+
 import { AnsvarMedlem } from './AnsvarMedlem';
 
 export type Ansvarsoppgaver = {

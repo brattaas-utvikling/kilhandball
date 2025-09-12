@@ -1,4 +1,4 @@
-// TypeScript interface
+// Appwrite.d.ts
 export interface AppwriteDocument {
   $id: string;
   $createdAt: string;

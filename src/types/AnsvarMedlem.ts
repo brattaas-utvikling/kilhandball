@@ -1,3 +1,4 @@
+// AnsvarMedlem.ts
 export type AnsvarMedlem = {
   title: string;
   icon: React.ReactNode;

@@ -1,3 +1,4 @@
+// ExpandedSections.ts
 export type ExpandedSections = {
   styre: boolean;
   sportslig: boolean;
