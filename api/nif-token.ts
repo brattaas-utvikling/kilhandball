@@ -9,8 +9,8 @@ export default async function handler(request: VercelRequest, response: VercelRe
   const params = new URLSearchParams({
     grant_type: 'client_credentials',
     scope: 'data_org_read data_venuematch_read data_ta_scheduledmatches_read',
-    client_id: process.env.VITE_NIF_CLIENT_ID!,
-    client_secret: process.env.VITE_NIF_CLIENT_SECRET!,
+    client_id: process.env.NIF_CLIENT_ID!,
+    client_secret: process.env.NIF_CLIENT_SECRET!,
   });
 
   try {
@@ -28,7 +28,6 @@ export default async function handler(request: VercelRequest, response: VercelRe
 
     const data = await nifResponse.json();
     
-    // Set CORS headers
     response.setHeader('Access-Control-Allow-Origin', '*');
     response.setHeader('Access-Control-Allow-Methods', 'POST');
     response.setHeader('Access-Control-Allow-Headers', 'Content-Type');
