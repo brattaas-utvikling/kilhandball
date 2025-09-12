@@ -1,4 +1,4 @@
-// Interface for DotsSpinner props
+// DotSpinnerProps.d.ts
 interface DotsSpinnerProps {
   color?: string;
   size?: number;

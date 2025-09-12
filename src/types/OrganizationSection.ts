@@ -1,3 +1,4 @@
+// types/OrganizationSections.ts
 import { Member } from './member';
 import React from 'react';
 
