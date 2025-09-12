@@ -40,7 +40,11 @@ export class NIFApiService {
     }
   
     try {
-      const url = `${this.config.apiBaseUrl}/ta/ScheduledMatches/club/${clubId}`;
+      const isDev = import.meta.env.DEV;
+      const url = isDev 
+        ? `${this.config.apiBaseUrl}/ta/ScheduledMatches/club/${clubId}`
+        : `${this.config.apiBaseUrl}${clubId}`; // For /api/nif-matches?clubId=
+      
       const rawData = await this.makeAuthenticatedRequest<NIFApiMatch[]>(url);
       
       // Map API data til vår interface
