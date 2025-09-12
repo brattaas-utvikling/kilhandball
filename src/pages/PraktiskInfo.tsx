@@ -8,7 +8,7 @@ import {
   Volleyball,
 } from 'lucide-react';
 import { FaChevronRight } from 'react-icons/fa6';
-import Logo from '../assets/kil_styret.webp';
+import Logo from '../assets/kil_logo.png';
 import Banner from '../assets/banner.webp';
 import { GiWhistle } from 'react-icons/gi';
 
