@@ -57,7 +57,6 @@ export const useMatches = ({
       // Hvis vi har eksisterende data, behold dem men marker som stale
       if (matches.length > 0) {
         setIsStale(true);
-        console.log('API failed, keeping existing data but marking as stale');
       }
     } finally {
       setLoading(false);
@@ -102,7 +101,6 @@ export const useMatches = ({
         const timeSinceUpdate = Date.now() - lastUpdated.getTime();
         // Auto-refresh hvis mer enn 5 minutter siden siste oppdatering
         if (timeSinceUpdate > 5 * 60 * 1000) {
-          console.log('Page became visible, auto-refreshing stale data');
           refreshMatches();
         }
       }
@@ -117,7 +115,6 @@ export const useMatches = ({
     // Hvis vi har vært uten data i lang tid og har en error, prøv å hente data igjen
     if (error && matches.length === 0) {
       const retryTimeout = setTimeout(() => {
-        console.log('Attempting automatic retry after sustained error');
         fetchMatches(false);
       }, 30000); // Prøv igjen etter 30 sekunder
 

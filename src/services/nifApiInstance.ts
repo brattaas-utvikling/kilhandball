@@ -11,9 +11,4 @@ const nifConfig: NIFApiConfig = {
   apiBaseUrl: isDev ? '/api/data/api/v1' : '/api/nif-matches?clubId=', // Note the query param
 };
 
-console.log('Config URLs:', {
-  idServer: nifConfig.idServer,
-  apiBaseUrl: nifConfig.apiBaseUrl
-});
-
 export const nifApi = new NIFApiService(nifConfig);
