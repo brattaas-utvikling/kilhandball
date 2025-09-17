@@ -109,9 +109,10 @@ export default function AboutPage() {
         {/* Background Image */}
         <div className="absolute inset-0">
           <img
-            src={aboutData.img}
+            // src={aboutData.img}
+            src="https://fra.cloud.appwrite.io/v1/storage/buckets/68bd6c630003e8e8b879/files/68cb14490009911eb3f6/view?project=68a9f0da0014cb9bd6ad&mode=admin"
             alt={aboutData.headlines}
-            className="w-full h-full object-cover"
+            className="w-full h-screen object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-kilsvart-900/60 via-kilsvart-900/40 to-kilsvart-900/70" />
         </div>
@@ -124,7 +125,7 @@ export default function AboutPage() {
             transition={{ duration: 1, delay: 0.2 }}
             className="text-center max-w-4xl mx-auto"
           >
-            <h1 className="font-anton text-anton-4xl md:text-anton-5xl lg:text-anton-6xl text-white mb-6 tracking-wide leading-tight">
+            <h1 className="font-anton text-anton-4xl md:text-anton-5xl lg:text-anton-6xl text-white mb-6 tracking-wide leading-tight uppercase">
               {aboutData.headlines}
             </h1>
             <p className="text-xl md:text-2xl text-white/90 font-roboto leading-relaxed max-w-3xl mx-auto">
@@ -141,7 +142,7 @@ export default function AboutPage() {
           className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white/80"
         >
           <div className="flex flex-col items-center">
-            <span className="text-sm font-roboto mb-2 tracking-wider">SCROLL NED</span>
+            {/* <span className="text-sm font-roboto mb-2 tracking-wider">SCROLL NED</span> */}
             <motion.div
               animate={{ y: [0, 10, 0] }}
               transition={{ duration: 2, repeat: Infinity }}
@@ -151,10 +152,9 @@ export default function AboutPage() {
           </div>
         </motion.div>
       </section>
-
-      {/* Pullquote Section */}
-      {aboutData.pullquote && (
-        <section className="py-20 bg-gradient-to-br from-kilblue-50 to-purple-50 dark:from-kilblue-900/10 dark:to-purple-900/10">
+ {/* Pullquote Section */}
+ {aboutData.pullquote && (
+        <section className="py-20">
           <div className="container mx-auto px-4 md:px-6">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -163,17 +163,44 @@ export default function AboutPage() {
               viewport={{ once: true }}
               className="max-w-4xl mx-auto"
             >
-              <blockquote className="relative">
-                <div className="absolute -top-4 -left-4 text-kilblue-300 dark:text-kilblue-600 text-6xl md:text-8xl font-serif opacity-50">
-                  "
+              <div className="relative bg-white dark:bg-kilsvart-900 rounded-2xl p-8 md:p-12 shadow-lg border-l-4 border-kilred">
+                
+                {/* Quote content */}
+                <blockquote className="mb-12">
+                  <p className="text-2xl md:text-3xl font-medium text-kilred dark:text-kilred-300 font-roboto leading-relaxed">
+                    {aboutData.pullquote}
+                  </p>
+                </blockquote>
+
+                {/* Visjon og Verdier */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  
+                  {/* Visjon */}
+                  <div>
+                    <h3 className="text-lg font-anton text-kilsvart-900 dark:text-white tracking-wide mb-4">
+                      VISJON:
+                    </h3>
+                    <div className="space-y-2">
+                      <p className="text-kilred dark:text-kilred-300 font-roboto font-medium">
+                        Flest mulig – lengst mulig
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Verdier */}
+                  <div>
+                    <h3 className="text-lg font-anton text-kilsvart-900 dark:text-white tracking-wide mb-4">
+                      VERDIER:
+                    </h3>
+                    <div className="space-y-2">
+                      <p className="text-kilred dark:text-kilred-300 font-roboto font-medium">
+                        Begeistring - Fair play - Respekt - Innsatsvilje
+                      </p>
+                    </div>
+                  </div>
+
                 </div>
-                <p className="text-2xl md:text-3xl lg:text-4xl font-medium text-kilblue-700 dark:text-kilblue-300 font-roboto leading-relaxed text-center italic px-8 md:px-16">
-                  {aboutData.pullquote}
-                </p>
-                <div className="absolute -bottom-4 -right-4 text-kilblue-300 dark:text-kilblue-600 text-6xl md:text-8xl font-serif opacity-50 rotate-180">
-                  "
-                </div>
-              </blockquote>
+              </div>
             </motion.div>
           </div>
         </section>
@@ -214,7 +241,7 @@ export default function AboutPage() {
                 <div className={`relative ${index % 2 === 1 ? "lg:col-start-2" : ""}`}>
                   <div className="relative rounded-2xl overflow-hidden shadow-kilred-lg group">
                     {/* Gradient placeholder hvis ikke bilde */}
-                    <div className="w-full h-[400px] bg-gradient-to-br from-kilred via-purple-500 to-kilblue flex items-center justify-center">
+                    <div className="w-full h-[400px] flex items-center justify-center">
                       {item.image && 
                        item.image !== "/placeholder-timeline-1.jpg" && 
                        item.image !== "/placeholder-timeline-2.jpg" && 
@@ -245,7 +272,7 @@ export default function AboutPage() {
                       index % 2 === 1 ? "-right-6" : "-left-6"
                     }`}></div>
                     
-                    <div className="bg-gradient-to-br from-kilred-50 to-kilblue-50 dark:from-kilred-900/20 dark:to-kilblue-900/20 rounded-xl p-8 border-l-4 border-kilred">
+                    <div className="rounded-xl p-8 border-l-4 border-kilred">
                       <h3 className="font-anton text-anton-2xl text-kilsvart-900 dark:text-white tracking-wide mb-4">
                         {item.title}
                       </h3>

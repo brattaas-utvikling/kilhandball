@@ -14,7 +14,7 @@ import { HomepageNewsProps, NewsArticle } from "../types/Appwrite";
 
 
 
-export default function HomepageNews({
+export default function HjemmesideNyheter({
   maxArticles = 3,
   showFeatured = true,
   compact = false,
