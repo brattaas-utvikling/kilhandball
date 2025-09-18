@@ -3,13 +3,13 @@ import {
   Accessibility,
   Cog,
   House,
+  LifeBuoy,
   SquareChartGantt,
   TvMinimalPlay,
   Volleyball,
 } from 'lucide-react';
 import { FaChevronRight } from 'react-icons/fa6';
 import Logo from '../assets/kil_logo.png';
-import Banner from '../assets/banner.webp';
 import { GiWhistle } from 'react-icons/gi';
 
 function PraktiskInfo() {
@@ -57,6 +57,12 @@ function PraktiskInfo() {
       description: 'Informasjon om klubbdrift',
       link: '/praktisk-info/klubbdrift',
     },
+    {
+      icon: <LifeBuoy size={24} />,
+      title: 'Årshjul',
+      description: 'Her kan du finne klubbens årshjul',
+      link: '/praktisk-info/aarshjul',
+    },
     // Legg til flere elementer her ved behov
   ];
 
@@ -65,9 +71,9 @@ function PraktiskInfo() {
       {/* Hero banner */}
       <div className="relative w-full h-48 md:h-96">
         <img
-          src={Banner || 'https://placehold.co/1200x300'}
+          src={"https://fra.cloud.appwrite.io/v1/storage/buckets/68bd6c630003e8e8b879/files/klubbhus-nivaa-1-banner/view?project=68a9f0da0014cb9bd6ad&mode=admin"}
           alt="KIL banner"
-          className="w-full h-full rounded-t-md object-cover object-center aspect-video overflow-hidden"
+          className="w-full h-full rounded-t-md object-contain object-center aspect-video overflow-hidden"
         />
       </div>
 
