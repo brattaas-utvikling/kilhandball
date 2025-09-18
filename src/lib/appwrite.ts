@@ -20,7 +20,8 @@ export const DATABASE_ID = import.meta.env.VITE_DATABASE_ID || "main";
 
 export const COLLECTIONS = {
   NYHETER: import.meta.env.VITE_NYHETER || "nyheter",
-    OM_OSS: import.meta.env.VITE_OM_OSS_COLLECTION_ID || "om-oss",
+  OM_OSS: import.meta.env.VITE_OM_OSS_COLLECTION_ID || "om-oss",
+  LAG: import.meta.env.VITE_LAG || "lag",
 } as const;
 
 // Export Query for filtering (Appwrite v18)

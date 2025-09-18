@@ -273,7 +273,7 @@ export default function HjemmesideNyheter({
               aria-label="Se alle nyheter"
               size="lg"
               variant="outline"
-              className="rounded-full font-roboto font-medium border-kilblue text-kilblue hover:bg-kilblue hover:text-white dark:border-kilblue-400 dark:text-kilblue-400 dark:hover:bg-kilblue-600 dark:hover:text-white"
+              className="rounded-full font-roboto font-medium border-kilred text-kilred hover:bg-kilred hover:text-white"
             >
               Se alle nyheter
               <ArrowRightIcon className="ml-2 h-4 w-4" />

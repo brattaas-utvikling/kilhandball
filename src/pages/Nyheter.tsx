@@ -217,7 +217,7 @@ export default function NewsPage() {
       )}
 
       {/* Regular Articles Grid */}
-      <section className="py-16 bg-gradient-to-br from-kilblue-50 to-kildarkblue-50 dark:from-kilblue-900/20 dark:to-kildarkblue-900/20">
+      <section className="py-16">
         <div className="container mx-auto px-4 md:px-6 mb-12">
           <h2 className="font-anton text-anton-2xl md:text-anton-3xl text-kilsvart-900 dark:text-white text-center tracking-wide">
             ANDRE NYHETER ({regularArticles.length})
@@ -233,7 +233,7 @@ export default function NewsPage() {
               <Button
                 onClick={fetchNewsFromAppwrite}
                 variant="outline"
-                className="font-roboto font-medium border-kilblue text-kilblue hover:bg-kilblue hover:text-white dark:border-kilblue-400 dark:text-kilblue-400 dark:hover:bg-kilblue-600 dark:hover:text-white"
+                className="font-roboto font-medium border-kilred text-kilred hover:bg-kilred hover:text-white "
               >
                 Last på nytt
               </Button>

@@ -47,3 +47,15 @@ interface AboutArticle extends AppwriteDocument {
   cta_primary_link?: string;
   cta_secondary_link?: string;
 }
+
+
+
+interface Team extends AppwriteDocument {
+  team_name: string; // f.eks. "J2019" eller "G2018"
+  coach_name: string;
+  coach_email: string;
+  coach_phone: string;
+  age_group: number; // f.eks. 2019, 2018 for sortering
+  description?: string; // Valgfri beskrivelse av laget
+  is_active: boolean;
+}

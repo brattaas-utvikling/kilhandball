@@ -12,7 +12,7 @@ const TrastadhallenKamper: React.FC = () => {
     error,
     lastUpdated,
     refreshMatches,
-    isStale, // NYTT: bruker stale status
+    isStale,
   } = useMatches({
     clubId: '21554',
     refreshInterval: 15,

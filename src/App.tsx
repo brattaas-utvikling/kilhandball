@@ -18,6 +18,7 @@ import Treningsoversikt from './pages/Treningsoversikt';
 import Kamper from './components/Kamper';
 import Nyheter from './pages/Nyheter';
 import NyheterArtikkel from './pages/NyheterArtikkel';
+import Lag from './pages/Lag';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           />
           <Route path="/om-oss" element={<About />} />
           <Route path="/kamper" element={<Kamper />} />
+          <Route path="/lag" element={<Lag />} />
           <Route path="/treningstider" element={<Treningsoversikt />} />
           <Route path="/praktisk-info" element={<PraktiskInfo />} />
           <Route
