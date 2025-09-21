@@ -374,9 +374,9 @@ kamp:
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-anton-4xl md:text-anton-5xl font-anton text-kilsvart mb-4"
+            className="text-anton-4xl md:text-anton-5xl font-anton text-kilsvart mb-4 uppercase"
           >
-            BARNEHÅNDBALLARRANGEMENT
+            BARNEHÅNDBALL-ARRANGEMENT
           </motion.h1>
           <motion.div 
             initial={{ width: 0 }}
