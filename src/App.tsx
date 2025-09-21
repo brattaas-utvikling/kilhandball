@@ -19,6 +19,7 @@ import Kamper from './components/Kamper';
 import Nyheter from './pages/Nyheter';
 import NyheterArtikkel from './pages/NyheterArtikkel';
 import Lag from './pages/Lag';
+import BarnehandballKomponent from './components/Veiledninger/BarnehandballArrangement';
 
 function App() {
   return (
@@ -40,6 +41,10 @@ function App() {
           <Route
             path="/praktisk-info/hjemmearrangement"
             element={<Hjemmearrangement />}
+          />
+          <Route
+            path="/praktisk-info/barnehandballarrangement"
+            element={<BarnehandballKomponent />}
           />
           <Route
             path="/praktisk-info/handball-live"

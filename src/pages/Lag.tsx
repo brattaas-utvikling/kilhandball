@@ -13,8 +13,6 @@ import {
 } from "../components/ui/dialog";
 import { Team } from "../types/Appwrite";
 
-
-
 // Modal komponent for lagdetaljer
 function TeamModal({ 
   team, 
@@ -60,7 +58,7 @@ function TeamModal({
 
         <div className="space-y-4 sm:space-y-6 mt-4">
           {/* Trener Info */}
-          <div className="p-4 sm:p-6 bg-gray-50 dark:bg-kilsvart-800 rounded-xl border-l-4 border-kilred">
+          <div className="p-4 sm:p-6  dark:bg-kilsvart-800 rounded-xl border-l-4 border-b-4 border-kilred">
             <h4 className="font-anton text-anton-lg text-kilsvart-900 dark:text-white tracking-wide mb-4">
               HOVEDTRENER
             </h4>
@@ -120,6 +118,103 @@ function TeamModal({
   );
 }
 
+// Team List Component
+function TeamList({ 
+  teams, 
+  title, 
+  onTeamClick 
+}: { 
+  teams: Team[]; 
+  title: string; 
+  onTeamClick: (team: Team) => void;
+}) {
+  if (teams.length === 0) {
+    return (
+      <div className="bg-white rounded-2xl shadow-kilred-lg border border-kilred-100/50 overflow-hidden">
+        <div className="bg-kilsvart/5 px-6 py-4 border-b border-kilred-100/30">
+          <h3 className="font-anton text-anton-lg font-bold text-kilsvart-900 dark:text-white tracking-wide uppercase">
+            {title}
+          </h3>
+        </div>
+        <div className="p-8 text-center">
+          <p className="text-kilsvart-600 dark:text-kilsvart-400 font-roboto">
+            Ingen lag tilgjengelig ennå
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="bg-white rounded-2xl shadow-kilred-lg border border-kilred-100/50 overflow-hidden">
+      {/* Header */}
+      <div className="bg-kilsvart/5 px-6 py-4 border-b border-kilred-100/30">
+        <h3 className="font-anton text-anton-lg font-bold text-kilsvart-900 dark:text-white tracking-wide uppercase">
+          {title}
+        </h3>
+        <p className="text-sm text-kilsvart-600 dark:text-kilsvart-400 font-roboto mt-1">
+          Klikk på et lag for kontaktinformasjon til trener
+        </p>
+      </div>
+
+      {/* Teams list */}
+      <div className="divide-y divide-gray-100 dark:divide-kilsvart-700/50">
+        {teams.map((team, index) => (
+          <motion.div
+            key={team.$id}
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.4, delay: index * 0.1 }}
+            className="group relative overflow-hidden"
+          >
+            {/* Hover background gradient */}
+            <div className="absolute inset-0 bg-gradient-to-r from-kilred/0 to-kilred/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 group-hover:border-l-2 group-hover:border-kilred" />
+            
+            <button
+              onClick={() => onTeamClick(team)}
+              className="relative w-full flex items-center justify-between py-4 px-6 transition-all duration-200 group-hover:translate-x-1 text-left cursor-pointer focus:outline-none focus:ring-2 focus:ring-kilred focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-kilsvart-900 rounded-lg"
+            >
+              {/* Left side - Team name */}
+              <div className="flex items-center gap-4 min-w-0 flex-1">
+                <div className="min-w-0 flex-1">
+                  <h4 className="font-anton text-anton-base text-kilsvart-900 dark:text-white group-hover:text-kilred dark:group-hover:text-kilred-400 transition-colors duration-200 truncate tracking-wide">
+                    {team.team_name}
+                  </h4>
+                </div>
+              </div>
+
+              {/* Right side - Coach name and contact icons */}
+              <div className="flex items-center gap-4 flex-shrink-0">
+                <div className="text-right hidden sm:block">
+                  <div className="font-roboto font-medium text-sm text-kilsvart-900 dark:text-white">
+                    {team.coach_name}
+                  </div>
+                </div>
+
+                {/* Contact icons */}
+                <div className="flex items-center gap-2">
+                  <Mail className="h-4 w-4 text-kilred dark:text-kilred-400" />
+                  <Phone className="h-4 w-4 text-kilred dark:text-kilred-400" />
+                </div>
+
+                {/* Arrow */}
+                <ArrowRight className="h-4 w-4 text-gray-300 dark:text-gray-600 group-hover:text-kilred dark:group-hover:text-kilred-400 transition-all duration-200 group-hover:translate-x-1 flex-shrink-0" />
+              </div>
+            </button>
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Footer */}
+      <div className="bg-gray-50/50 dark:bg-kilsvart-800/30 px-6 py-4 border-t border-gray-100/50 dark:border-kilsvart-700/30">
+        <p className="text-xs text-kilsvart-600 dark:text-kilsvart-400 font-roboto text-center">
+          Kontakt treneren direkte for informasjon om treninger og påmelding til laget.
+        </p>
+      </div>
+    </div>
+  );
+}
+
 export default function Lag() {
   const [teams, setTeams] = useState<Team[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -170,6 +265,27 @@ export default function Lag() {
   useEffect(() => {
     fetchTeamsFromAppwrite();
   }, []);
+
+  // Separate teams by gender
+  const separateTeamsByGender = (teams: Team[]) => {
+    const jentelag: Team[] = [];
+    const guttelag: Team[] = [];
+
+    teams.forEach(team => {
+      const teamName = team.team_name.toLowerCase();
+      if (teamName.includes('jente') || teamName.startsWith('j')) {
+        jentelag.push(team);
+      } else if (teamName.includes('gutt') || teamName.startsWith('g')) {
+        guttelag.push(team);
+      } else {
+        // For team names that don't clearly indicate gender, add to both or handle separately
+        // You can adjust this logic based on your naming convention
+        guttelag.push(team);
+      }
+    });
+
+    return { jentelag, guttelag };
+  };
 
   if (loading) {
     return (
@@ -242,6 +358,8 @@ export default function Lag() {
     );
   }
 
+  const { jentelag, guttelag } = separateTeamsByGender(teams);
+
   return (
     <div className="bg-white">
       {/* Hero Section */}
@@ -267,76 +385,112 @@ export default function Lag() {
       <section className="py-16 dark:bg-kilsvart-800">
         <div className="container mx-auto px-2 md:px-6">
           <div className="max-w-7xl mx-auto">
-            {/* Modern card container */}
-            <div className="bg-white rounded-2xl shadow-kilred-lg border border-kilred-100/50 overflow-hidden">
-              
-              {/* Header */}
-              <div className="bg-kilsvart/5 px-6 py-4 border-b border-kilred-100/30 dark:border-kilred-700/30">
-                <h3 className="font-anton text-anton-lg font-bold text-kilsvart-900 dark:text-white tracking-wide uppercase">
-                  Oversikt over trenere og lagledere
-                </h3>
-                <p className="text-sm text-kilsvart-600 dark:text-kilsvart-400 font-roboto mt-1">
-                  Klikk på et lag for kontaktinformasjon til trener
-                </p>
-              </div>
+            
+            {/* Mobile Layout - Single Column */}
+            <div className="lg:hidden">
+              <div className="bg-white rounded-2xl shadow-kilred-lg border border-kilred-100/50 overflow-hidden">
+                {/* Header */}
+                <div className="bg-kilsvart/5 px-6 py-4 border-b border-kilred-100/30">
+                  <h3 className="font-anton text-anton-lg font-bold text-kilsvart-900 dark:text-white tracking-wide uppercase">
+                    Oversikt over trenere og lagledere
+                  </h3>
+                  <p className="text-sm text-kilsvart-600 dark:text-kilsvart-400 font-roboto mt-1">
+                    Klikk på et lag for kontaktinformasjon til trener
+                  </p>
+                </div>
 
-              {/* Teams list */}
-              <div className="divide-y divide-gray-100 dark:divide-kilsvart-700/50">
-                {teams.map((team, index) => (
-                  <motion.div
-                    key={team.$id}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.4, delay: index * 0.1 }}
-                    className="group relative overflow-hidden"
-                  >
-                    {/* Hover background gradient */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-kilred/0 to-kilred/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 group-hover:border-l-2 group-hover:border-kilred" />
-                    
-                    <button
-                      onClick={() => handleOpenModal(team)}
-                      className="relative w-full flex items-center justify-between py-4 px-6 transition-all duration-200 group-hover:translate-x-1 text-left cursor-pointer focus:outline-none focus:ring-2 focus:ring-kilred focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-kilsvart-900 rounded-lg"
+                {/* Teams list */}
+                <div className="divide-y divide-gray-100 dark:divide-kilsvart-700/50">
+                  {teams.map((team, index) => (
+                    <motion.div
+                      key={team.$id}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.4, delay: index * 0.1 }}
+                      className="group relative overflow-hidden"
                     >
+                      {/* Hover background gradient */}
+                      <div className="absolute inset-0 bg-gradient-to-r from-kilred/0 to-kilred/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 group-hover:border-l-2 group-hover:border-kilred" />
                       
-                      {/* Left side - Info button + Team name */}
-                      <div className="flex items-center gap-4 min-w-0 flex-1">
+                      <button
+                        onClick={() => handleOpenModal(team)}
+                        className="relative w-full flex items-center justify-between py-4 px-6 transition-all duration-200 group-hover:translate-x-1 text-left cursor-pointer focus:outline-none focus:ring-2 focus:ring-kilred focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-kilsvart-900 rounded-lg"
+                      >
                         
-                        <div className="min-w-0 flex-1">
-                          <h4 className="font-anton text-anton-base text-kilsvart-900 dark:text-white group-hover:text-kilred dark:group-hover:text-kilred-400 transition-colors duration-200 truncate tracking-wide">
-                            {team.team_name}
-                          </h4>
-                        </div>
-                      </div>
-
-                      {/* Right side - Coach name and contact icons */}
-                      <div className="flex items-center gap-4 flex-shrink-0">
-                        
-                        <div className="text-right hidden sm:block">
-                          <div className="font-roboto font-medium text-sm text-kilsvart-900 dark:text-white">
-                            {team.coach_name}
+                        {/* Left side - Team name */}
+                        <div className="flex items-center gap-4 min-w-0 flex-1">
+                          <div className="min-w-0 flex-1">
+                            <h4 className="font-anton text-anton-base text-kilsvart-900 dark:text-white group-hover:text-kilred dark:group-hover:text-kilred-400 transition-colors duration-200 truncate tracking-wide">
+                              {team.team_name}
+                            </h4>
                           </div>
                         </div>
 
-                        {/* Contact icons */}
-                        <div className="flex items-center gap-2">
-                          <Mail className="h-4 w-4 text-kilred dark:text-kilred-400" />
-                          <Phone className="h-4 w-4 text-kilred dark:text-kilred-400" />
+                        {/* Right side - Coach name and contact icons */}
+                        <div className="flex items-center gap-4 flex-shrink-0">
+                          <div className="text-right hidden sm:block">
+                            <div className="font-roboto font-medium text-sm text-kilsvart-900 dark:text-white">
+                              {team.coach_name}
+                            </div>
+                          </div>
+
+                          {/* Contact icons */}
+                          <div className="flex items-center gap-2">
+                            <Mail className="h-4 w-4 text-kilred dark:text-kilred-400" />
+                            <Phone className="h-4 w-4 text-kilred dark:text-kilred-400" />
+                          </div>
+
+                          {/* Arrow */}
+                          <ArrowRight className="h-4 w-4 text-gray-300 dark:text-gray-600 group-hover:text-kilred dark:group-hover:text-kilred-400 transition-all duration-200 group-hover:translate-x-1 flex-shrink-0" />
                         </div>
+                      </button>
+                    </motion.div>
+                  ))}
+                </div>
 
-                        {/* Arrow */}
-                        <ArrowRight className="h-4 w-4 text-gray-300 dark:text-gray-600 group-hover:text-kilred dark:group-hover:text-kilred-400 transition-all duration-200 group-hover:translate-x-1 flex-shrink-0" />
-                      </div>
-                    </button>
-                  </motion.div>
-                ))}
+                {/* Footer */}
+                <div className="bg-gray-50/50 dark:bg-kilsvart-800/30 px-6 py-4 border-t border-gray-100/50 dark:border-kilsvart-700/30">
+                  <p className="text-xs text-kilsvart-600 dark:text-kilsvart-400 font-roboto text-center">
+                    Kontakt treneren direkte for informasjon om treninger og påmelding til laget.
+                  </p>
+                </div>
               </div>
+            </div>
 
-              {/* Footer */}
-              <div className="bg-gray-50/50 dark:bg-kilsvart-800/30 px-6 py-4 border-t border-gray-100/50 dark:border-kilsvart-700/30">
-                <p className="text-xs text-kilsvart-600 dark:text-kilsvart-400 font-roboto text-center">
-                  Kontakt treneren direkte for informasjon om treninger og påmelding til laget.
-                </p>
-              </div>
+            {/* Desktop Layout - Two Columns */}
+            <div className="hidden lg:block">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="grid grid-cols-1 lg:grid-cols-2 gap-8"
+              >
+                {/* Jentelag Column */}
+                <motion.div
+                  initial={{ opacity: 0, x: -30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                >
+                  <TeamList 
+                    teams={jentelag} 
+                    title="Jentelag" 
+                    onTeamClick={handleOpenModal} 
+                  />
+                </motion.div>
+
+                {/* Guttelag Column */}
+                <motion.div
+                  initial={{ opacity: 0, x: 30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                >
+                  <TeamList 
+                    teams={guttelag} 
+                    title="Guttelag" 
+                    onTeamClick={handleOpenModal} 
+                  />
+                </motion.div>
+              </motion.div>
             </div>
           </div>
         </div>

@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
-import HandballLive from './HandballLive';
+import BarnehandballArrangement from './BarnehandballArrangement';
+;
 
 
 
-function LiveHandball() {
+function BarnehandballKomponent() {
   return (
     <div className="container mx-auto pb-12">
       <div className="my-6">
@@ -14,9 +15,9 @@ function LiveHandball() {
           ← Tilbake til praktisk info
         </Link>
       </div>
-      <HandballLive />
+      <BarnehandballArrangement />
     </div>
   );
 }
 
-export default LiveHandball;
+export default BarnehandballKomponent;

@@ -28,7 +28,7 @@ export interface HomepageNewsProps {
   compact?: boolean;
 }
 
-interface AboutArticle extends AppwriteDocument {
+export interface AboutArticle extends AppwriteDocument {
   headlines: string;
   lead: string;
   img: string;
@@ -48,9 +48,7 @@ interface AboutArticle extends AppwriteDocument {
   cta_secondary_link?: string;
 }
 
-
-
-interface Team extends AppwriteDocument {
+export interface Team extends AppwriteDocument {
   team_name: string; // f.eks. "J2019" eller "G2018"
   coach_name: string;
   coach_email: string;
@@ -58,4 +56,21 @@ interface Team extends AppwriteDocument {
   age_group: number; // f.eks. 2019, 2018 for sortering
   description?: string; // Valgfri beskrivelse av laget
   is_active: boolean;
+}
+
+// Storage-relaterte types (nye)
+export interface StorageFile extends AppwriteDocument {
+  bucketId: string;
+  name: string;
+  signature: string;
+  mimeType: string;
+  sizeOriginal: number;
+  chunksTotal: number;
+  chunksUploaded: number;
+}
+
+export interface DownloadConfig {
+  bucketId: string;
+  fileId: string;
+  fileName?: string;
 }

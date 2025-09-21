@@ -1,4 +1,3 @@
-import SiteNotification from '../components/SiteNotification';
 import Sponsorer from '../components/Sponsorer';
 import { HeroSection } from '../components/HeroSection';
 import { useNavigate } from 'react-router-dom';
@@ -23,8 +22,6 @@ function Home() {
         <div className="flex flex-col items-center justify-center">
           <HeroSection />
           <HomepageNews />
-          <SiteNotification />
-
 
           <div className="p-6 md:p-10 lg:p-16 bg-gradient-to-b from-kilred to-kilred/70 overflow-hidden -mx-[calc((100vw-100%)/2)] text-white w-screed">
           <div className='w-7xl mx-auto'>

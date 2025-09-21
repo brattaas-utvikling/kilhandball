@@ -1,19 +1,19 @@
-// src/lib/appwrite.ts - Oppdatert for Appwrite v18
-import { Client, Databases, Account, Query } from "appwrite";
+// src/lib/appwrite.ts - Oppdatert for Appwrite v18 med Storage
+import { Client, Databases, Account, Storage, Query } from "appwrite";
 
 // Initialize Appwrite client
 const client = new Client();
-
 client
   .setEndpoint(
     (import.meta.env.VITE_APPWRITE_ENDPOINT as string) ||
-      "https://cloud.appwrite.io/v1",
+    "https://cloud.appwrite.io/v1",
   )
   .setProject(import.meta.env.VITE_APPWRITE_PROJECT_ID as string);
 
 // Initialize services
 export const account = new Account(client);
 export const databases = new Databases(client);
+export const storage = new Storage(client); // Lagt til Storage
 
 // Database and Collection IDs
 export const DATABASE_ID = import.meta.env.VITE_DATABASE_ID || "main";
@@ -91,6 +91,38 @@ export const getDocument = async (
     return await databases.getDocument(databaseId, collectionId, documentId);
   } catch (error) {
     console.error("Failed to get document:", error);
+    throw error;
+  }
+};
+
+// Storage helper functions
+export const getFileDownload = (bucketId: string, fileId: string): string => {
+  try {
+    return storage.getFileDownload({
+      bucketId,
+      fileId
+    });
+  } catch (error) {
+    console.error("Failed to get file download URL:", error);
+    throw error;
+  }
+};
+
+export const getFilePreview = (
+  bucketId: string, 
+  fileId: string, 
+  width?: number, 
+  height?: number
+): string => {
+  try {
+    return storage.getFilePreview({
+      bucketId,
+      fileId,
+      ...(width && { width }),
+      ...(height && { height })
+    });
+  } catch (error) {
+    console.error("Failed to get file preview URL:", error);
     throw error;
   }
 };

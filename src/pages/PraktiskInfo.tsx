@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Accessibility,
   Cog,
+  Download,
   House,
   LifeBuoy,
   SquareChartGantt,
@@ -11,8 +13,61 @@ import {
 import { FaChevronRight } from 'react-icons/fa6';
 import Logo from '../assets/kil_logo.png';
 import { GiWhistle } from 'react-icons/gi';
+import { Button } from '../components/ui/button';
+import { getFileDownload } from '../lib/appwrite'; // Juster import-path etter din struktur
+
+// Appwrite Storage konfiguration
+const STORAGE_CONFIG = {
+  BUCKET_ID: import.meta.env.VITE_STORAGE_BUCKET_ID, // Erstatt med din bucket ID
+  FORELDRE_MAL_FILE_ID: import.meta.env.VITE_FORELDRE_MAL_FILE_ID, // Erstatt med din PDF file ID
+};
 
 function PraktiskInfo() {
+  const [isDownloading, setIsDownloading] = useState<boolean>(false);
+
+  // Funksjon for å hente download URL fra Appwrite Storage
+  const getForeldremoeteMalDownloadUrl = async (): Promise<string> => {
+    try {
+      const downloadUrl = getFileDownload(
+        STORAGE_CONFIG.BUCKET_ID,
+        STORAGE_CONFIG.FORELDRE_MAL_FILE_ID
+      );
+      return downloadUrl; // downloadUrl er allerede en string
+    } catch (error) {
+      console.error('Feil ved henting av download URL:', error);
+      throw new Error('Kunne ikke hente download URL fra Appwrite Storage');
+    }
+  };
+
+  const handleDownloadForeldremoeteMal = async () => {
+    setIsDownloading(true);
+    try {
+      const downloadUrl = await getForeldremoeteMalDownloadUrl();
+      
+      // Opprett download link
+      const link = document.createElement("a");
+      link.href = downloadUrl;
+      link.download = "Foredremøte-mal.pdf";
+      link.target = "_blank";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+    } catch (error) {
+      console.error("Download feilet:", error);
+      
+      // Type-safe error handling
+      const errorMessage = error instanceof Error 
+        ? error.message 
+        : "Ukjent feil oppstod";
+      
+      alert(`Kunne ikke laste ned foreldremøte-mal: ${errorMessage}`);
+      
+    } finally {
+      setIsDownloading(false);
+    }
+  };
+  
   // Forenklet datastruktur for informasjonselementer
   const informasjonsElementer = [
     {
@@ -20,6 +75,12 @@ function PraktiskInfo() {
       title: 'Hjemmearrangement',
       description: 'Brukerveiledninger for hjemmearrangement',
       link: '/praktisk-info/hjemmearrangement',
+    },
+    {
+      icon: <House size={24} />,
+      title: 'Barnehåndballarrangement',
+      description: 'Brukerveiledninger for barnehåndballarrangement',
+      link: '/praktisk-info/barnehandballarrangement',
     },
     {
       icon: <TvMinimalPlay size={24} />,
@@ -99,6 +160,31 @@ function PraktiskInfo() {
             Her finner du praktisk informasjon og nyttige ressurser for
             medlemmer, trenere og foreldre i KIL Håndball.
           </p>
+          <div className="flex justify-center my-4">
+            <Button
+              onClick={handleDownloadForeldremoeteMal}
+              disabled={isDownloading}
+              variant="outline"
+              size="sm"
+              className="font-roboto font-medium rounded-full 
+                        border-kilred text-kilred 
+                        hover:bg-kilred hover:text-white
+                        transition-all duration-200
+                        disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isDownloading ? (
+                <>
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-kilred mr-2"></div>
+                  Laster ned...
+                </>
+              ) : (
+                <>
+                  <Download className="mr-2 h-4 w-4" />
+                  Last ned foreldremøte-mal
+                </>
+              )}
+            </Button>
+          </div>
         </div>
 
         {/* Informasjonselementer */}

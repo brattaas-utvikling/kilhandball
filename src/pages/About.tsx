@@ -104,35 +104,26 @@ export default function AboutPage() {
 
   return (
     <div className="min-h-screen w-full">
-      {/* Hero Section - Fullscreen med bilde */}
-      <section className="relative h-screen -mx-[calc((100vw-100%)/2)] w-screen overflow-hidden">
-        {/* Background Image */}
-        <div className="absolute inset-0">
-          <img
-            // src={aboutData.img}
-            src="https://fra.cloud.appwrite.io/v1/storage/buckets/68bd6c630003e8e8b879/files/68cb14490009911eb3f6/view?project=68a9f0da0014cb9bd6ad&mode=admin"
-            alt={aboutData.headlines}
-            className="w-full h-screen object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-kilsvart-900/60 via-kilsvart-900/40 to-kilsvart-900/70" />
-        </div>
-
-        {/* Content */}
-        <div className="relative z-10 flex items-center justify-center h-full px-4">
+      {/* Hero Section */}
+      <section className="bg-gradient-to-b from-kilred to-kilred/70 overflow-hidden -mx-[calc((100vw-100%)/2)]  text-white w-screed">
+        <div className="container mx-auto py-12 px-4 md:px-6">
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.2 }}
+            transition={{ duration: 0.8 }}
             className="text-center max-w-4xl mx-auto"
           >
-            <h1 className="font-anton text-anton-4xl md:text-anton-5xl lg:text-anton-6xl text-white mb-6 tracking-wide leading-tight uppercase">
-              {aboutData.headlines}
+            <h1 className="font-anton font-bold text-anton-4xl md:text-anton-5xl mb-6 text-white tracking-wide uppercase text-center">
+            {aboutData.headlines}
             </h1>
-            <p className="text-xl md:text-2xl text-white/90 font-roboto leading-relaxed max-w-3xl mx-auto">
-              {aboutData.lead}
+            <p className="text-lg text-white font-roboto leading-relaxed">
+            {aboutData.lead}
             </p>
           </motion.div>
         </div>
+        </section>
+        <section>
+
 
         {/* Scroll indicator */}
         <motion.div
@@ -241,7 +232,7 @@ export default function AboutPage() {
                 <div className={`relative ${index % 2 === 1 ? "lg:col-start-2" : ""}`}>
                   <div className="relative rounded-2xl overflow-hidden shadow-kilred-lg group">
                     {/* Gradient placeholder hvis ikke bilde */}
-                    <div className="w-full h-[400px] flex items-center justify-center">
+                    <div className="w-full h-auto flex items-center justify-center">
                       {item.image && 
                        item.image !== "/placeholder-timeline-1.jpg" && 
                        item.image !== "/placeholder-timeline-2.jpg" && 
@@ -249,7 +240,7 @@ export default function AboutPage() {
                         <img
                           src={item.image}
                           alt={item.title}
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
                         />
                       ) : (
                         <div className="text-center">
@@ -292,7 +283,7 @@ export default function AboutPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-kilred text-white">
+      <section className="py-20 bg-kilred text-white overflow-hidden -mx-[calc((100vw-100%)/2)]">
         <div className="container mx-auto px-4 md:px-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -339,7 +330,7 @@ export default function AboutPage() {
                 className="text-center"
               >
                 <div className="text-4xl md:text-5xl font-anton text-white mb-2">
-                  {aboutData.years_tradition || 70}+
+                  {aboutData.years_tradition || 125}+
                 </div>
                 <div className="text-white/80 font-roboto text-sm tracking-widest uppercase">
                   ÅR MED TRADISJON
@@ -354,7 +345,7 @@ export default function AboutPage() {
                 className="text-center"
               >
                 <div className="text-4xl md:text-5xl font-anton text-white mb-2">
-                  {aboutData.active_members || 200}+
+                  {aboutData.active_members || 300}+
                 </div>
                 <div className="text-white/80 font-roboto text-sm tracking-widest uppercase">
                   AKTIVE MEDLEMMER

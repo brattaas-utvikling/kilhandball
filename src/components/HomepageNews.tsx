@@ -30,58 +30,6 @@ export default function HomepageNews() {
   return (
     <div className="min-h-screen w-full">
 
-      {/* Featured Article - Fullscreen */}
-<section className="relative w-full">
-  <motion.div
-    initial={{ opacity: 0, y: 30 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.8, delay: 0.2 }}
-    className="w-full"
-  >
-    <div className="relative h-screen w-full overflow-hidden">
-      {/* Background Image */}
-      <img
-        src={featuredArticle.img}
-        alt={featuredArticle.headlines}
-        className="absolute inset-0 w-full h-full object-cover"
-      />
-
-      {/* Semi-transparent overlay */}
-      <div className="absolute inset-0 bg-black/40" />
-
-      {/* Content with red background */}
-      <div className="absolute inset-0 flex items-end">
-        <div className="container mx-auto px-4 md:px-6 pb-12">
-          <div className="bg-kilred/90 text-white rounded-xl p-8 max-w-3xl shadow-lg">
-            {/* Meta Info */}
-            <div className="flex items-center gap-6 text-white/90 mb-4">
-              <div className="flex items-center gap-2 text-sm font-roboto">
-                <CalendarIcon className="h-4 w-4 text-white/80" />
-                <span>{formatDate(featuredArticle.created_at)}</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm font-roboto">
-                <UserIcon className="h-4 w-4 text-white/80" />
-                <span>{featuredArticle.author}</span>
-              </div>
-            </div>
-
-            {/* Headlines & Content */}
-            <h2 className="font-anton text-anton-3xl md:text-anton-4xl mb-4 tracking-wide">
-              {featuredArticle.headlines}
-            </h2>
-            <p className="font-roboto text-lg md:text-xl leading-relaxed mb-6">
-              {featuredArticle.lead}
-            </p>
-            <p className="font-roboto leading-relaxed">
-              {featuredArticle.content}
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </motion.div>
-</section>
-
 {/* Regular Articles */}
 <section className="py-16">
   <div className="container mx-auto px-4 md:px-6 space-y-16">
@@ -89,8 +37,8 @@ export default function HomepageNews() {
       <motion.article
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.4 }}
-        className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center max-w-6xl mx-auto"
+        transition={{ duration: 0.6, delay: 0.2 }}
+        className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center max-w-7xl mx-auto"
       >
         {/* Left - Image */}
         <div className="w-full h-auto overflow-hidden rounded-xl shadow-lg">
@@ -180,7 +128,57 @@ export default function HomepageNews() {
     {/* Hvis du vil ha denne hardkodet for håndballskole alene, kan du legge den til som et eget <motion.article> under */}
   </div>
 </section>
+      {/* Featured Article - Fullscreen */}
+      <section className="relative w-full">
+  <motion.div
+    initial={{ opacity: 0, y: 30 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.6, delay: 0.4 }}
+    className="w-full"
+  >
+    <div className="relative h-screen w-full overflow-hidden">
+      {/* Background Image */}
+      <img
+        src={featuredArticle.img}
+        alt={featuredArticle.headlines}
+        className="absolute inset-0 w-full h-full object-cover"
+      />
 
+      {/* Semi-transparent overlay */}
+      <div className="absolute inset-0 bg-black/40" />
+
+      {/* Content with red background */}
+      <div className="absolute inset-0 flex items-end">
+        <div className="container mx-auto px-4 md:px-6 pb-12">
+          <div className="bg-kilred/90 text-white rounded-xl p-8 max-w-3xl shadow-lg">
+            {/* Meta Info */}
+            <div className="flex items-center gap-6 text-white/90 mb-4">
+              <div className="flex items-center gap-2 text-sm font-roboto">
+                <CalendarIcon className="h-4 w-4 text-white/80" />
+                <span>{formatDate(featuredArticle.created_at)}</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm font-roboto">
+                <UserIcon className="h-4 w-4 text-white/80" />
+                <span>{featuredArticle.author}</span>
+              </div>
+            </div>
+
+            {/* Headlines & Content */}
+            <h2 className="font-anton text-anton-3xl md:text-anton-4xl mb-4 tracking-wide">
+              {featuredArticle.headlines}
+            </h2>
+            <p className="font-roboto text-lg md:text-xl leading-relaxed mb-6">
+              {featuredArticle.lead}
+            </p>
+            <p className="font-roboto leading-relaxed">
+              {featuredArticle.content}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </motion.div>
+</section>
 
     </div>
   );
