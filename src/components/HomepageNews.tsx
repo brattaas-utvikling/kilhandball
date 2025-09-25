@@ -38,7 +38,7 @@ export default function HomepageNews() {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.2 }}
-        className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center max-w-7xl mx-auto"
+        className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center max-w-7xl mx-auto"
       >
         {/* Left - Image */}
         <div className="w-full h-auto overflow-hidden rounded-xl shadow-lg">
