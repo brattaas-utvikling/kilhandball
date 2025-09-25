@@ -281,7 +281,7 @@ const Hjemmearrangement = () => {
 
   return (
     <div className="min-h-screen py-8">
-      <div className="max-w-5xl mx-auto px-4">
+      <div className="max-w-5xl mx-auto">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -30 }}

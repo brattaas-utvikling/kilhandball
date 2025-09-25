@@ -75,7 +75,7 @@ const Contact = () => {
       telefon: "90667312"
     },
     {
-      navn: "Sara Bourne Holtet",
+      navn: "Sarah Bourne Holtet",
       stilling: "Medlem",
       epost: "sarah_bourne6@hotmail.com",
       telefon: "91158686"
@@ -96,10 +96,10 @@ const Contact = () => {
 
   const dommerTeam = [
     {
-      navn: "Ingvald Moe Gimse",
+      navn: "Filippa My Lindgren",
       stilling: "Dommeransvarlig",
-      epost: "Ingvald.Moe.gimse@gmail.com",
-      telefon: "90252766"
+      epost: "Kommer snart",
+      telefon: "95013931"
     },
     {
       navn: "Bent Rode-Christoffersen",
@@ -117,7 +117,7 @@ const Contact = () => {
       className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm"
     >
       <div className="flex items-start space-x-3">
-        <div className="p-2 ounded-lg flex-shrink-0">
+        <div className="p-2 flex-shrink-0">
           <User className="w-4 h-4 text-kilred-600" />
         </div>
         <div className="flex-1">
@@ -126,7 +126,7 @@ const Contact = () => {
           
           {person.epost && (
             <div className="flex items-center text-xs mb-1">
-              <Mail className="w-3 h-3 mr-1 text-kilsvart-600" />
+              <Mail className="w-3 h-3 mr-1 text-kilred" />
               <a 
                 href={`mailto:${person.epost}`}
                 className="text-kilsvart-600 hover:text-kilsvart-800 hover:underline transition-colors"
@@ -138,7 +138,7 @@ const Contact = () => {
           
           {person.telefon && (
             <div className="flex items-center text-xs">
-              <Phone className="w-3 h-3 mr-1 text-kilsvart-500" />
+              <Phone className="w-3 h-3 mr-1 text-kilred" />
               <a 
                 href={`tel:+47${person.telefon}`}
                 className="text-kilsvart-500 hover:text-svart-700 hover:underline transition-colors"

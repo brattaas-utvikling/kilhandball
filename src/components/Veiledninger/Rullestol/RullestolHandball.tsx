@@ -324,7 +324,7 @@ const RullestolHandball = () => {
 
   return (
     <div className="min-h-screen pt-8">
-      <div className="max-w-5xl mx-auto px-4">
+      <div className="max-w-5xl mx-auto">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -30 }}

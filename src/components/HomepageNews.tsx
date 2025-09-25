@@ -111,7 +111,7 @@ export default function HomepageNews() {
               <li>14.45 Økt 1</li>
               <li>15.30 Fruktpause</li>
               <li>15.45 Økt 2</li>
-              <li>16.30 Avslutning</li>
+              <li>16.00 Avslutning</li>
             </ul>
 
             <p>

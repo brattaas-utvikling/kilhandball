@@ -362,7 +362,7 @@ kamp:
 
   return (
     <div className="min-h-screen py-8">
-      <div className="max-w-5xl mx-auto px-4">
+      <div className="max-w-5xl mx-auto">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -30 }}
@@ -374,9 +374,9 @@ kamp:
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-anton-4xl md:text-anton-5xl font-anton text-kilsvart mb-4 uppercase"
+            className="text-anton-3xl md:text-anton-5xl font-anton text-kilsvart mb-4 uppercase"
           >
-            BARNEHÅNDBALL-ARRANGEMENT
+            Arrangere barnehåndball
           </motion.h1>
           <motion.div 
             initial={{ width: 0 }}

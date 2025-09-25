@@ -68,7 +68,7 @@ const SportsligPlan = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="container mx-auto px-4 py-8 lg:flex lg:gap-8">
+      <div className="container mx-auto py-8 lg:flex lg:gap-8">
         {/* Desktop Sidebar TOC */}
         <div className="hidden lg:block lg:w-80 lg:flex-shrink-0">
           <div className="sticky top-24 bg-white rounded-lg shadow-md p-6 max-h-[calc(100vh-8rem)] overflow-y-auto">
