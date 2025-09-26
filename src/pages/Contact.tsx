@@ -165,7 +165,7 @@ const Contact = () => {
             className="text-center max-w-4xl mx-auto"
           >
             <h1 className="font-anton font-bold text-anton-4xl md:text-anton-5xl mb-6 text-white tracking-wide uppercase text-center">
-              Kontaktinformasjon
+              Kontakt oss
             </h1>
             <p className="text-lg text-white font-roboto leading-relaxed">
               Vi hører gjerne fra deg! Enten du er interessert i å bli med i
