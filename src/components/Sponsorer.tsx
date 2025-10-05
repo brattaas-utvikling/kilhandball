@@ -1,4 +1,4 @@
-import { Sponsor } from '../../types/Sponsor';
+import { Sponsor } from '../types/Sponsor';
 
 // Sponsor data
 const sponsorsData = [
@@ -56,7 +56,7 @@ function Sponsorer() {
   return (
     <section className="py-12">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-8 uppercase text-kilsvart">
+        <h2 className="font-anton font-bold text-anton-4xl md:text-anton-5xl my-8 tracking-wide text-center text-kilsvart uppercase">
           Våre sponsorer
         </h2>
 

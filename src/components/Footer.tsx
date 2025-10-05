@@ -1,5 +1,5 @@
 import { FaFacebook, FaInstagram } from 'react-icons/fa6';
-import Logo from '../../assets/kil_logo.png';
+import Logo from '../assets/kil_logo.png';
 
 function Footer() {
   return (
@@ -54,7 +54,7 @@ function Footer() {
           <p className="text-base font-roboto mb-4 md:mb-0">
             &copy; 2025 KIL Håndball | Designet og utviklet av{' '}
             <a
-              className="text-kilblue/80 text-lg hover:underline hover:text-white/80 transition-all duration-200"
+              className="text-kilblue text-lg hover:underline hover:text-kilblue-600 transition-all duration-200"
               target="_blank"
               rel="noopener noreferrer"
               href="https://www.brattaasutvikling.no"

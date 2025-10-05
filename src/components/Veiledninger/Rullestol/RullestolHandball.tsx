@@ -406,23 +406,23 @@ const RullestolHandball = () => {
               <h2 className="font-anton text-anton-3xl md:text-anton-4xl text-white tracking-wide mb-6">
                 INTERESSERT I Å DELTA?
               </h2>
-              <p className="text-lg md:text-xl text-white/90 font-roboto leading-relaxed mb-12 max-w-2xl mx-auto">
+              <p className="text-lg md:text-xl text-white/90 font-roboto leading-relaxed mb-12 max-w-3xl mx-auto">
                 For påmelding eller mer informasjon om rullestolhåndball hos Kongsvinger IL Håndball, 
-                ta kontakt med oss. Vi arrangerer jevnlig prøvetreninger og informasjonsmøter.
+                ta kontakt med Hans Johan Hanssen!
               </p>
               
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
                 <motion.a
-                  href="tel:91607759"
+                  href="tel:91164609"
                   className="font-roboto font-medium bg-white text-kilred hover:bg-kilred hover:text-white hover:border-2 hover:border-white border-2 border-white shadow-lg hover:shadow-xl transition-all duration-300 px-8 py-4 text-lg w-full sm:w-auto rounded-lg inline-flex items-center justify-center"
                 >
                   <Phone className="w-5 h-5 mr-3" />
-                  Ring 916 07 759
+                  Ring 911 64 609
                 </motion.a>
                 
                 <motion.a
-                  href="mailto:post@kilhandball.no"
+                  href="mailto:hansj.hanssen@outlook.com"
                   className="font-roboto font-medium border-2 border-white text-white hover:bg-white hover:text-kilred px-8 py-4 text-lg w-full sm:w-auto rounded-lg inline-flex items-center justify-center transition-all duration-300"
                 >
                   <Mail className="w-5 h-5 mr-3" />
@@ -449,7 +449,7 @@ const RullestolHandball = () => {
             </p>
                           
             <p className="text-gray-50 font-roboto text-sm mt-8">
-                Kontakt: Sportslig utvalg
+                Kontakt: Hans-Johan Hanssen
               </p>
           </motion.div>
         </motion.div>

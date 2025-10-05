@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import SimplePDFViewer from '../SimplePDFViewer';
+import SimplePDFViewer from './SimplePDFViewer';
 import { Link } from 'react-router-dom';
 
 const PDFViewerPage = () => {

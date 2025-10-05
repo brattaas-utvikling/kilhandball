@@ -1,8 +1,8 @@
-import Herrelag from '../../assets/herrelag.webp';
-import Kasese from '../../assets/kasese.webp';
-import Rullestol from '../../assets/rullestol_handball.webp';
-import KastBallen from '../../assets/kast_ballen.jpg';
-import Damelag from '../../assets/damelag.webp';
+import Herrelag from '../assets/herrelag.webp';
+import Kasese from '../assets/kasese.webp';
+import Rullestol from '../assets/rullestol_handball.webp';
+import KastBallen from '../assets/kast_ballen.jpg';
+import Damelag from '../assets/damelag.webp';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, EffectFade } from 'swiper/modules';
@@ -11,7 +11,7 @@ import { Autoplay, Pagination, EffectFade } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/effect-fade';
-import TrastadhallenKamper from '../TrastadhallenKamper';
+import TrastadhallenKamper from './TrastadhallenKamper';
 
 export function HeroSection() {
   const images = [Herrelag, Kasese, Rullestol, Damelag, KastBallen];
