@@ -26,18 +26,18 @@ type Day = 'Mandag' | 'Tirsdag' | 'Onsdag' | 'Torsdag' | 'Fredag';
 const useScheduleData = () => {
   const scheduleData: ScheduleData = {
     TRÅSTAD: {
-      "16:00": { Mandag: "J13", Tirsdag: "J16", Onsdag: "G16", Torsdag: "J16", Fredag: "" },
+      "16:00": { Mandag: "J13", Tirsdag: "J16", Onsdag: "G16", Torsdag: "J16", Fredag: "Ledig halltid" },
       "16:30": { Mandag: "J13", Tirsdag: "J16", Onsdag: "G16", Torsdag: "J16", Fredag: "J2016" },
       "17:00": { Mandag: "J13", Tirsdag: "J16", Onsdag: "G16", Torsdag: "J16", Fredag: "J2016" },
       "17:30": { Mandag: "G2017/J2017", Tirsdag: "D", Onsdag: "J2014+J2015/G2016", Torsdag: "D", Fredag: "J2016" },
-      "18:00": { Mandag: "G2017/J2017", Tirsdag: "D", Onsdag: "J2014+J2015/G2016", Torsdag: "D", Fredag: "" },
-      "18:30": { Mandag: "G2017/J2017", Tirsdag: "D", Onsdag: "J2014+J2015/G2016", Torsdag: "D", Fredag: "" },
-      "19:00": { Mandag: "G2015/G2014", Tirsdag: "J16-2", Onsdag: "J13", Torsdag: "J15/J16-2", Fredag: "" },
-      "19:30": { Mandag: "G2015/G2014", Tirsdag: "J16-2", Onsdag: "J13", Torsdag: "J15/J16-2", Fredag: "" },
-      "20:00": { Mandag: "G2015/G2014", Tirsdag: "J16-2/J15", Onsdag: "J13/D40", Torsdag: "J15/J16-2", Fredag: "" },
-      "20:30": { Mandag: "H3", Tirsdag: "J15", Onsdag: "D40", Torsdag: "G16", Fredag: "" },
-      "21:00": { Mandag: "H3", Tirsdag: "J15", Onsdag: "D40", Torsdag: "G16", Fredag: "" },
-      "21:30": { Mandag: "H3", Tirsdag: "", Onsdag: "", Torsdag: "G16", Fredag: "" }
+      "18:00": { Mandag: "G2017/J2017", Tirsdag: "D", Onsdag: "J2014+J2015/G2016", Torsdag: "D", Fredag: "Ledig halltid" },
+      "18:30": { Mandag: "G2017/J2017", Tirsdag: "D", Onsdag: "J2014+J2015/G2016", Torsdag: "D", Fredag: "Ledig halltid" },
+      "19:00": { Mandag: "G2015/G2014", Tirsdag: "J16-2", Onsdag: "J13", Torsdag: "J15/J16-2", Fredag: "Ledig halltid" },
+      "19:30": { Mandag: "G2015/G2014", Tirsdag: "J16-2", Onsdag: "J13", Torsdag: "J15/J16-2", Fredag: "Ledig halltid" },
+      "20:00": { Mandag: "G2015/G2014", Tirsdag: "J16-2/J15", Onsdag: "J13/D40", Torsdag: "J15/J16-2", Fredag: "Ledig halltid" },
+      "20:30": { Mandag: "H3", Tirsdag: "J15", Onsdag: "D40", Torsdag: "G16", Fredag: "Ledig halltid" },
+      "21:00": { Mandag: "H3", Tirsdag: "J15", Onsdag: "D40", Torsdag: "G16", Fredag: "Ledig halltid" },
+      "21:30": { Mandag: "H3", Tirsdag: "", Onsdag: "", Torsdag: "G16", Fredag: "Ledig halltid" }
     },
     KUSK: {
       "16:00": { Mandag: "", Tirsdag: "", Onsdag: "", Torsdag: "", Fredag: "" },
@@ -168,20 +168,23 @@ interface ScheduleCellProps {
 
 const ScheduleCell: React.FC<ScheduleCellProps> = ({ team, hallColors, currentHall }) => {
   const isEmpty = !team;
+  const isOccupied = team.toLowerCase() === 'ledig halltid';
   
   return (
     <div className={`
       relative h-16 flex items-center justify-center text-sm font-medium transition-all duration-150
       ${isEmpty 
         ? 'bg-slate-50 text-slate-400' 
-        : `bg-white ${hallColors[currentHall].text} border-l-4 ${hallColors[currentHall].accent}`
+        : isOccupied
+          ? 'bg-gray-100 text-gray-600 border-l-4 border-gray-400'
+          : `bg-white ${hallColors[currentHall].text} border-l-4 ${hallColors[currentHall].accent}`
       }
     `}>
       {isEmpty ? (
         <span className="text-xs opacity-50">—</span>
       ) : (
         <div className="text-center">
-          <div className="font-semibold">{team}</div>
+          <div className={`font-semibold ${isOccupied ? 'italic' : ''}`}>{team}</div>
         </div>
       )}
     </div>
@@ -279,7 +282,6 @@ const Treningsoversikt: React.FC = () => {
       </div>
       
       <div className="overflow-x-auto">
-        {/* Endret fra 120px repeat(5, minmax(150px, 1 fr)) */}
         <div 
           className="grid gap-px bg-slate-200 min-w-full" 
           style={{ gridTemplateColumns: '80px repeat(5, minmax(100px, 1fr))' }}
@@ -326,8 +328,9 @@ const Treningsoversikt: React.FC = () => {
           <h1 className="font-anton font-bold text-anton-4xl md:text-anton-5xl mb-6 text-white tracking-wide uppercase text-center">
             Treningsoversikt
           </h1>
+          <p className='text-white/80 text-left text-base font-roboto mb-4'>Tabellen nedenfor viser oversikt over treningene til alle lag i KIL Håndball. Det er kun ledig tid der det står "Ledig halltid", alt annet er det andre idretter som disponerer i Kongsvinger Kommune. Ta kontakt med Sportslig utvalg, om man ønsker å benytte seg av treningstider i "Ledig halltid".</p>
           <p className="text-white/60 text-center text-sm font-roboto">
-            Sist oppdatert 23. august 2025
+            Sist oppdatert 14. oktober 2025
           </p>
         </div>
       </section>
