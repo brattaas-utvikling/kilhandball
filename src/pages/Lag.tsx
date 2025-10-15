@@ -159,51 +159,52 @@ function TeamList({
 
       {/* Teams list */}
       <div className="divide-y divide-gray-100 dark:divide-kilsvart-700/50">
-        {teams.map((team, index) => (
-          <motion.div
-            key={team.$id}
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.4, delay: index * 0.1 }}
-            className="group relative overflow-hidden"
-          >
-            {/* Hover background gradient */}
-            <div className="absolute inset-0 bg-gradient-to-r from-kilred/0 to-kilred/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 group-hover:border-l-2 group-hover:border-kilred" />
-            
-            <button
-              onClick={() => onTeamClick(team)}
-              className="relative w-full flex items-center justify-between py-4 px-6 transition-all duration-200 group-hover:translate-x-1 text-left cursor-pointer focus:outline-none focus:ring-2 focus:ring-kilred focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-kilsvart-900 rounded-lg"
-            >
-              {/* Left side - Team name */}
-              <div className="flex items-center gap-4 min-w-0 flex-1">
-                <div className="min-w-0 flex-1">
-                  <h4 className="font-anton text-anton-base text-kilsvart-900 dark:text-white group-hover:text-kilred dark:group-hover:text-kilred-400 transition-colors duration-200 truncate tracking-wide">
-                    {team.team_name}
-                  </h4>
-                </div>
-              </div>
+  {teams.map((team, index) => (
+    <motion.div
+      key={team.$id}
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.4, delay: index * 0.1 }}
+      className="group relative overflow-hidden"
+    >
+      {/* Hover background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-r from-kilred/0 to-kilred/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 group-hover:border-l-2 group-hover:border-kilred" />
+      
+      <button
+        onClick={() => onTeamClick(team)}
+        className="relative w-full flex items-center justify-between py-4 px-6 transition-all duration-200 group-hover:translate-x-1 text-left cursor-pointer focus:outline-none focus:ring-2 focus:ring-kilred focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-kilsvart-900 rounded-lg"
+      >
+        {/* Left side - Team name */}
+        <div className="flex items-center gap-4 min-w-0">
+          <div className="min-w-0">
+            <h4 className="font-anton text-anton-base text-kilsvart-900 dark:text-white group-hover:text-kilred dark:group-hover:text-kilred-400 transition-colors duration-200 truncate tracking-wide">
+              {team.team_name}
+            </h4>
+          </div>
+        </div>
 
-              {/* Right side - Coach name and contact icons */}
-              <div className="flex items-center gap-4 flex-shrink-0">
-                <div className="text-right hidden sm:block">
-                  <div className="font-roboto font-medium text-sm text-kilsvart-900 dark:text-white">
-                    {team.coach_name}
-                  </div>
-                </div>
+        {/* Middle - Coach name */}
+        <div className="flex-1 text-left hidden sm:block px-4">
+          <div className="font-roboto font-medium text-sm text-kilsvart-900 dark:text-white">
+            {team.coach_name}
+          </div>
+        </div>
 
-                {/* Contact icons */}
-                <div className="flex items-center gap-2">
-                  <Mail className="h-4 w-4 text-kilred dark:text-kilred-400" />
-                  <Phone className="h-4 w-4 text-kilred dark:text-kilred-400" />
-                </div>
+        {/* Right side - Contact icons and arrow */}
+        <div className="flex items-center gap-4 flex-shrink-0">
+          {/* Contact icons */}
+          <div className="flex items-center gap-2">
+            <Mail className="h-4 w-4 text-kilred dark:text-kilred-400" />
+            <Phone className="h-4 w-4 text-kilred dark:text-kilred-400" />
+          </div>
 
-                {/* Arrow */}
-                <ArrowRight className="h-4 w-4 text-gray-300 dark:text-gray-600 group-hover:text-kilred dark:group-hover:text-kilred-400 transition-all duration-200 group-hover:translate-x-1 flex-shrink-0" />
-              </div>
-            </button>
-          </motion.div>
-        ))}
-      </div>
+          {/* Arrow */}
+          <ArrowRight className="h-4 w-4 text-gray-300 dark:text-gray-600 group-hover:text-kilred dark:group-hover:text-kilred-400 transition-all duration-200 group-hover:translate-x-1 flex-shrink-0" />
+        </div>
+      </button>
+    </motion.div>
+  ))}
+</div>
 
       {/* Footer */}
       <div className="bg-gray-50/50 dark:bg-kilsvart-800/30 px-6 py-4 border-t border-gray-100/50 dark:border-kilsvart-700/30">
@@ -401,52 +402,52 @@ export default function Lag() {
 
                 {/* Teams list */}
                 <div className="divide-y divide-gray-100 dark:divide-kilsvart-700/50">
-                  {teams.map((team, index) => (
-                    <motion.div
-                      key={team.$id}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.4, delay: index * 0.1 }}
-                      className="group relative overflow-hidden"
-                    >
-                      {/* Hover background gradient */}
-                      <div className="absolute inset-0 bg-gradient-to-r from-kilred/0 to-kilred/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 group-hover:border-l-2 group-hover:border-kilred" />
-                      
-                      <button
-                        onClick={() => handleOpenModal(team)}
-                        className="relative w-full flex items-center justify-between py-4 px-6 transition-all duration-200 group-hover:translate-x-1 text-left cursor-pointer focus:outline-none focus:ring-2 focus:ring-kilred focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-kilsvart-900 rounded-lg"
-                      >
-                        
-                        {/* Left side - Team name */}
-                        <div className="flex items-center gap-4 min-w-0 flex-1">
-                          <div className="min-w-0 flex-1">
-                            <h4 className="font-anton text-anton-base text-kilsvart-900 dark:text-white group-hover:text-kilred dark:group-hover:text-kilred-400 transition-colors duration-200 truncate tracking-wide">
-                              {team.team_name}
-                            </h4>
-                          </div>
-                        </div>
+  {teams.map((team, index) => (
+    <motion.div
+      key={team.$id}
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.4, delay: index * 0.1 }}
+      className="group relative overflow-hidden"
+    >
+      {/* Hover background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-r from-kilred/0 to-kilred/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 group-hover:border-l-2 group-hover:border-kilred" />
+      
+      <button
+        onClick={() => handleOpenModal(team)}
+        className="relative w-full flex items-center justify-between py-4 px-6 transition-all duration-200 group-hover:translate-x-1 text-left cursor-pointer focus:outline-none focus:ring-2 focus:ring-kilred focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-kilsvart-900 rounded-lg"
+      >
+        {/* Left side - Team name */}
+        <div className="flex items-center gap-4 min-w-0">
+          <div className="min-w-0">
+            <h4 className="font-anton text-anton-base text-kilsvart-900 dark:text-white group-hover:text-kilred dark:group-hover:text-kilred-400 transition-colors duration-200 truncate tracking-wide">
+              {team.team_name}
+            </h4>
+          </div>
+        </div>
 
-                        {/* Right side - Coach name and contact icons */}
-                        <div className="flex items-center gap-4 flex-shrink-0">
-                          <div className="text-right hidden sm:block">
-                            <div className="font-roboto font-medium text-sm text-kilsvart-900 dark:text-white">
-                              {team.coach_name}
-                            </div>
-                          </div>
+        {/* Middle - Coach name */}
+        <div className="flex-1 text-left hidden sm:block px-4">
+          <div className="font-roboto font-medium text-sm text-kilsvart-900 dark:text-white">
+            {team.coach_name}
+          </div>
+        </div>
 
-                          {/* Contact icons */}
-                          <div className="flex items-center gap-2">
-                            <Mail className="h-4 w-4 text-kilred dark:text-kilred-400" />
-                            <Phone className="h-4 w-4 text-kilred dark:text-kilred-400" />
-                          </div>
+        {/* Right side - Contact icons and arrow */}
+        <div className="flex items-center gap-4 flex-shrink-0">
+          {/* Contact icons */}
+          <div className="flex items-center gap-2">
+            <Mail className="h-4 w-4 text-kilred dark:text-kilred-400" />
+            <Phone className="h-4 w-4 text-kilred dark:text-kilred-400" />
+          </div>
 
-                          {/* Arrow */}
-                          <ArrowRight className="h-4 w-4 text-gray-300 dark:text-gray-600 group-hover:text-kilred dark:group-hover:text-kilred-400 transition-all duration-200 group-hover:translate-x-1 flex-shrink-0" />
-                        </div>
-                      </button>
-                    </motion.div>
-                  ))}
-                </div>
+          {/* Arrow */}
+          <ArrowRight className="h-4 w-4 text-gray-300 dark:text-gray-600 group-hover:text-kilred dark:group-hover:text-kilred-400 transition-all duration-200 group-hover:translate-x-1 flex-shrink-0" />
+        </div>
+      </button>
+    </motion.div>
+  ))}
+</div>
 
                 {/* Footer */}
                 <div className="bg-gray-50/50 dark:bg-kilsvart-800/30 px-6 py-4 border-t border-gray-100/50 dark:border-kilsvart-700/30">
