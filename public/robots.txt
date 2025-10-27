@@ -1,0 +1,26 @@
+User-agent: Meta-ExternalAgent
+Disallow: /
+
+User-agent: FacebookExternalHit
+Disallow: /
+
+User-agent: oai-searchbot
+Disallow: /
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: petalbot
+Disallow: /
+
+# Vi lar Google/Bing indeksere vanlig innhold,
+# men IKKE de lange SEO-sidene dine som ble spammet
+User-agent: bingbot
+Disallow: /build-your-own-
+
+User-agent: googlebot
+Disallow: /build-your-own-
+
+# fallback for andre roboter
+User-agent: *
+Disallow: /build-your-own-

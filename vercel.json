@@ -1,7 +1,26 @@
 {
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/$1" },
-    { "source": "/((?!.*\\.).*)", "destination": "/index.html" }
+    {
+      "source": "/build-your-own-:slug*",
+      "destination": "/blocked.html"
+    },
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
+    },
+    {
+      "source": "/((?!.*\\.).*)",
+      "destination": "/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/blocked.html",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=3600" },
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive, noai, noimageai" }
+      ]
+    }
   ],
   "buildCommand": "npm run build",
   "outputDirectory": "dist"
