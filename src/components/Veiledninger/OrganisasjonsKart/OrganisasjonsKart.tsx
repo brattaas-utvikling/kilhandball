@@ -195,7 +195,7 @@ function OrganisasjonsKart() {
         {
           name: 'Filippa My Lindgren',
           role: 'Dommeransvarlig',
-          email: 'Kommer snart',
+          email: 'filippamy08@icloud.com',
           phone: 95013931,
           responsibilities: ['Dommeransvarlig'],
         },

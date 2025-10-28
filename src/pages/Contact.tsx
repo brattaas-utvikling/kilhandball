@@ -98,7 +98,7 @@ const Contact = () => {
     {
       navn: "Filippa My Lindgren",
       stilling: "Dommeransvarlig",
-      epost: "Kommer snart",
+      epost: "filippamy08@icloud.com",
       telefon: "95013931"
     },
     {
@@ -224,7 +224,7 @@ const Contact = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
               <motion.a
                 href="mailto:post@kilhandball.no"
-                className="flex items-center p-4 bg-kilred-400 border border-kilred-200 rounded-lg hover:bg-kilred-500 transition-colors duration-300 cursor-pointer"
+                className="flex items-center p-4 bg-kilred border border-kilred-200 rounded-lg hover:bg-kilred-600 transition-colors duration-300 cursor-pointer"
               >
                 <Mail className="w-5 h-5 text-white mr-3" />
                 <div>

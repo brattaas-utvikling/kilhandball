@@ -123,10 +123,10 @@ function KlubbKontakt() {
       icon: <GiWhistle size={24} />,
       members: [
         {
-          name: 'Ingvald Moe Gimse',
+          name: 'Filippa My Lindgren',
           role: 'Dommeransvarlig',
-          email: 'Ingvald.Moe.gimse@gmail.com',
-          phone: 90252766,
+          email: 'filippamy08@icloud.com',
+          phone: 95013931,
         },
         {
           name: 'Bent Rode-Christoffersen',

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Forside -->
+  <url>
+    <loc>https://kilhandball.no/</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Praktisk info -->
+  <url>
+    <loc>https://kilhandball.no/praktisk-info</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Praktisk info: Sportslig -->
+  <url>
+    <loc>https://kilhandball.no/praktisk-info/sportslig</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+    <!-- Praktisk info: organisasjonskart -->
+  <url>
+    <loc>https://kilhandball.no/praktisk-info/organisasjonskart</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+    <!-- Praktisk info: rullestolhandball -->
+  <url>
+    <loc>https://kilhandball.no/praktisk-info/rullestolhandball</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+    <!-- Praktisk info: hjemmearrangement -->
+  <url>
+    <loc>https://kilhandball.no/praktisk-info/hjemmearrangement</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+    <!-- Praktisk info: barnehandballarrangement -->
+  <url>
+    <loc>https://kilhandball.no/praktisk-info/barnehandballarrangement</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+      <!-- Praktisk info: klubbdrift -->
+  <url>
+    <loc>https://kilhandball.no/praktisk-info/klubbdrift</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+    <!-- Praktisk info: Årshjul -->
+  <url>
+    <loc>https://kilhandball.no/praktisk-info/aarshjul</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+    <!-- Praktisk info: dommer -->
+  <url>
+    <loc>https://kilhandball.no/praktisk-info/dommer</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Lag / spillere / sportslig info -->
+  <url>
+    <loc>https://kilhandball.no/lag</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Trening / tider / arrangement -->
+  <url>
+    <loc>https://kilhandball.no/treningstider</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Kamper / arrangement -->
+  <url>
+    <loc>https://kilhandball.no/kamper</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Nyheter -->
+  <url>
+    <loc>https://kilhandball.no/nyheter</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Om oss -->
+  <url>
+    <loc>https://kilhandball.no/om-oss</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Kontakt -->
+  <url>
+    <loc>https://kilhandball.no/kontakt</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+</urlset>
