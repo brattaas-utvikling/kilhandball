@@ -11,7 +11,7 @@ import { Autoplay, Pagination, EffectFade } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/effect-fade';
-import TrastadhallenKamper from './TrastadhallenKamper';
+// import TrastadhallenKamper from './TrastadhallenKamper';
 
 export function HeroSection() {
   const images = [Herrelag, Kasese, Rullestol, Damelag, KastBallen];
@@ -33,11 +33,11 @@ export function HeroSection() {
               fellesskap som binder sammen generasjoner av idrettsentusiaster i
               Kongsvinger kommune.
             </p>
-            <div className="mt-4">
+            {/* <div className="mt-4">
               <div className="flex flex-wrap gap-4 pt-2 text-sm text-white/30">
                 <TrastadhallenKamper />
               </div>
-            </div>
+            </div> */}
           </div>
 
           {/* Right side - Carousel */}
