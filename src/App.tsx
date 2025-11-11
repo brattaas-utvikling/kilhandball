@@ -15,7 +15,7 @@ import PDFViewerPage from './components/PDFViewerPage';
 import OrganisasjonsKart from './components/Veiledninger/OrganisasjonsKart';
 import ErrorPage from './components/ErrorPage';
 import Treningsoversikt from './pages/Treningsoversikt';
-import Kamper from './components/Kamper';
+// import Kamper from './components/Kamper';
 import Nyheter from './pages/Nyheter';
 import NyheterArtikkel from './pages/NyheterArtikkel';
 import Lag from './pages/Lag';
@@ -34,7 +34,7 @@ function App() {
           element={<NyheterArtikkel />}
           />
           <Route path="/om-oss" element={<About />} />
-          <Route path="/kamper" element={<Kamper />} />
+          {/* <Route path="/kamper" element={<Kamper />} /> */}
           <Route path="/lag" element={<Lag />} />
           <Route path="/treningstider" element={<Treningsoversikt />} />
           <Route path="/praktisk-info" element={<PraktiskInfo />} />
