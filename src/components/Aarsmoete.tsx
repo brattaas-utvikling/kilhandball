@@ -16,7 +16,7 @@ export default function Aarsmoete() {
 
 return (
 
-<div className="p-6 md:p-10 lg:p-16 bg-gradient-to-b from-kilred to-kilred/70 overflow-hidden -mx-[calc((100vw-100%)/2)] text-white w-screed">
+<div className="p-6 md:p-10 lg:p-16 bg-gradient-to-b from-kilred to-kilred/70 overflow-hidden -mx-[calc((100vw-100%)/2)] text-white w-screen">
 <div className='w-7xl mx-auto'>
   <h2 className="text-xl md:text-2xl font-bold font-anton text-white mb-4">
     Innkalling til årsmøte i Kongsvinger IL Håndball 27. MARS 2025

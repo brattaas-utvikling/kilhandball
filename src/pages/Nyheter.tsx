@@ -125,7 +125,7 @@ export default function NewsPage() {
   return (
     <div className="min-h-screen w-full">
       {/* Hero Section */}
-      <section className="bg-gradient-to-b from-kilred to-kilred/70 overflow-hidden -mx-[calc((100vw-100%)/2)]  text-white w-screed">
+      <section className="bg-gradient-to-b from-kilred to-kilred/70 overflow-hidden -mx-[calc((100vw-100%)/2)]  text-white w-screen">
         <div className="container mx-auto py-12 px-4 md:px-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}

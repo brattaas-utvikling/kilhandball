@@ -9,8 +9,10 @@ import {
   Clock,
   MapPin,
   AlertCircle,
-  ExternalLink
+  ExternalLink,
+  NotebookText
 } from 'lucide-react';
+
 
 const Hjemmearrangement = () => {
 
@@ -34,13 +36,13 @@ const Hjemmearrangement = () => {
               <h4 className="font-semibold text-kilsvart mb-2">Billett / Fair Play-vert / Garderober</h4>
               <p className="text-sm text-gray-600">1 person</p>
             </div>
-            <div className="bg-kildarkblue-50 p-4 rounded-lg border-l-4 border-kildarkblue">
-              <h4 className="font-semibold text-kilsvart mb-2">LIVE</h4>
-              <p className="text-sm text-gray-600">1 person</p>
-            </div>
             <div className="bg-kilsvart-50 p-4 rounded-lg border-l-4 border-kilsvart">
               <h4 className="font-semibold text-kilsvart mb-2">Sekretariat</h4>
               <p className="text-sm text-gray-600">2 personer</p>
+            </div>
+            <div className="bg-gradient-to-br from-gray-600 via-kilsvart to-kilred-600 p-4 rounded-lg border-l-4 border-kilred-600">
+              <h4 className="font-semibold text-white mb-2">LIVE</h4>
+              <p className="text-sm text-white">1 person</p>
             </div>
           </div>
         </div>
@@ -115,7 +117,8 @@ const Hjemmearrangement = () => {
                   'Lås opp garderobene som skal brukes inkl. dommergarderoben',
                   'Heng opp A4 ark med lagets navn på angitt garderober',
                   'Merk opp minihåndballbaner med ex. Bane 1 osv.',
-                  'Ta fram minihåndball mål og feste de enligt anvisning'
+                  'Ta fram minihåndball mål og feste de enligt anvisning',
+                  'Dersom man har første arrangement i hallen, skal garderober merkes for hele dagen',
                 ].map((task, index) => (
                   <motion.div 
                     key={index}
@@ -156,6 +159,22 @@ const Hjemmearrangement = () => {
                   </motion.div>
                 ))}
               </div>
+            </div>
+            <div>
+              <p className="text-gray-600 text-sm italic">
+              Tips: Prøv å unngå å bruke garderobene bak sekretariatet. 
+              </p>
+              <motion.a 
+              href="https://www.handball.no/system/banedagbok/?venueUnitId=4125"
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.01 }}
+              whileTap={{ scale: 0.95 }}
+              className="inline-flex items-center mt-4 px-4 py-2 bg-kilblue-100 border-2 border-blue-200 bg-opacity-20 hover:bg-opacity-30 rounded-lg transition-all duration-300 text-sm font-medium backdrop-blur-sm"
+            >
+              <NotebookText  className="w-4 h-4 mr-2" />
+              Banedagbok Tråstadhallen
+            </motion.a>
             </div>
           </div>
         </div>
@@ -233,15 +252,15 @@ const Hjemmearrangement = () => {
       id: 'live',
       title: 'LIVE',
       icon: <Video className="w-6 h-6" />,
-      color: 'bg-purple',
+      color: 'bg-kilsvart',
       content: (
         <div className="space-y-6">
-          <div className="bg-purple-50 border-l-4 border-purple-400 p-4 rounded-r-lg">
+          <div className="bg-gray-50 border-l-4 border-gray-400 p-4 rounded-r-lg">
             <div className="flex items-start">
-              <AlertCircle className="w-5 h-5 text-purple-600 mr-3 mt-0.5 flex-shrink-0" />
+              <AlertCircle className="w-5 h-5 text-gray-600 mr-3 mt-0.5 flex-shrink-0" />
               <div>
-                <h4 className="font-semibold text-purple-800 mb-2">Viktigt</h4>
-                <p className="text-purple-700 text-sm">
+                <h4 className="font-semibold text-gray-800 mb-2">Viktigt</h4>
+                <p className="text-gray-700 text-sm">
                   Her er det lurt og lære og vise andre foresatte på laget hvordan det skal gjøres – flere som kan, bedre er det!
                 </p>
               </div>
@@ -252,8 +271,7 @@ const Hjemmearrangement = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            whileHover={{ scale: 1.02 }}
-            className="bg-gradient-to-br from-purple-600 to-kilblue-600 p-6 rounded-xl text-white shadow-lg"
+            className="bg-gradient-to-br from-gray-600 via-kilsvart to-kilred-600 p-6 rounded-xl text-white shadow-lg"
           >
             <h4 className="font-semibold mb-4 flex items-center">
               <Video className="w-5 h-5 mr-2" />
@@ -266,7 +284,7 @@ const Hjemmearrangement = () => {
               href="https://www.handball.no/regioner/nhf-sentralt/praktisk-info/brukerveiledninger/brukerveiledning-handball-live/"
               target="_blank"
               rel="noopener noreferrer"
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.01 }}
               whileTap={{ scale: 0.95 }}
               className="inline-flex items-center px-4 py-2 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-lg transition-all duration-300 text-sm font-medium backdrop-blur-sm"
             >
@@ -309,7 +327,7 @@ const Hjemmearrangement = () => {
             transition={{ duration: 0.6, delay: 0.6 }}
             className="text-lg text-gray-600 font-roboto max-w-2xl mx-auto"
           >
-            Komplett guide for å arrangere hjemmekamper med alle nødvendige oppgaver og ansvarsområder
+            En guide for å arrangere hjemmekamper med de nødvendige oppgaver og ansvarsområder
           </motion.p>
         </motion.div>
 

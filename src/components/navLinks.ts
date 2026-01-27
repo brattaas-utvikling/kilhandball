@@ -2,7 +2,7 @@ export const navLinks = [
   { path: '/', label: 'Hjem' },
   { path: '/lag', label: 'Lag' },
   { path: '/treningstider', label: 'Treninger' },
-  // { path: '/kamper', label: 'Kamper' },
+  { path: '/kamper', label: 'Kamper' },
   { path: '/praktisk-info', label: 'Praktisk info' },
   { path: '/nyheter', label: 'Nyheter' },
   { path: '/om-oss', label: 'Om oss' },
