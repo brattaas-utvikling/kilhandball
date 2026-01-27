@@ -31,7 +31,7 @@ const useScheduleData = () => {
       "17:00": { Mandag: "J13", Tirsdag: "J16", Onsdag: "G16", Torsdag: "J16", Fredag: "J2016+J2015" },
       "17:30": { Mandag: "G2017", Tirsdag: "G2014", Onsdag: "J2014/G2016", Torsdag: "D", Fredag: "J2016+J2015" },
       "18:00": { Mandag: "G2017", Tirsdag: "G2014", Onsdag: "J2014/G2016", Torsdag: "D", Fredag: "G2014" },
-      "18:30": { Mandag: "J2017", Tirsdag: "G2014", Onsdag: "J2014/G2016", Torsdag: "D", Fredag: "G2014" },
+      "18:30": { Mandag: "J2017", Tirsdag: "G2014/G2013", Onsdag: "J2014/G2016", Torsdag: "D", Fredag: "G2014" },
       "19:00": { Mandag: "G2017", Tirsdag: "G2013", Onsdag: "J13", Torsdag: "J15/J16-2", Fredag: "G2014" },
       "19:30": { Mandag: "G2015", Tirsdag: "G2013", Onsdag: "J13", Torsdag: "J15/J16-2", Fredag: "Ledig halltid" },
       "20:00": { Mandag: "G2015", Tirsdag: "J16-2/J15", Onsdag: "J13/D40", Torsdag: "J15/J16-2", Fredag: "Ledig halltid" },
