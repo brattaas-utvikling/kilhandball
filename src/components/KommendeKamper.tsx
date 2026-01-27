@@ -147,7 +147,7 @@ export default function KommendeKamper() {
   // Loading state - full section
   if (loading && !matches.length) {
     return (
-      <section className="relative w-full py-16 md:py-24 bg-gradient-to-br from-kilred via-kilred/95 to-kilsvart overflow-hidden min-h-[600px] flex items-center justify-center">
+      <section className="relative py-16 md:py-24 bg-gradient-to-br from-kilred via-kilred/95 to-kilsvart overflow-hidden min-h-[600px] flex items-center justify-center -mx-[calc((100vw-100%)/2)] w-screen">
         {/* Subtle pattern overlay */}
         <div 
           className="absolute inset-0 opacity-5"
@@ -167,7 +167,7 @@ export default function KommendeKamper() {
   // Error state - full section
   if (error) {
     return (
-      <section className="relative w-full py-16 md:py-24 bg-gradient-to-br from-kilred via-kilred/95 to-kilsvart overflow-hidden min-h-[600px]">
+      <section className="relative py-16 md:py-24 bg-gradient-to-br from-kilred via-kilred/95 to-kilsvart overflow-hidden min-h-[600px] -mx-[calc((100vw-100%)/2)] w-screen">
         {/* Subtle pattern overlay */}
         <div 
           className="absolute inset-0 opacity-5"
