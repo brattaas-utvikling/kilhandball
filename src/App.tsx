@@ -20,6 +20,7 @@ import Nyheter from './pages/Nyheter';
 import NyheterArtikkel from './pages/NyheterArtikkel';
 import Lag from './pages/Lag';
 import BarnehandballKomponent from './components/Veiledninger/BarnehandballArrangement';
+import Utviklingstrappa from './components/Veiledninger/Utviklingstrappa/Utviklingstrappa';
 
 function App() {
   return (
@@ -60,6 +61,7 @@ function App() {
             element={<Rullestol />}
           />
           <Route path="/praktisk-info/sportslig" element={<Sportslig />} />
+          <Route path="/praktisk-info/utviklingstrappa" element={<Utviklingstrappa />} />
           <Route path="/praktisk-info/klubbdrift" element={<Klubbdrift />} />
           <Route path="/kontakt" element={<Contact />} />
           <Route path="*" element={<ErrorPage />} />

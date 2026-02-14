@@ -323,7 +323,7 @@ const Treningsoversikt: React.FC = () => {
   return (
     <div className="min-h-screen w-full">
       {/* Header */}
-      <section className="bg-gradient-to-b from-kilred to-kilred/70 overflow-hidden -mx-[calc((100vw-100%)/2)]  text-white w-screen">
+      <section className="bg-gradient-to-b from-kilred to-kilred/70 overflow-hidden -mx-[calc((100vw-100%)/2)] text-white w-screen">
         <div className="container mx-auto py-12 px-4 md:px-6">
           <h1 className="font-anton font-bold text-anton-4xl md:text-anton-5xl mb-6 text-white tracking-wide uppercase text-center">
             Treningsoversikt

@@ -9,7 +9,9 @@ import {
   SquareChartGantt,
   TvMinimalPlay,
   Volleyball,
+  Icon
 } from 'lucide-react';
+import { stairs } from '@lucide/lab';
 import { FaChevronRight } from 'react-icons/fa6';
 import Logo from '../assets/kil_logo.png';
 import { GiWhistle } from 'react-icons/gi';
@@ -99,6 +101,12 @@ function PraktiskInfo() {
       title: 'Sportslig informasjon',
       description: 'Informasjon om sportslig drift',
       link: '/praktisk-info/sportslig',
+    },
+    {
+      icon:   <Icon iconNode={stairs} size={24}/>,
+      title: 'Utviklingstrappa',
+      description: 'Tenk langsiktig med utviklingstrappa!',
+      link: '/praktisk-info/utviklingstrappa',
     },
     {
       icon: <Accessibility size={24} />,
