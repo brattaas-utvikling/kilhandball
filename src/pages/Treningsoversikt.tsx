@@ -26,17 +26,17 @@ type Day = 'Mandag' | 'Tirsdag' | 'Onsdag' | 'Torsdag' | 'Fredag';
 const useScheduleData = () => {
   const scheduleData: ScheduleData = {
     TRÅSTAD: {
-      "16:00": { Mandag: "J13", Tirsdag: "J16", Onsdag: "G16", Torsdag: "J16", Fredag: "Ledig halltid" },
-      "16:30": { Mandag: "J13", Tirsdag: "J16", Onsdag: "G16", Torsdag: "J16", Fredag: "J2016+J2015" },
-      "17:00": { Mandag: "J13", Tirsdag: "J16", Onsdag: "G16", Torsdag: "J16", Fredag: "J2016+J2015" },
+      "16:00": { Mandag: "J13", Tirsdag: "G16", Onsdag: "J16", Torsdag: "J16", Fredag: "Ledig halltid" },
+      "16:30": { Mandag: "J13", Tirsdag: "G16", Onsdag: "J16", Torsdag: "J16", Fredag: "J2016+J2015" },
+      "17:00": { Mandag: "J13", Tirsdag: "G16", Onsdag: "J16", Torsdag: "J16", Fredag: "J2016+J2015" },
       "17:30": { Mandag: "G2017", Tirsdag: "G2014", Onsdag: "J2014/G2016", Torsdag: "D", Fredag: "J2016+J2015" },
       "18:00": { Mandag: "G2017", Tirsdag: "G2014", Onsdag: "J2014/G2016", Torsdag: "D", Fredag: "G2014" },
       "18:30": { Mandag: "J2017", Tirsdag: "G2014/G2013", Onsdag: "J2014/G2016", Torsdag: "D", Fredag: "G2014" },
       "19:00": { Mandag: "G2017", Tirsdag: "G2013", Onsdag: "J13", Torsdag: "J15/J16-2", Fredag: "G2014" },
       "19:30": { Mandag: "G2015", Tirsdag: "G2013", Onsdag: "J13", Torsdag: "J15/J16-2", Fredag: "Ledig halltid" },
-      "20:00": { Mandag: "G2015", Tirsdag: "J16-2/J15", Onsdag: "J13/D40", Torsdag: "J15/J16-2", Fredag: "Ledig halltid" },
-      "20:30": { Mandag: "H3", Tirsdag: "J16-2/J15", Onsdag: "D40", Torsdag: "G16", Fredag: "Ledig halltid" },
-      "21:00": { Mandag: "H3", Tirsdag: "J16-2/J15", Onsdag: "D40", Torsdag: "G16", Fredag: "Ledig halltid" },
+      "20:00": { Mandag: "G2015", Tirsdag: "J16-2/J15", Onsdag: "D", Torsdag: "J15/J16-2", Fredag: "Ledig halltid" },
+      "20:30": { Mandag: "H3", Tirsdag: "J16-2/J15", Onsdag: "D", Torsdag: "G16", Fredag: "Ledig halltid" },
+      "21:00": { Mandag: "H3", Tirsdag: "J16-2/J15", Onsdag: "D", Torsdag: "G16", Fredag: "Ledig halltid" },
       "21:30": { Mandag: "H3", Tirsdag: "", Onsdag: "", Torsdag: "G16", Fredag: "Ledig halltid" }
     },
     KUSK: {
@@ -330,7 +330,7 @@ const Treningsoversikt: React.FC = () => {
           </h1>
           <p className='text-white/80 text-left text-base font-roboto mb-4'>Tabellen nedenfor viser oversikt over treningene til alle lag i KIL Håndball. Det er kun ledig tid der det står "Ledig halltid", alt annet er det andre idretter som disponerer i Kongsvinger Kommune. Ta kontakt med Sportslig utvalg, om man ønsker å benytte seg av treningstider i "Ledig halltid".</p>
           <p className="text-white/60 text-center text-sm font-roboto">
-            Sist oppdatert 26. januar 2026
+            Sist oppdatert 15. februar 2026
           </p>
         </div>
       </section>

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import Utviklingstrappa from './Utviklingstrappa';
 
 
-function BarnehandballKomponent() {
+function Utvikling() {
   return (
     <div className="container mx-auto pb-12">
       <div className="my-6">
@@ -13,9 +13,9 @@ function BarnehandballKomponent() {
           ← Tilbake til praktisk info
         </Link>
       </div>
-<Utviklingstrappa />
+        <Utviklingstrappa />
     </div>
   );
 }
 
-export default BarnehandballKomponent;
+export default Utvikling;
