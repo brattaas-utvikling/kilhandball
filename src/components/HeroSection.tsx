@@ -1,20 +1,21 @@
-import Herrelag from '../assets/herrelag.webp';
-import Kasese from '../assets/kasese.webp';
-import Rullestol from '../assets/rullestol_handball.webp';
-import KastBallen from '../assets/kast_ballen.jpg';
-import Damelag from '../assets/damelag.webp';
+// import Herrelag from '../assets/herrelag.webp';
+// import Kasese from '../assets/kasese.webp';
+// import Rullestol from '../assets/rullestol_handball.webp';
+// import KastBallen from '../assets/kast_ballen.jpg';
+// import Damelag from '../assets/damelag.webp';
 
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Pagination, EffectFade } from 'swiper/modules';
+// import { Swiper, SwiperSlide } from 'swiper/react';
+// import { Autoplay, Pagination, EffectFade } from 'swiper/modules';
 
 // Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/effect-fade';
+// import 'swiper/css';
+// import 'swiper/css/pagination';
+// import 'swiper/css/effect-fade';
+import HeroKamper from './HeroKamper';
 // import TrastadhallenKamper from './TrastadhallenKamper';
 
 export function HeroSection() {
-  const images = [Herrelag, Kasese, Rullestol, Damelag, KastBallen];
+  // const images = [Herrelag, Kasese, Rullestol, Damelag, KastBallen];
 
   return (
     <section className="bg-gradient-to-b from-kilred to-kilred/70 overflow-hidden mb-32 -mx-[calc((100vw-100%)/2)] w-screen relative">
@@ -41,8 +42,8 @@ export function HeroSection() {
           </div>
 
           {/* Right side - Carousel */}
-          <div className="w-full h-[400px] md:h-[600px] overflow-hidden rounded-lg order-2">
-            <Swiper
+          <div className="w-full h-[440px] md:h-[600px] overflow-hidden rounded-lg order-2">
+{/*             <Swiper
               modules={[Autoplay, Pagination, EffectFade]}
               effect="fade"
               fadeEffect={{ crossFade: true }}
@@ -69,7 +70,8 @@ export function HeroSection() {
                   />
                 </SwiperSlide>
               ))}
-            </Swiper>
+            </Swiper> */}
+            <HeroKamper />
           </div>
         </div>
       </div>

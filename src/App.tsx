@@ -16,7 +16,7 @@ import OrganisasjonsKart from './components/Veiledninger/OrganisasjonsKart';
 import ErrorPage from './components/ErrorPage';
 import Treningsoversikt from './pages/Treningsoversikt';
 import Kamper from './components/Kamper';
-import Nyheter from './pages/Nyheter';
+// import Nyheter from './pages/Nyheter';
 import NyheterArtikkel from './pages/NyheterArtikkel';
 import Lag from './pages/Lag';
 import BarnehandballKomponent from './components/Veiledninger/BarnehandballArrangement';
@@ -29,7 +29,7 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="/pdf/view" element={<PDFViewerPage />} />
-          <Route path='/nyheter' element={<Nyheter />} />
+          {/* <Route path='/nyheter' element={<Nyheter />} /> */}
           <Route
           path="/nyheter/:id"
           element={<NyheterArtikkel />}
