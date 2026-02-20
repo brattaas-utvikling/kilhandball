@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils"
 
 const INFO_ITEMS = [
   { label: "Dato", value: "17. mars", sub: "Tirsdag", Icon: CalendarDays },
-  { label: "Tid", value: "18:00", sub: "", Icon: Clock },
+  { label: "Tid", value: "18:00", sub: "\u00A0", Icon: Clock },
   { label: "Sted", value: "KUSK", sub: "Auditorium", Icon: MapPin },
 ] as const
 
@@ -28,8 +28,7 @@ const DETAILS: React.ReactNode[] = [
   </>,
   <>
     Fullstendig sakliste med alle saksdokumenter vil bli gjort tilgjengelig for
-    medlemmene senest én uke før årsmøtet her på våre egen hjemmeside.
-    .
+    medlemmene senest én uke før årsmøtet her på vår egen hjemmeside.
   </>,
   <>
     For å ha stemmerett og kunne velges til verv må man ha vært medlem i minst
@@ -37,7 +36,10 @@ const DETAILS: React.ReactNode[] = [
     gjort opp sine økonomiske forpliktelser til Kongsvinger IL Håndball.
   </>,
   <>Alle medlemmer har møterett, talerett og forslagsrett.</>,
-  <>For mer informasjon om årsmøte samt regler om stemmerett, valgbarhet, forslagsrett mv., se Kongsvinger IL Håndballs lov.</>
+  <>
+    For mer informasjon om årsmøte samt regler om stemmerett, valgbarhet,
+    forslagsrett mv., se Kongsvinger IL Håndballs lov.
+  </>,
 ]
 
 export function Aarsmoete2026() {
@@ -46,35 +48,24 @@ export function Aarsmoete2026() {
       initial={{ opacity: 0, y: -16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.45 }}
-      aria-label="Innkalling til årsmøte i Kongsvinger IL Håndball"
+      aria-label="Innkalling til årsmøte 2026 i Kongsvinger IL Håndball"
       className="mb-14 rounded-2xl overflow-hidden shadow-lg border border-kilsvart-50 max-w-4xl"
     >
       {/* ═══════════ RED HEADER ═══════════ */}
       <div className="bg-kilred">
-        {/* Mobile: stacked · SM+: side-by-side */}
         <div className="flex flex-col sm:flex-row sm:items-stretch">
           {/* ── Title block ── */}
           <div className="flex-1 px-6 py-6 sm:px-8 sm:py-7 flex flex-col justify-center">
-            <p
-              aria-hidden="true"
-              className="font-anton text-[11px] tracking-[0.25em] uppercase text-white/50 mb-1"
-            >
+            <p className="font-anton text-[11px] tracking-[0.25em] uppercase text-white/90 mb-2">
               Innkalling til
             </p>
             <h2 className="font-anton text-[36px] sm:text-[42px] leading-[0.95] uppercase tracking-wide text-white">
               Årsmøte
+              <span className="block text-white/70">2026</span>
             </h2>
-            <p
-              aria-hidden="true"
-              className="font-anton text-[36px] sm:text-[42px] leading-[0.95] uppercase tracking-wide text-white/30"
-            >
-              2026
-            </p>
-            {/* Screen-reader-only full title */}
-            <span className="sr-only">Årsmøte 2026</span>
           </div>
 
-          {/* ── Info columns: 3 across on all sizes ── */}
+          {/* ── Info columns ── */}
           <div
             className="grid grid-cols-3"
             role="list"
@@ -85,7 +76,7 @@ export function Aarsmoete2026() {
                 key={label}
                 role="listitem"
                 className={cn(
-                  "flex flex-col items-center justify-center py-5 px-3 sm:px-6 sm:py-7",
+                  "flex flex-col items-center justify-between py-5 px-3 sm:px-6 sm:py-7",
                   i > 0 && "border-l border-white/10"
                 )}
                 style={{
@@ -102,9 +93,12 @@ export function Aarsmoete2026() {
                 <p className="font-anton text-lg sm:text-[26px] text-white leading-tight tracking-wide">
                   {value}
                 </p>
-                {sub ? (
-                  <p className="text-xs text-white/55 mt-0.5">{sub}</p>
-                ) : null}
+                <p
+                  className="text-xs text-white/55 mt-0.5"
+                  aria-hidden={sub === "\u00A0"}
+                >
+                  {sub}
+                </p>
               </div>
             ))}
           </div>
@@ -129,7 +123,7 @@ export function Aarsmoete2026() {
 
         {/* Footer */}
         <div className="pt-5 border-t border-kilsvart-50 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-center gap-2 text-sm text-kilsvart-400">
+          <p className="flex items-center gap-2 text-sm text-kilsvart-500 m-0">
             <Mail className="w-4 h-4 shrink-0" aria-hidden="true" />
             <span>
               Spørsmål?{" "}
@@ -140,7 +134,7 @@ export function Aarsmoete2026() {
                 post@kilhandball.no
               </a>
             </span>
-          </div>
+          </p>
           <p className="text-sm text-kilsvart-500 italic m-0">
             Velkommen til årsmøte! — Styret i KIL Håndball
           </p>
