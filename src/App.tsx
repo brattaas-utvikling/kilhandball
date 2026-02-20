@@ -21,10 +21,15 @@ import NyheterArtikkel from './pages/NyheterArtikkel';
 import Lag from './pages/Lag';
 import BarnehandballKomponent from './components/Veiledninger/BarnehandballArrangement';
 import Utviklingstrappa from './components/Veiledninger/Utviklingstrappa/Utviklingstrappa';
+import { Analytics } from "@vercel/analytics/react";
+import { PageViewTracker } from './components/analytics/PageViewTracker';
+import { ScrollTracker } from './components/analytics/ScrollTracker';
 
 function App() {
   return (
     <div className="text-black">
+      <PageViewTracker />
+      <ScrollTracker />
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
@@ -67,6 +72,7 @@ function App() {
           <Route path="*" element={<ErrorPage />} />
         </Route>
       </Routes>
+      <Analytics />
     </div>
   );
 }
