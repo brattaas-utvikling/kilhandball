@@ -1,508 +1,697 @@
-import { useState, useEffect, useCallback } from "react";
-import { motion } from "framer-motion";
-import { ArrowRight, Mail, Phone } from "lucide-react";
-import { Button } from "../components/ui/button";
-import { listDocuments, DATABASE_ID, COLLECTIONS, Query } from "../lib/appwrite";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogFooter,
-} from "../components/ui/dialog";
-import { Team } from "../types/Appwrite";
+// components/Lag.tsx
+import { useState, useEffect, useCallback } from "react"
+import { motion } from "framer-motion"
+import { Mail, Phone, ChevronRight, X, Loader2 } from "lucide-react"
+import { listDocuments, DATABASE_ID, COLLECTIONS, Query } from "../lib/appwrite"
+import type { Team } from "../types/Appwrite"
 
-// Modal komponent for lagdetaljer
-function TeamModal({ 
-  team, 
-  isOpen, 
-  onOpenChange 
-}: { 
-  team: Team | null; 
-  isOpen: boolean; 
-  onOpenChange: (open: boolean) => void;
-}) {
-  // Handle escape key
-  useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isOpen) {
-        onOpenChange(false);
+/* ── Tab type ── */
+type TabKey = "jenter" | "gutter"
+
+/* ── Theme helpers ── */
+function teamTheme(isJenter: boolean) {
+  return isJenter
+    ? {
+        accentText: "text-kilred",
+        accentHoverText: "hover:text-kilred",
+        accentFocus: "focus-visible:outline-kilred",
+
+        headerBg: "bg-kilred",
+        headerGradient: "bg-gradient-to-r from-kilred via-kilred-600 to-kilred-700",
+        badgeBg: "bg-white/15",
+
+        footerBg: "bg-kilred-700",
+        footerBtnBg: "bg-kilred",
+        footerBtnHover: "hover:bg-kilred-600",
+
+        linkHover: "hover:text-kilred",
+        rowHover: "hover:bg-kilred-50/50",
+
+        softRing: "ring-kilred/15",
       }
-    };
+    : {
+        accentText: "text-kilblue",
+        accentHoverText: "hover:text-kilblue",
+        accentFocus: "focus-visible:outline-kilblue",
 
-    if (isOpen) {
-      document.addEventListener('keydown', handleEscape);
-      return () => document.removeEventListener('keydown', handleEscape);
+        headerBg: "bg-kilblue",
+        headerGradient: "bg-gradient-to-r from-kilblue via-kilblue-600 to-kilblue-700",
+        badgeBg: "bg-white/15",
+
+        footerBg: "bg-kilblue-700",
+        footerBtnBg: "bg-kilblue",
+        footerBtnHover: "hover:bg-kilblue-600",
+
+        linkHover: "hover:text-kilblue",
+        rowHover: "hover:bg-kilblue-50/50",
+
+        softRing: "ring-kilblue/15",
+      }
+}
+
+/* ── Team Modal (dynamic color) ── */
+// function TeamModal({
+//   team,
+//   isJenter,
+//   onClose,
+// }: {
+//   team: Team | null
+//   isJenter: boolean
+//   onClose: () => void
+// }) {
+//   const th = teamTheme(isJenter)
+
+//   useEffect(() => {
+//     if (!team) return
+//     const prev = document.body.style.overflow
+//     document.body.style.overflow = "hidden"
+//     const handleKey = (e: KeyboardEvent) => {
+//       if (e.key === "Escape") onClose()
+//     }
+//     document.addEventListener("keydown", handleKey)
+//     return () => {
+//       document.body.style.overflow = prev
+//       document.removeEventListener("keydown", handleKey)
+//     }
+//   }, [team, onClose])
+
+//   if (!team) return null
+
+//   return (
+//     <div
+//       className="fixed inset-0 z-50 flex items-center justify-center p-4"
+//       role="dialog"
+//       aria-modal="true"
+//       aria-label={`Lagdetaljer for ${team.team_name}`}
+//     >
+//       <div
+//         className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+//         onClick={onClose}
+//         aria-hidden="true"
+//       />
+
+//       <div className="relative w-full max-w-md max-h-[85vh] overflow-y-auto rounded-2xl shadow-2xl bg-white">
+//         {/* Header */}
+//         <div
+//           className={[
+//             "sticky top-0 z-10 flex items-center justify-between px-6 py-5 border-b border-kilsvart-100 rounded-t-2xl",
+//             th.headerBg,
+//           ].join(" ")}
+//         >
+//           <h2 className="font-anton text-xl sm:text-2xl uppercase tracking-wide text-white">
+//             {team.team_name}
+//           </h2>
+//           <button
+//             onClick={onClose}
+//             className="p-1.5 rounded-full hover:bg-white/15 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+//             aria-label="Lukk dialog"
+//             type="button"
+//           >
+//             <X className="w-5 h-5 text-white" />
+//           </button>
+//         </div>
+
+//         {/* Body */}
+//         <div className="px-6 py-6 space-y-5">
+
+//           {/* Coach card */}
+//           <div className="bg-kilsvart-50 rounded-xl border border-kilsvart-100 p-5">
+//             <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-kilsvart-400 mb-3">
+//               Hovedtrener
+//             </p>
+//             <p className="text-lg font-bold text-kilsvart mb-4">
+//               {team.coach_name}
+//             </p>
+
+//             <div className="space-y-3">
+//               <a
+//                 href={`mailto:${team.coach_email}`}
+//                 className={[
+//                   "flex items-center gap-2.5 text-sm text-kilsvart-600 transition-colors rounded",
+//                   th.linkHover,
+//                   "focus-visible:outline-2 focus-visible:outline-offset-2",
+//                   th.accentFocus,
+//                 ].join(" ")}
+//                 >
+//                 <Mail className="w-4 h-4 text-kilsvart-400 shrink-0" aria-hidden="true" />
+//                 {team.coach_email}
+//               </a>
+//               <a
+//                 href={`tel:${team.coach_phone}`}
+//                 className={[
+//                   "flex items-center gap-2.5 text-sm text-kilsvart-600 transition-colors rounded",
+//                   th.linkHover,
+//                   "focus-visible:outline-2 focus-visible:outline-offset-2",
+//                   th.accentFocus,
+//                 ].join(" ")}
+//                 >
+//                 <Phone className="w-4 h-4 text-kilsvart-400 shrink-0" aria-hidden="true" />
+//                 {team.coach_phone}
+//               </a>
+//             </div>
+//           </div>
+//                 {team.description && team.description.trim() !== "" && (
+//                   <p className="text-sm text-kilsvart-500 leading-relaxed">
+//                     {team.description}
+//                   </p>
+//                 )}
+//         </div>
+
+//         {/* Footer */}
+//         <div
+//           className={[
+//             "sticky bottom-0 z-10 px-6 py-4 border-t border-kilsvart-100 rounded-b-2xl flex justify-end",
+//           ].join(" ")}
+//         >
+//           <button
+//             onClick={onClose}
+//             type="button"
+//             className={[
+//               "px-5 py-2.5 rounded-lg text-sm font-bold text-white transition-colors",
+//               th.footerBtnBg,
+//               th.footerBtnHover,
+//               "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white",
+//             ].join(" ")}
+//           >
+//             Lukk
+//           </button>
+//         </div>
+//       </div>
+//     </div>
+//   )
+// }
+
+function TeamModal({
+  team,
+  isJenter,
+  onClose,
+}: {
+  team: Team | null
+  isJenter: boolean
+  onClose: () => void
+}) {
+  const th = teamTheme(isJenter)
+
+  useEffect(() => {
+    if (!team) return
+    const prev = document.body.style.overflow
+    document.body.style.overflow = "hidden"
+
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose()
     }
-  }, [isOpen, onOpenChange]);
+    document.addEventListener("keydown", handleKey)
 
-  if (!team) return null;
+    return () => {
+      document.body.style.overflow = prev
+      document.removeEventListener("keydown", handleKey)
+    }
+  }, [team, onClose])
+
+  if (!team) return null
+
+  const label = isJenter ? "Jentelag" : "Guttelag"
 
   return (
-    <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent 
-        className="w-[95vw] max-w-lg max-h-[95vh] overflow-y-auto bg-white dark:bg-kilsvart-900 
-                   mx-auto my-2 sm:my-8 p-4 sm:p-6"
-      >
-        <DialogHeader className="space-y-2 sm:space-y-3">
-          <DialogTitle className="text-xl sm:text-2xl font-anton text-kilsvart-900 dark:text-white pr-8 tracking-wide">
-            {team.team_name}
-          </DialogTitle>
-          {team.description && team.description.trim() !== '' && (
-            <DialogDescription className="text-sm sm:text-base text-start font-roboto text-kilsvart-600 dark:text-kilsvart-300">
-              {team.description}
-            </DialogDescription>
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      role="dialog"
+      aria-modal="true"
+      aria-label={`Lagdetaljer for ${team.team_name}`}
+    >
+      {/* Backdrop */}
+      <div
+        className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+        onClick={onClose}
+        aria-hidden="true"
+      />
+
+      {/* Panel */}
+      <div className="relative w-full max-w-md overflow-hidden rounded-2xl bg-white shadow-2xl ring-1 ring-black/5">
+        {/* Header */}
+        <div className={["relative px-6 pt-6 pb-5", th.headerGradient].join(" ")}>
+          {/* subtle pattern */}
+          <div
+            aria-hidden
+            className="absolute inset-0 opacity-[0.10] mix-blend-overlay"
+            style={{
+              backgroundImage:
+                "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.35) 1px, transparent 0)",
+              backgroundSize: "18px 18px",
+            }}
+          />
+
+          <div className="relative z-10 flex items-start justify-between gap-4">
+            <div className="min-w-0">
+              <div className="inline-flex items-center gap-2">
+                <span
+                  className={[
+                    "inline-flex items-center rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-white",
+                    th.badgeBg,
+                  ].join(" ")}
+                >
+                  {label}
+                </span>
+              </div>
+
+              <h2 className="mt-3 font-anton text-2xl uppercase tracking-wide text-white leading-tight">
+                {team.team_name}
+              </h2>
+
+              <p className="mt-1 text-sm text-white/75">
+                Kontakt treneren for treningstider og påmelding.
+              </p>
+            </div>
+
+            <button
+              onClick={onClose}
+              type="button"
+              className="shrink-0 rounded-full p-2 hover:bg-white/15 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              aria-label="Lukk dialog"
+            >
+              <X className="h-5 w-5 text-white" />
+            </button>
+          </div>
+        </div>
+
+        {/* Body (scroll area) */}
+        <div className="max-h-[70vh] overflow-y-auto px-6 py-6 space-y-5">
+          {/* Description */}
+          {team.description && team.description.trim() !== "" && (
+            <div className={["rounded-2xl bg-kilsvart-50 p-4 ring-1", th.softRing].join(" ")}>
+              <p className="text-sm text-kilsvart-600 leading-relaxed">
+                {team.description}
+              </p>
+            </div>
           )}
-        </DialogHeader>
 
-        <div className="space-y-4 sm:space-y-6 mt-4">
-          {/* Trener Info */}
-          <div className="p-4 sm:p-6  dark:bg-kilsvart-800 rounded-xl border-l-4 border-b-4 border-kilred">
-            <h4 className="font-anton text-anton-lg text-kilsvart-900 dark:text-white tracking-wide mb-4">
-              HOVEDTRENER
-            </h4>
-            
-            <div className="space-y-4">
-              {/* Navn */}
-              <div className="flex justify-between items-center">
-                <span className="font-roboto font-medium text-kilsvart-900 dark:text-white text-sm sm:text-base">
-                  Navn
-                </span>
-                <span className="text-kilsvart-600 dark:text-kilsvart-300 font-roboto text-sm sm:text-base">
-                  {team.coach_name}
-                </span>
-              </div>
+          {/* Coach card */}
+          <div className="rounded-2xl border border-kilsvart-100 bg-white p-5 shadow-sm">
+            <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-kilsvart-400">
+              Hovedtrener
+            </p>
+            <p className="mt-2 text-lg font-bold text-kilsvart">{team.coach_name}</p>
 
-              {/* E-post */}
-              <div className="flex justify-between items-center">
-                <span className="font-roboto font-medium text-kilsvart-900 dark:text-white text-sm sm:text-base">
-                  E-post
-                </span>
-                <a 
-                  href={`mailto:${team.coach_email}`}
-                  className="text-kilred dark:text-kilred-300 font-roboto text-sm sm:text-base hover:underline flex items-center gap-1"
+            <div className="mt-4 grid grid-cols-1 gap-3">
+              <a
+                href={`mailto:${team.coach_email}`}
+                className={[
+                  "group flex items-center gap-3 rounded-xl border border-kilsvart-100 bg-kilsvart-50/60 px-4 py-3 transition-all",
+                  "hover:bg-white hover:shadow-sm",
+                  "focus-visible:outline-2 focus-visible:outline-offset-2",
+                  th.accentFocus,
+                ].join(" ")}
+              >
+                <span
+                  className={[
+                    "inline-flex h-9 w-9 items-center justify-center rounded-lg bg-white border border-kilsvart-100",
+                    "transition-colors",
+                  ].join(" ")}
+                  aria-hidden="true"
                 >
-                  <Mail className="h-3 w-3" />
-                  {team.coach_email}
-                </a>
-              </div>
-
-              {/* Telefon */}
-              <div className="flex justify-between items-center">
-                <span className="font-roboto font-medium text-kilsvart-900 dark:text-white text-sm sm:text-base">
-                  Telefon
+                  <Mail className="h-4 w-4 text-kilsvart-500" />
                 </span>
-                <a 
-                  href={`tel:${team.coach_phone}`}
-                  className="text-kilred dark:text-kilred-300 font-roboto text-sm sm:text-base hover:underline flex items-center gap-1"
+                <span className="min-w-0">
+                  <span className="block text-xs text-kilsvart-400">E-post</span>
+                  <span className={["block text-sm font-semibold truncate", th.accentHoverText].join(" ")}>
+                    {team.coach_email}
+                  </span>
+                </span>
+              </a>
+
+              <a
+                href={`tel:${team.coach_phone}`}
+                className={[
+                  "group flex items-center gap-3 rounded-xl border border-kilsvart-100 bg-kilsvart-50/60 px-4 py-3 transition-all",
+                  "hover:bg-white hover:shadow-sm",
+                  "focus-visible:outline-2 focus-visible:outline-offset-2",
+                  th.accentFocus,
+                ].join(" ")}
+              >
+                <span
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-white border border-kilsvart-100"
+                  aria-hidden="true"
                 >
-                  <Phone className="h-3 w-3" />
-                  {team.coach_phone}
-                </a>
-              </div>
+                  <Phone className="h-4 w-4 text-kilsvart-500" />
+                </span>
+                <span className="min-w-0">
+                  <span className="block text-xs text-kilsvart-400">Telefon</span>
+                  <span className={["block text-sm font-semibold truncate", th.accentHoverText].join(" ")}>
+                    {team.coach_phone}
+                  </span>
+                </span>
+              </a>
             </div>
           </div>
         </div>
 
-        <DialogFooter className="mt-4 sm:mt-6">
-          <Button
-            className="w-full font-roboto font-medium bg-transparent border-2 border-kilred text-kilred hover:bg-kilred hover:text-white dark:border-kilred-400 dark:text-kilred-400 dark:hover:bg-kilred-600 dark:hover:text-white text-sm sm:text-base"
-            onClick={() => onOpenChange(false)}
-          >
-            Lukk
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
-  );
+        {/* Footer */}
+        <div className="border-t border-kilsvart-100 bg-white/80 backdrop-blur px-6 py-4">
+          <div className="flex items-center justify-between gap-3">
+            <p className="text-xs text-kilsvart-400">
+              Tips: Du kan trykke <kbd className="rounded border border-kilsvart-200 bg-kilsvart-50 px-1.5 py-0.5 font-mono text-[11px] text-kilsvart-500">Esc</kbd> for å lukke.
+            </p>
+
+            <button
+              onClick={onClose}
+              type="button"
+              className={[
+                "px-5 py-2.5 rounded-xl text-sm font-bold text-white transition-colors shadow-sm",
+                th.footerBtnBg,
+                th.footerBtnHover,
+                "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white",
+              ].join(" ")}
+            >
+              Lukk
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
 }
 
-// Team List Component
-function TeamList({ 
-  teams, 
-  title, 
-  onTeamClick 
-}: { 
-  teams: Team[]; 
-  title: string; 
-  onTeamClick: (team: Team) => void;
+/* ── Tabs + List ── */
+function TeamTabs({
+  jentelag,
+  guttelag,
+  onSelect,
+}: {
+  jentelag: Team[]
+  guttelag: Team[]
+  onSelect: (team: Team, isJenter: boolean) => void
+}) {
+  const [tab, setTab] = useState<TabKey>("jenter")
+  const mobileTeams = tab === "jenter" ? jentelag : guttelag
+  const mobileIsJenter = tab === "jenter"
+
+  return (
+    <>
+      {/* ═══ MOBILE: Tabs (< lg) ═══ */}
+      <div className="lg:hidden rounded-2xl overflow-hidden border border-kilsvart-50 shadow-lg">
+        {/* Tabs */}
+        <div className="grid grid-cols-2" role="tablist" aria-label="Velg jente- eller guttelag">
+          <button
+            role="tab"
+            aria-selected={tab === "jenter"}
+            aria-controls="panel-jenter-mobile"
+            id="tab-jenter-mobile"
+            onClick={() => setTab("jenter")}
+            type="button"
+            className={`py-4 px-4 font-anton text-base uppercase tracking-wide transition-colors border-b-[3px] focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-kilred ${
+              tab === "jenter"
+                ? "bg-kilred-50 text-kilred border-kilred-500"
+                : "bg-kilsvart-50/50 text-kilsvart-400 border-transparent hover:text-kilsvart-600"
+            }`}
+          >
+            Jentelag
+            <span className="ml-1.5 text-xs font-roboto font-normal opacity-60">({jentelag.length})</span>
+          </button>
+
+          <button
+            role="tab"
+            aria-selected={tab === "gutter"}
+            aria-controls="panel-gutter-mobile"
+            id="tab-gutter-mobile"
+            onClick={() => setTab("gutter")}
+            type="button"
+            className={`py-4 px-4 font-anton text-base uppercase tracking-wide transition-colors border-b-[3px] focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-kilblue ${
+              tab === "gutter"
+                ? "bg-kilblue-50 text-kilblue border-kilblue-500"
+                : "bg-kilsvart-50/50 text-kilsvart-400 border-transparent hover:text-kilsvart-600"
+            }`}
+          >
+            Guttelag
+            <span className="ml-1.5 text-xs font-roboto font-normal opacity-60">({guttelag.length})</span>
+          </button>
+        </div>
+
+        {/* Panel */}
+        <div
+          role="tabpanel"
+          id={`panel-${tab}-mobile`}
+          aria-labelledby={`tab-${tab}-mobile`}
+          className="bg-white"
+        >
+          <TeamList
+            teams={mobileTeams}
+            isJenter={mobileIsJenter}
+            onSelect={(t) => onSelect(t, mobileIsJenter)}
+          />
+        </div>
+
+        <ListFooter />
+      </div>
+
+      {/* ═══ DESKTOP: Side-by-side columns (≥ lg) ═══ */}
+      <div className="hidden lg:grid lg:grid-cols-2 lg:gap-8 lg:items-start">
+        {/* Jentelag */}
+        <div className="rounded-2xl overflow-hidden border border-kilsvart-50 shadow-lg">
+          <div className="bg-kilred px-6 py-4 border-b-[3px] border-kilred-500">
+            <h3 className="font-anton text-lg uppercase tracking-wide text-white">
+              Jentelag
+              <span className="ml-2 text-sm font-roboto font-normal text-white/60">({jentelag.length})</span>
+            </h3>
+          </div>
+          <div className="bg-white">
+            <TeamList teams={jentelag} isJenter onSelect={(t) => onSelect(t, true)} />
+          </div>
+          <ListFooter />
+        </div>
+
+        {/* Guttelag */}
+        <div className="rounded-2xl overflow-hidden border border-kilsvart-50 shadow-lg">
+          <div className="bg-kilblue px-6 py-4 border-b-[3px] border-kilblue-500">
+            <h3 className="font-anton text-lg uppercase tracking-wide text-white">
+              Guttelag
+              <span className="ml-2 text-sm font-roboto font-normal text-white/60">({guttelag.length})</span>
+            </h3>
+          </div>
+          <div className="bg-white">
+            <TeamList teams={guttelag} isJenter={false} onSelect={(t) => onSelect(t, false)} />
+          </div>
+          <ListFooter />
+        </div>
+      </div>
+    </>
+  )
+}
+
+/* ── Shared team list ── */
+function TeamList({
+  teams,
+  isJenter,
+  onSelect,
+}: {
+  teams: Team[]
+  isJenter: boolean
+  onSelect: (team: Team) => void
 }) {
   if (teams.length === 0) {
     return (
-      <div className="bg-white rounded-2xl shadow-kilred-lg border border-kilred-100/50 overflow-hidden">
-        <div className="bg-kilsvart/5 px-6 py-4 border-b border-kilred-100/30">
-          <h3 className="font-anton text-anton-lg font-bold text-kilsvart-900 dark:text-white tracking-wide uppercase">
-            {title}
-          </h3>
-        </div>
-        <div className="p-8 text-center">
-          <p className="text-kilsvart-600 dark:text-kilsvart-400 font-roboto">
-            Ingen lag tilgjengelig ennå
-          </p>
-        </div>
+      <div className="py-12 text-center">
+        <p className="text-kilsvart-400 text-sm font-roboto">Ingen lag tilgjengelig ennå</p>
       </div>
-    );
+    )
   }
 
   return (
-    <div className="bg-white rounded-2xl shadow-kilred-lg border border-kilred-100/50 overflow-hidden">
-      {/* Header */}
-      <div className="bg-kilsvart/5 px-6 py-4 border-b border-kilred-100/30">
-        <h3 className="font-anton text-anton-lg font-bold text-kilsvart-900 dark:text-white tracking-wide uppercase">
-          {title}
-        </h3>
-        <p className="text-sm text-kilsvart-600 dark:text-kilsvart-400 font-roboto mt-1">
-          Klikk på et lag for kontaktinformasjon til trener
-        </p>
-      </div>
+    <ul className="divide-y divide-kilsvart-50 list-none m-0 p-0" role="list">
+      {teams.map((team, i) => (
+        <motion.li
+          key={team.$id}
+          initial={{ opacity: 0, x: -12 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.3, delay: i * 0.04 }}
+        >
+          <button
+            type="button"
+            onClick={() => onSelect(team)}
+            className={`group w-full flex items-center justify-between gap-4 py-4 px-5 sm:px-6 text-left transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-[-2px] ${
+              isJenter
+                ? "hover:bg-kilred-50/50 focus-visible:outline-kilred"
+                : "hover:bg-kilblue-50/50 focus-visible:outline-kilblue"
+            }`}
+            aria-label={`${team.team_name}, trener: ${team.coach_name}`}
+          >
+            <div className="flex-1 min-w-0">
+              <p
+                className={`font-anton text-base sm:text-lg tracking-wide text-kilsvart transition-colors ${
+                  isJenter ? "group-hover:text-kilred" : "group-hover:text-kilblue"
+                }`}
+              >
+                {team.team_name}
+              </p>
+              <p className="text-xs sm:text-sm text-kilsvart-400 mt-0.5 truncate">
+                {team.coach_name}
+              </p>
+            </div>
 
-      {/* Teams list */}
-      <div className="divide-y divide-gray-100 dark:divide-kilsvart-700/50">
-  {teams.map((team, index) => (
-    <motion.div
-      key={team.$id}
-      initial={{ opacity: 0, x: -20 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.4, delay: index * 0.1 }}
-      className="group relative overflow-hidden"
-    >
-      {/* Hover background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-r from-kilred/0 to-kilred/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 group-hover:border-l-2 group-hover:border-kilred" />
-      
-      <button
-        onClick={() => onTeamClick(team)}
-        className="relative w-full flex items-center justify-between py-4 px-6 transition-all duration-200 group-hover:translate-x-1 text-left cursor-pointer focus:outline-none focus:ring-2 focus:ring-kilred focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-kilsvart-900 rounded-lg"
-      >
-        {/* Left side - Team name */}
-        <div className="flex items-center gap-4 min-w-0">
-          <div className="min-w-0">
-            <h4 className="font-anton text-anton-base text-kilsvart-900 dark:text-white group-hover:text-kilred dark:group-hover:text-kilred-400 transition-colors duration-200 truncate tracking-wide">
-              {team.team_name}
-            </h4>
-          </div>
-        </div>
-
-        {/* Middle - Coach name */}
-        <div className="flex-1 text-left hidden sm:block px-4">
-          <div className="font-roboto font-medium text-sm text-kilsvart-900 dark:text-white">
-            {team.coach_name}
-          </div>
-        </div>
-
-        {/* Right side - Contact icons and arrow */}
-        <div className="flex items-center gap-4 flex-shrink-0">
-          {/* Contact icons */}
-          <div className="flex items-center gap-2">
-            <Mail className="h-4 w-4 text-kilred dark:text-kilred-400" />
-            <Phone className="h-4 w-4 text-kilred dark:text-kilred-400" />
-          </div>
-
-          {/* Arrow */}
-          <ArrowRight className="h-4 w-4 text-gray-300 dark:text-gray-600 group-hover:text-kilred dark:group-hover:text-kilred-400 transition-all duration-200 group-hover:translate-x-1 flex-shrink-0" />
-        </div>
-      </button>
-    </motion.div>
-  ))}
-</div>
-
-      {/* Footer */}
-      <div className="bg-gray-50/50 dark:bg-kilsvart-800/30 px-6 py-4 border-t border-gray-100/50 dark:border-kilsvart-700/30">
-        <p className="text-xs text-kilsvart-600 dark:text-kilsvart-400 font-roboto text-center">
-          Kontakt treneren direkte for informasjon om treninger og påmelding til laget.
-        </p>
-      </div>
-    </div>
-  );
+            <div className="flex items-center gap-3 shrink-0">
+              <div className="hidden sm:flex items-center gap-1.5">
+                <Mail
+                  className={`w-3.5 h-3.5 ${isJenter ? "text-kilred-300" : "text-kilblue-300"}`}
+                  aria-hidden="true"
+                />
+                <Phone
+                  className={`w-3.5 h-3.5 ${isJenter ? "text-kilred-300" : "text-kilblue-300"}`}
+                  aria-hidden="true"
+                />
+              </div>
+              <ChevronRight
+                className="w-4 h-4 text-kilsvart-200 group-hover:text-kilsvart-400 group-hover:translate-x-0.5 transition-all"
+                aria-hidden="true"
+              />
+            </div>
+          </button>
+        </motion.li>
+      ))}
+    </ul>
+  )
 }
 
+/* ── Shared footer ── */
+function ListFooter() {
+  return (
+    <div className="bg-kilsvart-50/50 px-5 sm:px-6 py-3 border-t border-kilsvart-50">
+      <p className="text-xs text-kilsvart-400 font-roboto text-center">
+        Kontakt treneren direkte for informasjon om treninger og påmelding.
+      </p>
+    </div>
+  )
+}
+
+/* ── Main Page ── */
 export default function Lag() {
-  const [teams, setTeams] = useState<Team[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-  const [selectedTeam, setSelectedTeam] = useState<Team | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [teams, setTeams] = useState<Team[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
-  // Handle modal open with team selection
-  const handleOpenModal = useCallback((team: Team) => {
-    setSelectedTeam(team);
-    setIsModalOpen(true);
-  }, []);
+  // track both team + gender to avoid mismatch
+  const [selected, setSelected] = useState<{ team: Team; isJenter: boolean } | null>(null)
 
-  // Handle modal close
-  const handleCloseModal = useCallback((open: boolean) => {
-    setIsModalOpen(open);
-    if (!open) {
-      setSelectedTeam(null);
-    }
-  }, []);
+  const handleSelectTeam = useCallback((team: Team, isJenter: boolean) => {
+    setSelected({ team, isJenter })
+  }, [])
 
-  // Fetch teams from Appwrite
-  const fetchTeamsFromAppwrite = async () => {
-    setLoading(true);
-    setError(null);
-
+  const fetchTeams = useCallback(async () => {
+    setLoading(true)
+    setError(null)
     try {
-      const response = await listDocuments(
-        DATABASE_ID,
-        COLLECTIONS.LAG,
-        [
-          Query.equal("is_active", true), // Vis kun aktive lag
-          Query.orderDesc("age_group"), // Sorter etter alder, yngst først
-          Query.limit(50),
-        ],
-      );
-
-      const teamData = response.documents as unknown as Team[];
-      setTeams(teamData);
+      const response = await listDocuments(DATABASE_ID, COLLECTIONS.LAG, [
+        Query.equal("is_active", true),
+        Query.orderDesc("age_group"),
+        Query.limit(50),
+      ])
+      setTeams(response.documents as unknown as Team[])
     } catch (err) {
-      console.error("Error fetching teams:", err);
-      setError("Kunne ikke laste lag fra databasen.");
+      console.error("Error fetching teams:", err)
+      setError("Kunne ikke laste lag fra databasen.")
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }, [])
 
   useEffect(() => {
-    fetchTeamsFromAppwrite();
-  }, []);
+    fetchTeams()
+  }, [fetchTeams])
 
-  // Separate teams by gender
-  const separateTeamsByGender = (teams: Team[]) => {
-    const jentelag: Team[] = [];
-    const guttelag: Team[] = [];
-
-    teams.forEach(team => {
-      const teamName = team.team_name.toLowerCase();
-      if (teamName.includes('jente') || teamName.startsWith('j')) {
-        jentelag.push(team);
-      } else if (teamName.includes('gutt') || teamName.startsWith('g')) {
-        guttelag.push(team);
+  const separateTeams = (allTeams: Team[]) => {
+    const jentelag: Team[] = []
+    const guttelag: Team[] = []
+    allTeams.forEach((team) => {
+      const name = team.team_name.toLowerCase()
+      if (name.includes("jente") || name.startsWith("j")) {
+        jentelag.push(team)
       } else {
-        // For team names that don't clearly indicate gender, add to both or handle separately
-        // You can adjust this logic based on your naming convention
-        guttelag.push(team);
+        guttelag.push(team)
       }
-    });
+    })
+    return { jentelag, guttelag }
+  }
 
-    return { jentelag, guttelag };
-  };
-
+  /* ── Loading ── */
   if (loading) {
     return (
-      <div className="min-h-screen bg-white dark:bg-kilsvart-900 flex items-center justify-center">
+      <div className="min-h-screen bg-white flex items-center justify-center" role="status">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-kilred mx-auto mb-4"></div>
-          <p className="text-kilsvart-600 dark:text-kilsvart-300 font-roboto">
-            Laster lag...
-          </p>
+          <Loader2 className="w-10 h-10 text-kilred animate-spin mx-auto mb-4" aria-hidden="true" />
+          <p className="text-kilsvart-500 font-roboto">Laster lag…</p>
+          <span className="sr-only">Laster lag</span>
         </div>
       </div>
-    );
+    )
   }
 
+  /* ── Error ── */
   if (error) {
     return (
-      <div className="min-h-screen bg-white dark:bg-kilsvart-900 flex items-center justify-center">
-        <div className="text-center max-w-md mx-auto px-4">
-          <div className="bg-kilred-50 dark:bg-kilred-900/20 border border-kilred-200 dark:border-kilred-800 rounded-xl p-6">
-            <h2 className="font-anton text-anton-lg text-kilred-800 dark:text-kilred-200 mb-2 tracking-wide">
-              KUNNE IKKE LASTE LAG
+      <div className="min-h-screen bg-white flex items-center justify-center px-4">
+        <div className="text-center max-w-md">
+          <div className="bg-kilred-50 border border-kilred-200 rounded-xl p-6">
+            <h2 className="font-anton text-lg text-kilred uppercase tracking-wide mb-2">
+              Kunne ikke laste lag
             </h2>
-            <p className="text-kilred-600 dark:text-kilred-300 font-roboto mb-4">
-              {error}
-            </p>
-            <Button
-              onClick={fetchTeamsFromAppwrite}
-              className="font-roboto font-medium bg-kilred hover:bg-kilred-600 text-white"
+            <p className="text-kilred-600 text-sm font-roboto mb-4">{error}</p>
+            <button
+              onClick={fetchTeams}
+              type="button"
+              className="px-5 py-2.5 bg-kilred text-white text-sm font-bold rounded-lg hover:bg-kilred-600 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             >
               Prøv igjen
-            </Button>
+            </button>
           </div>
         </div>
       </div>
-    );
+    )
   }
 
-  if (teams.length === 0) {
-    return (
-      <div className="min-h-screen bg-white">
-        {/* Hero Section */}
-        <section className="bg-gradient-to-br from-kilred-50 to-kilred-900 pt-24 pb-16 relative overflow-hidden">
-          <div className="container mx-auto px-4 md:px-6 relative z-10">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="text-center max-w-4xl mx-auto"
-            >
-              <h1 className="text-base font-medium text-kilblue-600 dark:text-kilblue-400 uppercase tracking-wider mb-3 font-roboto">
-                Lag
-              </h1>
-              <h2 className="font-anton text-anton-3xl md:text-anton-4xl mb-6 text-kilsvart-900 dark:text-white tracking-wide">
-                INGEN LAG TILGJENGELIG ENNÅ
-              </h2>
-              <p className="text-lg text-kilsvart-600 dark:text-kilsvart-300 font-roboto leading-relaxed mb-8">
-                Vi jobber med å legge til våre lag og trenere. Kom tilbake snart!
-              </p>
-              <Button
-                onClick={fetchTeamsFromAppwrite}
-                className="font-roboto font-medium bg-kilred hover:bg-kilred-600 text-white"
-                variant="outline"
-              >
-                Last på nytt
-              </Button>
-            </motion.div>
-          </div>
-        </section>
-      </div>
-    );
-  }
-
-  const { jentelag, guttelag } = separateTeamsByGender(teams);
+  const { jentelag, guttelag } = separateTeams(teams)
 
   return (
-    <div className="bg-white">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-b from-kilred to-kilred/70 overflow-hidden -mx-[calc((100vw-100%)/2)] text-white">
+    <div className="bg-white min-h-screen">
+      {/* Hero */}
+      <section className="bg-gradient-to-b from-kilred to-kilred/70 overflow-hidden -mx-[calc((100vw-100%)/2)] w-screen">
         <div className="container mx-auto py-12 px-4 md:px-6">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.5 }}
             className="text-center max-w-4xl mx-auto"
           >
-            <h1 className="font-anton text-anton-4xl md:text-anton-5xl mb-6 text-white tracking-wide uppercase">
+            <h1 className="font-anton text-anton-4xl md:text-anton-5xl mb-4 text-white tracking-wide uppercase">
               Våre Lag
             </h1>
-            <p className="text-lg text-white font-roboto leading-relaxed">
+            <p className="text-lg text-white/70 font-roboto leading-relaxed">
               Møt våre dyktige trenere og finn ut hvilket lag som passer for deg
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Teams Section */}
-      <section className="py-16 dark:bg-kilsvart-800">
-        <div className="container mx-auto px-2 md:px-6">
-          <div className="max-w-7xl mx-auto">
-            
-            {/* Mobile Layout - Single Column */}
-            <div className="lg:hidden">
-              <div className="bg-white rounded-2xl shadow-kilred-lg border border-kilred-100/50 overflow-hidden">
-                {/* Header */}
-                <div className="bg-kilsvart/5 px-6 py-4 border-b border-kilred-100/30">
-                  <h3 className="font-anton text-anton-lg font-bold text-kilsvart-900 dark:text-white tracking-wide uppercase">
-                    Oversikt over trenere og lagledere
-                  </h3>
-                  <p className="text-sm text-kilsvart-600 dark:text-kilsvart-400 font-roboto mt-1">
-                    Klikk på et lag for kontaktinformasjon til trener
-                  </p>
-                </div>
-
-                {/* Teams list */}
-                <div className="divide-y divide-gray-100 dark:divide-kilsvart-700/50">
-  {teams.map((team, index) => (
-    <motion.div
-      key={team.$id}
-      initial={{ opacity: 0, x: -20 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.4, delay: index * 0.1 }}
-      className="group relative overflow-hidden"
-    >
-      {/* Hover background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-r from-kilred/0 to-kilred/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 group-hover:border-l-2 group-hover:border-kilred" />
-      
-      <button
-        onClick={() => handleOpenModal(team)}
-        className="relative w-full flex items-center justify-between py-4 px-6 transition-all duration-200 group-hover:translate-x-1 text-left cursor-pointer focus:outline-none focus:ring-2 focus:ring-kilred focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-kilsvart-900 rounded-lg"
-      >
-        {/* Left side - Team name */}
-        <div className="flex items-center gap-4 min-w-0">
-          <div className="min-w-0">
-            <h4 className="font-anton text-anton-base text-kilsvart-900 dark:text-white group-hover:text-kilred dark:group-hover:text-kilred-400 transition-colors duration-200 truncate tracking-wide">
-              {team.team_name}
-            </h4>
-          </div>
-        </div>
-
-        {/* Middle - Coach name */}
-        <div className="flex-1 text-left hidden sm:block px-4">
-          <div className="font-roboto font-medium text-sm text-kilsvart-900 dark:text-white">
-            {team.coach_name}
-          </div>
-        </div>
-
-        {/* Right side - Contact icons and arrow */}
-        <div className="flex items-center gap-4 flex-shrink-0">
-          {/* Contact icons */}
-          <div className="flex items-center gap-2">
-            <Mail className="h-4 w-4 text-kilred dark:text-kilred-400" />
-            <Phone className="h-4 w-4 text-kilred dark:text-kilred-400" />
-          </div>
-
-          {/* Arrow */}
-          <ArrowRight className="h-4 w-4 text-gray-300 dark:text-gray-600 group-hover:text-kilred dark:group-hover:text-kilred-400 transition-all duration-200 group-hover:translate-x-1 flex-shrink-0" />
-        </div>
-      </button>
-    </motion.div>
-  ))}
-</div>
-
-                {/* Footer */}
-                <div className="bg-gray-50/50 dark:bg-kilsvart-800/30 px-6 py-4 border-t border-gray-100/50 dark:border-kilsvart-700/30">
-                  <p className="text-xs text-kilsvart-600 dark:text-kilsvart-400 font-roboto text-center">
-                    Kontakt treneren direkte for informasjon om treninger og påmelding til laget.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Desktop Layout - Two Columns */}
-            <div className="hidden lg:block">
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="grid grid-cols-1 lg:grid-cols-2 gap-8"
-              >
-                {/* Jentelag Column */}
-                <motion.div
-                  initial={{ opacity: 0, x: -30 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                >
-                  <TeamList 
-                    teams={jentelag} 
-                    title="Jentelag" 
-                    onTeamClick={handleOpenModal} 
-                  />
-                </motion.div>
-
-                {/* Guttelag Column */}
-                <motion.div
-                  initial={{ opacity: 0, x: 30 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: 0.4 }}
-                >
-                  <TeamList 
-                    teams={guttelag} 
-                    title="Guttelag" 
-                    onTeamClick={handleOpenModal} 
-                  />
-                </motion.div>
-              </motion.div>
-            </div>
+      {/* Teams */}
+      <section className="py-12 sm:py-16">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="max-w-5xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.15 }}
+            >
+              <TeamTabs jentelag={jentelag} guttelag={guttelag} onSelect={handleSelectTeam} />
+            </motion.div>
           </div>
         </div>
       </section>
 
       {/* Modal */}
-      <TeamModal 
-        team={selectedTeam} 
-        isOpen={isModalOpen} 
-        onOpenChange={handleCloseModal} 
-      />
+      {selected && (
+        <TeamModal
+          team={selected.team}
+          isJenter={selected.isJenter}
+          onClose={() => setSelected(null)}
+        />
+      )}
     </div>
-  );
+  )
 }

@@ -213,10 +213,10 @@ const Treningsoversikt: React.FC = () => {
       accent: 'border-blue-400'
     },
     MARIKOLLEN: { 
-      bg: 'bg-emerald-500', 
-      text: 'text-emerald-700', 
-      hover: 'hover:bg-emerald-400',
-      accent: 'border-emerald-400'
+      bg: 'bg-kildarkblue-500', 
+      text: 'text-kildarkblue-700', 
+      hover: 'hover:bg-kildarkblue-400',
+      accent: 'border-kildarkblue-400'
     }
   };
 

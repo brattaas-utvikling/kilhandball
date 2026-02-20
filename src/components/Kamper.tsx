@@ -1,440 +1,178 @@
-// components/Kamper.tsx - Komplett versjon med Lucide ikoner og dato/tid-sortering
-import React, { useState } from 'react';
-import { useMatches } from '../hooks/useMatches';
-import type { NIFMatch } from '../types/match.types';
-import { FaChevronRight } from 'react-icons/fa6';
-import { 
-  Calendar, 
-  MapPin, 
-  Clock, 
-  Trophy,
-  Users,
-  X
-} from 'lucide-react';
-import ErrorDisplay from './ErrorDisplay';
+// components/Kamper.tsx
+import React, { useState } from "react"
+import { useMatches } from "../hooks/useMatches"
+import type { NIFMatch } from "../types/match.types"
+import { Calendar, MapPin, Clock, Trophy, ChevronRight } from "lucide-react"
+import ErrorDisplay from "./ErrorDisplay"
+import MatchModal from "./MatchModal"
+import { getTeamInfo } from "@/lib/teaminfo"
 
-// Team colors mapping - harmonisk palett basert på KIL-farger
-const TEAM_COLORS: Record<string, { primary: string; secondary: string }> = {
-  // KIL variants - bruker dine eksisterende farger
-  'kongsvinger': { primary: '#C40000', secondary: '#FEE2E2' }, // kilred
+/* ── Match Card ── */
 
-  
-  // Blå-toner (basert på kilblue/kildarkblue)
-  'lhf': { primary: '#0088CD', secondary: '#DBEAFE' }, // kilblue
-  'lfh09': { primary: '#0088CD', secondary: '#DBEAFE' }, // kilblue
-  'gjøvik': { primary: '#003C75', secondary: '#EBF4FF' }, // kildarkblue
-  'flisa': { primary: '#1E40AF', secondary: '#DBEAFE' },
-  'furnes': { primary: '#0369A1', secondary: '#E0F2FE' },
-  'moelven': { primary: '#2563EB', secondary: '#DBEAFE' },
-  
-  // svart-toner (nøytrale)
-  'elverum': { primary: '#181414', secondary: '#F3F4F6' },
-  
-  // Varme toner (komplementære til kilred)
-  'gausdal': { primary: '#DC2626', secondary: '#FEE2E2' },
-  'veldre': { primary: '#DC2626', secondary: '#FFEDD5' },
-  'trysil': { primary: '#DC2626', secondary: '#FECACA' },
-  
-  // Lilla/violet toner (kontrasterende)
-  'vipers': { primary: '#7C3AED', secondary: '#EDE9FE' },
-  
-  // Grønn-toner (naturlige farger)
-  'grue': { primary: '#16A34A', secondary: '#DCFCE7' },
-  'nordbygda': { primary: '#15803D', secondary: '#BBF7D0' },
-  'varde': { primary: '#166534', secondary: '#ECFDF5' },
-
-  // Gule toner (varme og energiske)
-  'storhamar': { primary: '#EAB308', secondary: '#FEF3C7' },
-  'ottestad': { primary: '#EAB308', secondary: '#FEF3C7' },
-  'ring': { primary: '#EAB308', secondary: '#FEF3C7' },
-  'jaren': { primary: '#EAB308', secondary: '#FEF3C7' },
-  
-  // hvite toner (nøytrale)
-  'vang': { primary: '#F5F5F5', secondary: '#1F2937' },
-  'eidskog': { primary: '#F3F4F6', secondary: '#1F2937' },
-  
-  // Fallback colors - basert på KIL-palett
-  'default_home': { primary: '#181414', secondary: '#F9FAFB' }, // kilsvart
-  'default_away': { primary: '#4B5563', secondary: '#F3F4F6' }, // medium grå
-};
-
-// Function to get team colors
-const getTeamColors = (teamName: string, isHome: boolean = true) => {
-  const normalizedName = teamName.toLowerCase();
-  
-  // Check for exact matches or partial matches
-  for (const [key, colors] of Object.entries(TEAM_COLORS)) {
-    if (normalizedName.includes(key)) {
-      return colors;
-    }
-  }
-  
-  // Return fallback color based on home/away
-  return isHome ? TEAM_COLORS.default_home : TEAM_COLORS.default_away;
-};
-
-// Generate initials from team name
-const getTeamInitials = (teamName: string): string => {
-  const normalizedName = teamName.toLowerCase();
-  
-  // Spesielle forkortelser for kjente håndballag
-  const teamAbbreviations: Record<string, string> = {
-    'kongsvinger': 'KIL',
-    'elverum': 'EH',
-    'storhamar': 'SIL',
-    'skarnes': 'SH',
-    'lfh09': 'LHF',
-    'lhf': 'LHF',
-    'larvik': 'LHK',
-    'gjøvik': 'GHK',
-    'flisa': 'FAL',
-    'furnes': 'FH',
-    'moelven': 'MIL',
-    'gausdal': 'GHK',
-    'veldre': 'VH',
-    'trysil': 'TIL',
-    'grue': 'GIL',
-    'nordbygda': 'NIL',
-    'varde': 'VIL',
-    'ottestad': 'OIL',
-    'ring': 'RIL',
-    'jaren': 'JIL',
-    'vang': 'VH',
-    'eidskog': 'EHK'
-  };
-  
-  // Sjekk om lagnavn inneholder noen av de kjente lagene
-  for (const [key, abbreviation] of Object.entries(teamAbbreviations)) {
-    if (normalizedName.includes(key)) {
-      return abbreviation;
-    }
-  }
-  
-  // Fallback: Ta første bokstav av hvert ord, eller bare første bokstav hvis ett ord
-  const words = teamName.split(' ').filter(word => word.length > 0);
-  
-  if (words.length >= 2) {
-    return (words[0][0] + words[1][0]).toUpperCase();
-  }
-  
-  // For enkeltord, ta kun første bokstav
-  return words[0] ? words[0][0].toUpperCase() : 'X';
-};
-
-// Modal Component
-interface MatchModalProps {
-  match: NIFMatch;
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-const MatchModal: React.FC<MatchModalProps> = ({ match, isOpen, onClose }) => {
-  if (!isOpen) return null;
-
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('nb-NO', {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    });
-  };
-
-  const homeColors = getTeamColors(match.homeTeam, true);
-  const awayColors = getTeamColors(match.awayTeam, false);
-
-  return (
-    <div className="fixed inset-0 z-50 overflow-y-auto">
-      {/* Backdrop */}
-      <div 
-        className="fixed inset-0 bg-black bg-opacity-50 transition-opacity"
-        onClick={onClose}
-      />
-      
-      {/* Modal */}
-      <div className="flex min-h-full items-center justify-center p-4">
-        <div className="relative bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-          {/* Header with close button */}
-          <div className="sticky top-0 bg-white border-b px-6 py-4 rounded-t-xl flex items-center justify-between">
-            <h2 className="text-2xl font-bold text-kilsvart">Kampdetaljer</h2>
-            <button
-              onClick={onClose}
-              className="p-2 hover:bg-gray-100 rounded-full transition-colors"
-            >
-              <X className="w-6 h-6" />
-            </button>
-          </div>
-
-          {/* Content */}
-          <div className="p-6 space-y-6">
-            {/* Teams with custom colors */}
-            <div className="text-center">
-              <div className="flex items-center justify-center space-x-8 mb-4">
-                {/* Home team */}
-                <div className="text-center">
-                  <div 
-                    className="w-16 h-16 rounded-full flex items-center justify-center text-white text-xl font-bold mb-2"
-                    style={{ backgroundColor: homeColors.primary }}
-                  >
-                    {getTeamInitials(match.homeTeam)}
-                  </div>
-                  <h3 className="font-semibold text-kilsvart max-w-32 text-sm leading-tight">
-                    {match.homeTeam}
-                  </h3>
-                  <p className="text-xs text-gray-500 mt-1">Hjemme</p>
-                </div>
-                
-                <div className="text-4xl font-light text-gray-400">VS</div>
-                
-                {/* Away team */}
-                <div className="text-center">
-                  <div 
-                    className="w-16 h-16 rounded-full flex items-center justify-center text-white text-xl font-bold mb-2"
-                    style={{ backgroundColor: awayColors.primary }}
-                  >
-                    {getTeamInitials(match.awayTeam)}
-                  </div>
-                  <h3 className="font-semibold text-kilsvart max-w-32 text-sm leading-tight">
-                    {match.awayTeam}
-                  </h3>
-                  <p className="text-xs text-gray-500 mt-1">Borte</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Match Details Grid - KIL style */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {/* Date & Time */}
-              <div className="bg-white rounded-lg shadow-md p-4 border border-gray-200">
-                <div className="flex items-center mb-2">
-                  <Calendar className="w-5 h-5 text-kilred mr-2" />
-                  <h4 className="font-semibold text-kilsvart">Dato & Tid</h4>
-                </div>
-                <p className="text-gray-700">{formatDate(match.date)}</p>
-                <p className="text-lg font-semibold text-kilsvart">
-                  {match.startTime}
-                  {match.endTime && ` - ${match.endTime}`}
-                </p>
-              </div>
-
-              {/* Venue */}
-              <div className="bg-white rounded-lg shadow-md p-4 border border-gray-200">
-                <div className="flex items-center mb-2">
-                  <MapPin className="w-5 h-5 text-kilred mr-2" />
-                  <h4 className="font-semibold text-kilsvart">Spillested</h4>
-                </div>
-                <p className="text-gray-700">{match.venue || 'Ikke oppgitt'}</p>
-              </div>
-
-              {/* Tournament */}
-              {match.tournament && (
-                <div className="bg-white rounded-lg shadow-md p-4 border border-gray-200">
-                  <div className="flex items-center mb-2">
-                    <Trophy className="w-5 h-5 text-kilred mr-2" />
-                    <h4 className="font-semibold text-kilsvart">Turnering</h4>
-                  </div>
-                  <p className="text-gray-700">{match.tournament}</p>
-                  {match.round && (
-                    <p className="text-sm text-gray-500 mt-1">{match.round}</p>
-                  )}
-                </div>
-              )}
-
-              {/* Arrangør - erstatt Match ID */}
-              <div className="bg-white rounded-lg shadow-md p-4 border border-gray-200">
-                <div className="flex items-center mb-2">
-                  <Users className="w-5 h-5 text-kilred mr-2" />
-                  <h4 className="font-semibold text-kilsvart">Arrangør</h4>
-                </div>
-                <p className="text-gray-700">{match.organizer || 'Ikke oppgitt'}</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Footer */}
-          <div className="sticky bottom-0 bg-gray-50 px-6 py-4 rounded-b-xl border-t">
-            <div className="flex justify-end">
-              <button
-                onClick={onClose}
-                className="px-6 py-2 bg-kilsvart text-white rounded-lg hover:bg-gray-800 transition-colors font-medium"
-              >
-                Lukk
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-// Match Card Component
 interface MatchCardProps {
-  match: NIFMatch;
-  onClick: () => void;
+  match: NIFMatch
+  onClick: () => void
 }
 
 const MatchCard: React.FC<MatchCardProps> = ({ match, onClick }) => {
   const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    const today = new Date();
-    const tomorrow = new Date(today);
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    
-    if (date.toDateString() === today.toDateString()) {
-      return 'I dag';
-    } else if (date.toDateString() === tomorrow.toDateString()) {
-      return 'I morgen';
-    } else {
-      return date.toLocaleDateString('nb-NO', {
-        weekday: 'short',
-        day: 'numeric',
-        month: 'short'
-      });
-    }
-  };
+    const date = new Date(dateString)
+    const today = new Date()
+    const tomorrow = new Date(today)
+    tomorrow.setDate(tomorrow.getDate() + 1)
+
+    if (date.toDateString() === today.toDateString()) return "I dag"
+    if (date.toDateString() === tomorrow.toDateString()) return "I morgen"
+
+    return date.toLocaleDateString("nb-NO", {
+      weekday: "short",
+      day: "numeric",
+      month: "short",
+    })
+  }
+
+  const homeInfo = getTeamInfo(match.homeTeam, true)
+  const awayInfo = getTeamInfo(match.awayTeam, false)
 
   return (
-    <div 
+    <button
+      type="button"
       onClick={onClick}
-      className="flex items-center justify-between gap-4 px-4 sm:px-6 py-4 sm:py-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group"
+      className="flex items-center justify-between gap-4 px-4 sm:px-6 py-4 sm:py-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group w-full text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-kilred"
+      aria-label={`${match.homeTeam} mot ${match.awayTeam}, ${formatDate(match.date)}${match.startTime ? ` klokken ${match.startTime}` : ""}`}
     >
-      {/* Match info */}
-      <div className="flex items-center gap-3 sm:gap-4 flex-1">
-        <div className="text-left flex-1 min-w-0">
+      {/* Team badges + match info */}
+      <div className="flex items-center gap-3 sm:gap-4 flex-1 min-w-0">
+        {/* Mini team badges */}
+        <div className="hidden sm:flex items-center gap-1.5 shrink-0">
+          <div
+            className="w-9 h-9 rounded-full flex items-center justify-center text-[11px] font-bold ring-2 ring-white shadow-sm"
+            style={{
+              backgroundColor: homeInfo.primary,
+              color: homeInfo.lightPrimary ? "#1F2937" : "#fff",
+            }}
+            aria-hidden="true"
+          >
+            {homeInfo.initials}
+          </div>
+          <span className="text-[10px] text-kilsvart-400 font-bold" aria-hidden="true">vs</span>
+          <div
+            className="w-9 h-9 rounded-full flex items-center justify-center text-[11px] font-bold ring-2 ring-white shadow-sm"
+            style={{
+              backgroundColor: awayInfo.primary,
+              color: awayInfo.lightPrimary ? "#1F2937" : "#fff",
+            }}
+            aria-hidden="true"
+          >
+            {awayInfo.initials}
+          </div>
+        </div>
+
+        <div className="flex-1 min-w-0">
           <h3 className="text-base sm:text-lg font-semibold mb-2 text-kilsvart leading-tight">
             <span className="block sm:inline">{match.homeTeam}</span>
-            <span className="hidden sm:inline mx-1">vs</span>
+            <span className="hidden sm:inline mx-1 text-kilsvart-400 font-normal">vs</span>
             <span className="block sm:inline text-sm sm:text-base text-gray-600 sm:text-kilsvart">
-              <span className="sm:hidden">vs </span>{match.awayTeam}
+              <span className="sm:hidden text-kilsvart-400 font-normal">vs </span>
+              {match.awayTeam}
             </span>
           </h3>
-          
-          {/* Match details */}
+
           <div className="space-y-1">
-            {/* Date & Time */}
             <div className="flex items-center text-xs sm:text-sm text-gray-600">
-              <Calendar className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2 text-kilred flex-shrink-0" />
+              <Calendar className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2 text-kilred shrink-0" aria-hidden="true" />
               <span className="font-medium truncate">{formatDate(match.date)}</span>
               {match.startTime && (
                 <>
-                  <Clock className="w-3 h-3 sm:w-4 sm:h-4 ml-2 sm:ml-4 mr-1 text-kilred flex-shrink-0" />
+                  <Clock className="w-3 h-3 sm:w-4 sm:h-4 ml-2 sm:ml-4 mr-1 text-kilred shrink-0" aria-hidden="true" />
                   <span className="font-semibold text-kilsvart">{match.startTime}</span>
                 </>
               )}
             </div>
 
-            {/* Venue */}
             {match.venue && (
               <div className="flex items-center text-xs sm:text-sm text-gray-600">
-                <MapPin className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2 text-kilred flex-shrink-0" />
+                <MapPin className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2 text-kilred shrink-0" aria-hidden="true" />
                 <span className="truncate">{match.venue}</span>
               </div>
             )}
 
-            {/* Tournament */}
             {match.tournament && (
               <div className="hidden sm:flex items-center text-sm text-gray-600">
-                <Trophy className="w-4 h-4 mr-2 text-kilred flex-shrink-0" />
+                <Trophy className="w-4 h-4 mr-2 text-kilred shrink-0" aria-hidden="true" />
                 <span className="truncate">{match.tournament}</span>
               </div>
             )}
           </div>
         </div>
       </div>
-      
+
       {/* Arrow */}
-      <div>
-        <FaChevronRight className="text-gray-400 group-hover:text-kilred transition-colors w-3 h-3 sm:w-4 sm:h-4" />
-      </div>
-    </div>
-  );
-};
+      <ChevronRight
+        className="w-4 h-4 text-gray-400 group-hover:text-kilred group-hover:translate-x-0.5 transition-all shrink-0"
+        aria-hidden="true"
+      />
+    </button>
+  )
+}
 
-// Main Component
+/* ── Main Component ── */
+
 const Kamper: React.FC = () => {
-  const [selectedMatch, setSelectedMatch] = useState<NIFMatch | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedTeam, setSelectedTeam] = useState<string>('all');
+  const [selectedMatch, setSelectedMatch] = useState<NIFMatch | null>(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [selectedTeam, setSelectedTeam] = useState<string>("all")
 
-  const {
-    matches,
-    loading,
-    error,
-    lastUpdated,
-    refreshMatches,
-    clearError
-  } = useMatches({
-    clubId: '21554',
+  const { matches, loading, error, lastUpdated, refreshMatches, clearError } = useMatches({
+    clubId: "21554",
     refreshInterval: 15,
     autoRefresh: true,
-  });
+  })
 
-  // Get unique Kongsvinger teams for filter dropdown
   const getKongsvingerTeams = () => {
-    const teams = new Set<string>();
-    matches.forEach(match => {
-      if (match.homeTeam.toLowerCase().includes('kongsvinger')) {
-        teams.add(match.homeTeam);
-      }
-      if (match.awayTeam.toLowerCase().includes('kongsvinger')) {
-        teams.add(match.awayTeam);
-      }
-    });
-    return Array.from(teams).sort();
-  };
+    const teams = new Set<string>()
+    matches.forEach((match) => {
+      if (match.homeTeam.toLowerCase().includes("kongsvinger")) teams.add(match.homeTeam)
+      if (match.awayTeam.toLowerCase().includes("kongsvinger")) teams.add(match.awayTeam)
+    })
+    return Array.from(teams).sort()
+  }
 
-  // Filter matches based on selected team
-  const filteredMatches = selectedTeam === 'all' 
-    ? matches.filter(match => 
-        match.homeTeam.toLowerCase().includes('kongsvinger') ||
-        match.awayTeam.toLowerCase().includes('kongsvinger')
-      )
-    : matches.filter(match => 
-        match.homeTeam.toLowerCase().includes(selectedTeam.toLowerCase()) ||
-        match.awayTeam.toLowerCase().includes(selectedTeam.toLowerCase())
-      );
+  const filteredMatches =
+    selectedTeam === "all"
+      ? matches.filter(
+          (m) =>
+            m.homeTeam.toLowerCase().includes("kongsvinger") ||
+            m.awayTeam.toLowerCase().includes("kongsvinger"),
+        )
+      : matches.filter(
+          (m) =>
+            m.homeTeam.toLowerCase().includes(selectedTeam.toLowerCase()) ||
+            m.awayTeam.toLowerCase().includes(selectedTeam.toLowerCase()),
+        )
 
-  // Sort matches by date and time
   const sortedMatches = [...filteredMatches].sort((a, b) => {
-    // Create date objects for comparison
-    const dateA = new Date(a.date);
-    const dateB = new Date(b.date);
-    
-    // If dates are different, sort by date
-    if (dateA.getTime() !== dateB.getTime()) {
-      return dateA.getTime() - dateB.getTime();
-    }
-    
-    // If same date, sort by start time (if available)
-    if (a.startTime && b.startTime) {
-      // Convert time strings like "19:00" to comparable format
-      const timeA = a.startTime.replace(':', '');
-      const timeB = b.startTime.replace(':', '');
-      return timeA.localeCompare(timeB);
-    }
-    
-    // If no start times, maintain current order
-    return 0;
-  });
+    const dateA = new Date(a.date).getTime()
+    const dateB = new Date(b.date).getTime()
+    if (dateA !== dateB) return dateA - dateB
+    const timeA = a.startTime || "99:99"
+    const timeB = b.startTime || "99:99"
+    return timeA.localeCompare(timeB)
+  })
 
   const handleMatchClick = (match: NIFMatch) => {
-    setSelectedMatch(match);
-    setIsModalOpen(true);
-  };
+    setSelectedMatch(match)
+    setIsModalOpen(true)
+  }
 
   const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setSelectedMatch(null);
-  };
-
-  const handleTeamFilterChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedTeam(event.target.value);
-  };
+    setIsModalOpen(false)
+    setSelectedMatch(null)
+  }
 
   return (
     <div className="w-full min-h-screen bg-white pb-12">
-      {/* Hero banner - Vises alltid */}
+      {/* Hero banner */}
       <section className="bg-gradient-to-b from-kilred to-kilred/70 overflow-hidden -mx-[calc((100vw-100%)/2)] text-white w-screen">
         <div className="container mx-auto py-12 px-4 md:px-6">
           <h1 className="font-anton font-bold text-anton-4xl md:text-anton-5xl mb-6 text-white tracking-wide uppercase text-center">
@@ -446,16 +184,15 @@ const Kamper: React.FC = () => {
         </div>
       </section>
 
-      {/* Main content container */}
+      {/* Main content */}
       <div className="container mx-auto mt-8 px-4">
-        {/* Loading state */}
         {loading && !matches.length ? (
-          <div className="p-12 text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-kilred mx-auto mb-4"></div>
-            <p className="text-gray-600">Laster kamper...</p>
+          <div className="p-12 text-center" role="status">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-kilred mx-auto mb-4" />
+            <p className="text-gray-600">Laster kamper…</p>
+            <span className="sr-only">Laster kamper</span>
           </div>
         ) : error ? (
-          /* Error state with ErrorDisplay */
           <ErrorDisplay
             error={error}
             onRetry={refreshMatches}
@@ -465,56 +202,57 @@ const Kamper: React.FC = () => {
             className="mb-6"
           />
         ) : matches.length === 0 ? (
-          /* No matches */
           <div className="p-12 text-center">
-            <div className="text-gray-400 mb-4">
-              <svg className="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-              </svg>
-            </div>
+            <Calendar className="w-16 h-16 text-gray-300 mx-auto mb-4" aria-hidden="true" />
             <h3 className="text-lg font-semibold text-kilsvart mb-2">Ingen kamper funnet</h3>
             <p className="text-gray-500">Det ser ut til at det ikke er noen kamper registrert.</p>
           </div>
         ) : (
-          /* Main content with matches */
           <>
             {/* Filter controls */}
             <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4 mb-8 max-w-7xl mx-auto">
-              {/* Left side - Update button and last updated */}
               <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
                 <button
                   onClick={refreshMatches}
                   disabled={loading}
-                  className="flex items-center justify-center gap-2 px-4 py-2 bg-kilred text-white rounded-lg hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors whitespace-nowrap"
+                  className="flex items-center justify-center gap-2 px-4 py-2 bg-kilred text-white rounded-lg hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                 >
-                  <svg 
-                    className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} 
-                    fill="none" 
-                    stroke="currentColor" 
+                  <svg
+                    className={`w-4 h-4 ${loading ? "animate-spin" : ""}`}
+                    fill="none"
+                    stroke="currentColor"
                     viewBox="0 0 24 24"
+                    aria-hidden="true"
                   >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                    />
                   </svg>
-                  {loading ? 'Oppdaterer...' : 'Oppdater'}
+                  {loading ? "Oppdaterer…" : "Oppdater"}
                 </button>
-                
+
                 {lastUpdated && (
                   <span className="text-sm text-gray-500 text-center sm:text-left">
-                    Sist oppdatert: {lastUpdated.toLocaleTimeString('nb-NO')}
+                    Sist oppdatert: {lastUpdated.toLocaleTimeString("nb-NO")}
                   </span>
                 )}
               </div>
 
-              {/* Right side - Filter dropdown */}
               <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-                <label htmlFor="team-filter" className="text-sm font-medium text-kilsvart sm:whitespace-nowrap">
+                <label
+                  htmlFor="team-filter"
+                  className="text-sm font-medium text-kilsvart sm:whitespace-nowrap"
+                >
                   Filtrer på lag:
                 </label>
                 <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
                   <select
                     id="team-filter"
                     value={selectedTeam}
-                    onChange={handleTeamFilterChange}
+                    onChange={(e) => setSelectedTeam(e.target.value)}
                     className="px-4 py-2 border border-gray-300 rounded-lg bg-white text-kilsvart focus:ring-2 focus:ring-kilred focus:border-kilred outline-none transition-colors w-full sm:min-w-48"
                   >
                     <option value="all">Alle Kongsvinger lag</option>
@@ -524,12 +262,11 @@ const Kamper: React.FC = () => {
                       </option>
                     ))}
                   </select>
-                  
-                  {/* Clear filter button */}
-                  {selectedTeam !== 'all' && (
+
+                  {selectedTeam !== "all" && (
                     <button
-                      onClick={() => setSelectedTeam('all')}
-                      className="px-3 py-2 text-sm text-gray-600 hover:text-kilred transition-colors whitespace-nowrap self-start"
+                      onClick={() => setSelectedTeam("all")}
+                      className="px-3 py-2 text-sm text-gray-600 hover:text-kilred transition-colors whitespace-nowrap self-start focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-kilred"
                     >
                       Fjern filter
                     </button>
@@ -542,15 +279,11 @@ const Kamper: React.FC = () => {
             <div className="mb-6 text-center">
               <p className="text-gray-600">
                 Viser {sortedMatches.length} kamper
-                {selectedTeam !== 'all' && (
-                  <span> for {selectedTeam}</span>
-                )}
-                <span className="text-sm text-gray-500 block mt-1">
-                  Sortert etter dato og tid
-                </span>
+                {selectedTeam !== "all" && <span> for {selectedTeam}</span>}
+                <span className="text-sm text-gray-500 block mt-1">Sortert etter dato og tid</span>
               </p>
             </div>
-            
+
             {/* Matches grid */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
               {sortedMatches.map((match, index) => (
@@ -562,32 +295,25 @@ const Kamper: React.FC = () => {
               ))}
             </div>
 
-            {/* No results message */}
-            {sortedMatches.length === 0 && selectedTeam !== 'all' && (
+            {sortedMatches.length === 0 && selectedTeam !== "all" && (
               <div className="bg-white rounded-lg shadow-md p-8 text-center">
-                <div className="text-gray-400 mb-4">
-                  <svg className="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
-                </div>
+                <Calendar className="w-12 h-12 text-gray-300 mx-auto mb-4" aria-hidden="true" />
                 <h3 className="text-lg font-semibold text-kilsvart mb-2">Ingen kamper funnet</h3>
-                <p className="text-gray-500">Ingen kamper funnet for "{selectedTeam}". Prøv et annet lag eller fjern filteret.</p>
+                <p className="text-gray-500">
+                  Ingen kamper funnet for «{selectedTeam}». Prøv et annet lag eller fjern filteret.
+                </p>
               </div>
             )}
           </>
         )}
       </div>
 
-      {/* Modal */}
+      {/* Delt modal – samme som HeroKamper bruker */}
       {selectedMatch && (
-        <MatchModal
-          match={selectedMatch}
-          isOpen={isModalOpen}
-          onClose={handleCloseModal}
-        />
+        <MatchModal match={selectedMatch} isOpen={isModalOpen} onClose={handleCloseModal} />
       )}
     </div>
-  );
-};
+  )
+}
 
-export default Kamper;
+export default Kamper
