@@ -2,150 +2,174 @@
 // Kompakt kampvisning tilpasset hero-seksjonens høyre kolonne.
 // Identisk filtrering og ukegruppering som KommendeKamper.
 
-import { useState } from "react"
-import { Calendar, Clock, MapPin, Trophy, ChevronRight, Loader2 } from "lucide-react"
-import { useMatches } from "../hooks/useMatches"
-import MatchModal from "./MatchModal"
-import type { NIFMatch } from "../types/match.types"
+import { useState } from "react";
+import { useLocation } from "react-router-dom";
+import { Calendar, Clock, MapPin, Trophy, ChevronRight, Loader2 } from "lucide-react";
+
+import { useMatches } from "../hooks/useMatches";
+import MatchModal from "./MatchModal";
+import type { NIFMatch } from "../types/match.types";
+import { trackEvent } from "@/lib/analytics";
 
 /* ── Helpers ── */
 
 const safeDate = (s: string) => {
-  const d = new Date(s)
-  return isNaN(d.getTime()) ? null : d
-}
+  const d = new Date(s);
+  return isNaN(d.getTime()) ? null : d;
+};
 
 const fmtShort = (s: string) => {
-  const d = safeDate(s)
+  const d = safeDate(s);
   return d
     ? d.toLocaleDateString("nb-NO", { weekday: "short", day: "numeric", month: "short" })
-    : "Ugyldig dato"
-}
+    : "Ugyldig dato";
+};
 
 const fmtLong = (s: string) => {
-  const d = safeDate(s)
+  const d = safeDate(s);
   return d
     ? d.toLocaleDateString("nb-NO", { weekday: "long", day: "numeric", month: "long" })
-    : "Ugyldig dato"
-}
+    : "Ugyldig dato";
+};
 
 // ISO uke-nummer
 const getWeekNumber = (date: Date): number => {
-  const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()))
-  const dayNum = d.getUTCDay() || 7
-  d.setUTCDate(d.getUTCDate() + 4 - dayNum)
-  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1))
-  return Math.ceil(((d.getTime() - yearStart.getTime()) / 86400000 + 1) / 7)
-}
+  const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+  const dayNum = d.getUTCDay() || 7;
+  d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+  return Math.ceil(((d.getTime() - yearStart.getTime()) / 86400000 + 1) / 7);
+};
 
 // "Uke 45 (3. nov – 9. nov)"
 const formatWeekHeader = (weekKey: string, matchesForWeek: NIFMatch[]) => {
-  const [, weekNum] = weekKey.split("-")
-  const firstMatch = matchesForWeek[0]
-  const firstDate = safeDate(firstMatch.date)
-  if (!firstDate) return `Uke ${weekNum}`
+  const [, weekNum] = weekKey.split("-");
+  const firstMatch = matchesForWeek[0];
+  const firstDate = safeDate(firstMatch.date);
+  if (!firstDate) return `Uke ${weekNum}`;
 
-  const monday = new Date(firstDate)
-  const dayOfWeek = monday.getDay()
-  const diff = dayOfWeek === 0 ? 6 : dayOfWeek - 1
-  monday.setDate(monday.getDate() - diff)
+  const monday = new Date(firstDate);
+  const dayOfWeek = monday.getDay();
+  const diff = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+  monday.setDate(monday.getDate() - diff);
 
-  const sunday = new Date(monday)
-  sunday.setDate(monday.getDate() + 6)
+  const sunday = new Date(monday);
+  sunday.setDate(monday.getDate() + 6);
 
-  const mondayStr = monday.toLocaleDateString("nb-NO", { day: "numeric", month: "short" })
-  const sundayStr = sunday.toLocaleDateString("nb-NO", { day: "numeric", month: "short" })
+  const mondayStr = monday.toLocaleDateString("nb-NO", { day: "numeric", month: "short" });
+  const sundayStr = sunday.toLocaleDateString("nb-NO", { day: "numeric", month: "short" });
 
-  return `Uke ${weekNum} (${mondayStr} – ${sundayStr})`
-}
+  return `Uke ${weekNum} (${mondayStr} – ${sundayStr})`;
+};
 
 /* ── Component ── */
 
 export default function HeroKamper() {
-  const [selectedMatch, setSelectedMatch] = useState<NIFMatch | null>(null)
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [selectedMatch, setSelectedMatch] = useState<NIFMatch | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const { pathname, search } = useLocation();
+  const page = pathname + search;
 
   const { matches, loading, error } = useMatches({
     clubId: "21554",
     refreshInterval: 15,
     autoRefresh: true,
-  })
+  });
 
   /* ── Filtrering: identisk med KommendeKamper ── */
 
   // 1. Kun Tråstadhallen, sortert dato → tid
   const hallMatches = matches
     .filter((m) => {
-      const v = (m.venue || "").toLowerCase()
-      return v.includes("tråstad") || v.includes("trastad idrettshall")
+      const v = (m.venue || "").toLowerCase();
+      return v.includes("tråstad") || v.includes("trastad idrettshall");
     })
     .sort((a, b) => {
-      const dateA = new Date(a.date).getTime()
-      const dateB = new Date(b.date).getTime()
-      if (dateA !== dateB) return dateA - dateB
-      const timeA = a.startTime || "99:99"
-      const timeB = b.startTime || "99:99"
-      return timeA.localeCompare(timeB)
-    })
+      const dateA = new Date(a.date).getTime();
+      const dateB = new Date(b.date).getTime();
+      if (dateA !== dateB) return dateA - dateB;
+      const timeA = a.startTime || "99:99";
+      const timeB = b.startTime || "99:99";
+      return timeA.localeCompare(timeB);
+    });
 
   // 2. Kun fremtidige
-  const now = new Date()
+  const now = new Date();
   const upcomingMatches = hallMatches.filter((m) => {
-    const d = safeDate(m.date)
-    return d && d >= now
-  })
+    const d = safeDate(m.date);
+    return d && d >= now;
+  });
 
   // 3. Grupper etter ISO uke
-  const currentDate = new Date()
-  const currentWeek = getWeekNumber(currentDate)
-  const currentYear = currentDate.getFullYear()
+  const currentDate = new Date();
+  const currentWeek = getWeekNumber(currentDate);
+  const currentYear = currentDate.getFullYear();
 
-  const weekGroups: Record<string, NIFMatch[]> = {}
+  const weekGroups: Record<string, NIFMatch[]> = {};
   upcomingMatches.forEach((m) => {
-    const d = safeDate(m.date)
-    if (!d) return
-    const w = getWeekNumber(d)
-    const y = d.getFullYear()
-    const key = `${y}-${w}`
-    if (!weekGroups[key]) weekGroups[key] = []
-    weekGroups[key].push(m)
-  })
+    const d = safeDate(m.date);
+    if (!d) return;
+    const w = getWeekNumber(d);
+    const y = d.getFullYear();
+    const key = `${y}-${w}`;
+    if (!weekGroups[key]) weekGroups[key] = [];
+    weekGroups[key].push(m);
+  });
 
   const sortedWeekKeys = Object.keys(weekGroups).sort((a, b) => {
-    const [ya, wa] = a.split("-").map(Number)
-    const [yb, wb] = b.split("-").map(Number)
-    return ya - yb || wa - wb
-  })
+    const [ya, wa] = a.split("-").map(Number);
+    const [yb, wb] = b.split("-").map(Number);
+    return ya - yb || wa - wb;
+  });
 
   // 4. Inneværende uke eller neste uke med kamper
-  let currentWeekKey = `${currentYear}-${currentWeek}`
-  let currentWeekMatches = weekGroups[currentWeekKey]
+  let currentWeekKey = `${currentYear}-${currentWeek}`;
+  let currentWeekMatches = weekGroups[currentWeekKey];
 
   if (!currentWeekMatches || currentWeekMatches.length === 0) {
     const nextWeekWithMatches = sortedWeekKeys.find((key) => {
-      const [year, week] = key.split("-").map(Number)
-      return year > currentYear || (year === currentYear && week >= currentWeek)
-    })
+      const [year, week] = key.split("-").map(Number);
+      return year > currentYear || (year === currentYear && week >= currentWeek);
+    });
 
     if (nextWeekWithMatches) {
-      currentWeekKey = nextWeekWithMatches
-      currentWeekMatches = weekGroups[nextWeekWithMatches]
+      currentWeekKey = nextWeekWithMatches;
+      currentWeekMatches = weekGroups[nextWeekWithMatches];
     } else {
-      currentWeekMatches = []
+      currentWeekMatches = [];
     }
   }
 
-  const nextMatch = currentWeekMatches?.[0] ?? null
-  const otherMatches = currentWeekMatches?.slice(1) ?? []
+  const nextMatch = currentWeekMatches?.[0] ?? null;
+  const otherMatches = currentWeekMatches?.slice(1) ?? [];
 
-  const openModal = (m: NIFMatch) => {
-    setSelectedMatch(m)
-    setIsModalOpen(true)
-  }
+  const openModal = (m: NIFMatch, source: "featured" | "list") => {
+    trackEvent("match_modal_open", {
+      page,
+      matchId: m.id,
+      label: `${m.homeTeam} vs ${m.awayTeam}`,
+      component: "HeroKamper",
+      source, // ekstra nyttig
+    });
+
+    setSelectedMatch(m);
+    setIsModalOpen(true);
+  };
+
   const closeModal = () => {
-    setIsModalOpen(false)
-    setSelectedMatch(null)
-  }
+    if (selectedMatch) {
+      trackEvent("match_modal_close", {
+        page,
+        matchId: selectedMatch.id,
+        label: `${selectedMatch.homeTeam} vs ${selectedMatch.awayTeam}`,
+        component: "HeroKamper",
+      });
+    }
+
+    setIsModalOpen(false);
+    setSelectedMatch(null);
+  };
 
   /* ── Loading ── */
   if (loading && !matches.length) {
@@ -154,7 +178,7 @@ export default function HeroKamper() {
         <Loader2 className="w-8 h-8 text-white/60 animate-spin" aria-hidden="true" />
         <span className="sr-only">Laster kamper…</span>
       </div>
-    )
+    );
   }
 
   /* ── Error / empty ── */
@@ -165,14 +189,22 @@ export default function HeroKamper() {
         <p className="text-white/70 text-sm font-roboto">
           {error ? "Kunne ikke laste kamper." : "Ingen kommende hjemmekamper."}
         </p>
+
         <a
           href="/kamper"
+          onClick={() => {
+            trackEvent("page_view", {
+              page: "/kamper",
+              component: "HeroKamper",
+              action: "navigate_all_matches",
+            });
+          }}
           className="mt-2 text-sm text-white underline underline-offset-2 hover:text-white/80 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
         >
           Se alle kamper
         </a>
       </div>
-    )
+    );
   }
 
   return (
@@ -180,9 +212,11 @@ export default function HeroKamper() {
       {/* ═══ NESTE KAMP – featured ═══ */}
       <button
         type="button"
-        onClick={() => openModal(nextMatch)}
+        onClick={() => openModal(nextMatch, "featured")}
         className="group text-left w-full shrink-0 rounded-xl bg-white/10 backdrop-blur-sm border border-white/15 p-5 sm:p-6 transition-colors hover:bg-white/[0.14] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white cursor-pointer"
-        aria-label={`Neste kamp: ${nextMatch.homeTeam} mot ${nextMatch.awayTeam}, ${fmtLong(nextMatch.date)}${nextMatch.startTime ? ` klokken ${nextMatch.startTime}` : ""}`}
+        aria-label={`Neste kamp: ${nextMatch.homeTeam} mot ${nextMatch.awayTeam}, ${fmtLong(nextMatch.date)}${
+          nextMatch.startTime ? ` klokken ${nextMatch.startTime}` : ""
+        }`}
       >
         {/* Badge */}
         <div className="flex items-center gap-2 mb-4">
@@ -233,13 +267,21 @@ export default function HeroKamper() {
       {/* ═══ RESTEN AV UKEN – scrollbar liste ═══ */}
       {otherMatches.length > 0 ? (
         <div className="mt-4 flex-1 min-h-0 flex flex-col overflow-hidden">
-          {/* Uke-header + "Se alle"-lenke */}
+          {/* Uke-header + "Alle"-lenke */}
           <div className="flex items-center justify-between mb-2 px-1 shrink-0">
             <h4 className="font-anton text-sm sm:text-base uppercase text-white/70 tracking-wide">
               {formatWeekHeader(currentWeekKey, currentWeekMatches)}
             </h4>
+
             <a
               href="/kamper"
+              onClick={() => {
+                trackEvent("page_view", {
+                  page: "/kamper",
+                  component: "HeroKamper",
+                  action: "navigate_all_matches",
+                });
+              }}
               className="text-[11px] font-bold text-white/50 hover:text-white/80 transition-colors inline-flex items-center gap-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             >
               Alle
@@ -257,9 +299,11 @@ export default function HeroKamper() {
               <li key={match.id}>
                 <button
                   type="button"
-                  onClick={() => openModal(match)}
+                  onClick={() => openModal(match, "list")}
                   className="group w-full text-left rounded-lg px-3 py-3 hover:bg-white/[0.07] transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-white"
-                  aria-label={`${match.homeTeam} mot ${match.awayTeam}, ${fmtShort(match.date)}${match.startTime ? ` klokken ${match.startTime}` : ""}`}
+                  aria-label={`${match.homeTeam} mot ${match.awayTeam}, ${fmtShort(match.date)}${
+                    match.startTime ? ` klokken ${match.startTime}` : ""
+                  }`}
                 >
                   <div className="flex items-start justify-between gap-3 min-w-0">
                     <div className="flex-1 min-w-0 space-y-1">
@@ -287,10 +331,7 @@ export default function HeroKamper() {
                       {/* Tournament */}
                       {match.tournament && (
                         <p className="text-[10px] text-white/35 truncate">
-                          <Trophy
-                            className="w-3 h-3 inline-block mr-1 -mt-px"
-                            aria-hidden="true"
-                          />
+                          <Trophy className="w-3 h-3 inline-block mr-1 -mt-px" aria-hidden="true" />
                           {match.tournament}
                         </p>
                       )}
@@ -309,11 +350,16 @@ export default function HeroKamper() {
       ) : (
         /* Bare én kamp denne uken */
         <div className="mt-4 text-center py-6">
-          <p className="text-white/40 text-xs font-roboto">
-            Ingen flere kamper denne uken
-          </p>
+          <p className="text-white/40 text-xs font-roboto">Ingen flere kamper denne uken</p>
           <a
             href="/kamper"
+            onClick={() => {
+              trackEvent("page_view", {
+                page: "/kamper",
+                component: "HeroKamper",
+                action: "navigate_all_matches",
+              });
+            }}
             className="text-xs text-white/60 underline underline-offset-2 hover:text-white/80 mt-1 inline-block transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
           >
             Se alle kamper
@@ -326,5 +372,5 @@ export default function HeroKamper() {
         <MatchModal match={selectedMatch} isOpen={isModalOpen} onClose={closeModal} />
       )}
     </div>
-  )
+  );
 }
