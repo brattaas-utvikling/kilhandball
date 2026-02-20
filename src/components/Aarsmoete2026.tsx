@@ -28,15 +28,7 @@ const DETAILS: React.ReactNode[] = [
   </>,
   <>
     Fullstendig sakliste med alle saksdokumenter vil bli gjort tilgjengelig for
-    medlemmene senest én uke før årsmøtet på{" "}
-    <a
-      href="https://www.kilhandball.no"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="text-kilred underline underline-offset-2 hover:text-kilred-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-kilred transition-colors"
-    >
-      www.kilhandball.no
-    </a>
+    medlemmene senest én uke før årsmøtet her på våre egen hjemmeside.
     .
   </>,
   <>
