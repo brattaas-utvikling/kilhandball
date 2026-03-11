@@ -4,6 +4,7 @@ import HomepageNews from '../components/HomepageNews';
 import Aarsmoete from '../components/Aarsmoete';
 // import KommendeKamper from '../components/KommendeKamper';
 import { Aarsmoete2026 } from '@/components/Aarsmoete2026';
+import { SaksagendaBanner } from '@/components/SaksagendaBanner';
 
 function Home() {
   
@@ -12,6 +13,7 @@ function Home() {
     <>
         <div className="flex flex-col items-center justify-center">
           <HeroSection />
+          <SaksagendaBanner />
           <Aarsmoete2026 />
           {/* <KommendeKamper /> */}
           <HomepageNews />
