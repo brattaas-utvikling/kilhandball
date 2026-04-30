@@ -10,6 +10,7 @@ import { useMatches } from "../hooks/useMatches";
 import MatchModal from "./MatchModal";
 import type { NIFMatch } from "../types/match.types";
 import { trackEvent } from "@/lib/analytics";
+import SosialeMedier from "./SosialeMedier";
 
 /* ── Helpers ── */
 
@@ -182,30 +183,46 @@ export default function HeroKamper() {
   }
 
   /* ── Error / empty ── */
-  if (error || !nextMatch) {
+  /* ── Error / empty ── */
+if (error || !nextMatch) {
+  if (error) {
     return (
       <div className="flex h-full flex-col items-center justify-center text-center px-4">
         <Calendar className="w-10 h-10 text-white/30 mb-3" aria-hidden="true" />
-        <p className="text-white/70 text-sm font-roboto">
-          {error ? "Kunne ikke laste kamper." : "Ingen kommende hjemmekamper."}
-        </p>
-
-        <a
-          href="/kamper"
-          onClick={() => {
-            trackEvent("page_view", {
-              page: "/kamper",
-              component: "HeroKamper",
-              action: "navigate_all_matches",
-            });
-          }}
-          className="mt-2 text-sm text-white underline underline-offset-2 hover:text-white/80 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-        >
+        <p className="text-white/70 text-sm font-roboto">Kunne ikke laste kamper.</p>
+        <a href="/kamper" className="mt-2 text-sm text-white underline underline-offset-2 hover:text-white/80 transition-colors">
           Se alle kamper
         </a>
       </div>
     );
   }
+
+  return <SosialeMedier />;
+}
+  // if (error || !nextMatch) {
+  //   return (
+  //     <div className="flex h-full flex-col items-center justify-center text-center px-4">
+  //       <Calendar className="w-10 h-10 text-white/30 mb-3" aria-hidden="true" />
+  //       <p className="text-white/70 text-sm font-roboto">
+  //         {error ? "Kunne ikke laste kamper." : "Ingen kommende hjemmekamper."}
+  //       </p>
+
+  //       <a
+  //         href="/kamper"
+  //         onClick={() => {
+  //           trackEvent("page_view", {
+  //             page: "/kamper",
+  //             component: "HeroKamper",
+  //             action: "navigate_all_matches",
+  //           });
+  //         }}
+  //         className="mt-2 text-sm text-white underline underline-offset-2 hover:text-white/80 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+  //       >
+  //         Se alle kamper
+  //       </a>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="flex flex-col h-full overflow-hidden">

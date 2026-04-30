@@ -29,10 +29,7 @@ export function HeroSection() {
               Kongsvinger IL Håndball
             </h1>
             <p className="text-lg md:text-xl opacity-90 max-w-md mb-8">
-              Kongsvinger Idrettslag, med en stolt historie som strekker seg
-              tilbake til 1892, er mer enn bare en idrettsklubb; det er et
-              fellesskap som binder sammen generasjoner av idrettsentusiaster i
-              Kongsvinger kommune.
+            Kongsvinger IL Håndball ble stiftet i 1892. I dag har vi lag for alle aldre og holder til i Tråstadhallen i Kongsvinger.
             </p>
             {/* <div className="mt-4">
               <div className="flex flex-wrap gap-4 pt-2 text-sm text-white/30">

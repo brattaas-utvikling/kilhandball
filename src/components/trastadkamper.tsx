@@ -13,6 +13,7 @@ import {
 import { useMatches } from '../hooks/useMatches';
 import type { NIFMatch } from '../types/match.types';
 import ErrorDisplay from './ErrorDisplay';
+import SosialeMedier from './SosialeMedier';
 
 /**
  * Filtrer kamper for Tråstadhallen. Tillater variasjoner i navnet.
@@ -320,7 +321,7 @@ const KommendeKamper2: React.FC = () => {
         </div>
 
         {/* Ingen kamper */}
-        {currentWeekMatches.length === 0 ? (
+        {/* {currentWeekMatches.length === 0 ? (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -341,7 +342,10 @@ const KommendeKamper2: React.FC = () => {
               {loading ? 'Oppdaterer…' : 'Sjekk på nytt'}
             </button>
           </motion.div>
-        ) : (
+        ) : ( */}
+        {currentWeekMatches.length === 0 ? (
+  <SosialeMedier />
+) : (
           <>
             {/* Kortgrid med kamper */}
             <motion.div
