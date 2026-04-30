@@ -80,27 +80,14 @@ function OrganisasjonsKart() {
           ],
         },
         {
-          name: 'Elin Maria Vendela Skoglund',
-          role: 'Styremedlem',
-          email: 'elinskoglund83@gmail.com',
-          phone: 91788617,
-          responsibilities: [
-            'Drakter (utdeling og innsamling)',
-            'Kioskansvarlig',
-            'Dugnadsansvarlig',
-            'utstyr',
-            'Sosiale Medier',
-          ],
-        },
-        {
           name: 'Erik Seigerud',
           role: 'Styremedlem',
           email: 'erse@omfjeld.no',
           phone: 92097978,
           responsibilities: [
-            "Spond",
-            "Økonomisk Dugnadsansvarlig",
-            "Prosjekt ny hall"
+            'Attestansvarlig',
+            'Økonomisk Dugnadsansvarlig',
+            'Prosjekt ny hall',
           ],
         },
         {
@@ -115,28 +102,40 @@ function OrganisasjonsKart() {
           ],
         },
         {
-          name: 'Linda Skarstad',
+          name: 'Jon Are Haveråen-Brattås',
           role: 'Styremedlem',
-          email: 'linda@skarstadgartneri.no',
-          phone: 41500585,
+          email: 'jon.are.br@gmail.com',
+          phone: 91607759,
           responsibilities: [
-            'Arrangementer',
-            'Kickoff',
+            'Barneidrettsansvarlig',
+            'Håndballskole',
             'Drakter (utdeling og innsamling)',
-            'Klubbhåndbok',
+            'Sosiale Medier',
+            'Lagspåmeldinger',
+            'Webside',
           ],
         },
         {
-          name: 'Hanne Fiskerud',
+          name: 'Ulf Flink',
           role: 'Styremedlem',
-          email: 'hanne.fiskerud@gmail.com',
-          phone: 97584371,
+          email: 'flinkulf@gmail.com',
+          phone: 40340144,
           responsibilities: [
-            'Arrangement',
-            'Kickoff',
-            'Tilskudd og støtteordninger',
+            'Dommerkontakt',
           ],
         },
+        {
+          name: 'Monica Berg',
+          role: 'Styremedlem',
+          email: 'monica.berg@outlook.com',
+          phone: 93899823,
+          responsibilities: [
+            'Arrangementansvarlig',
+            'Kickoff',
+            'Drakter (utdeling og innsamling)',
+          ],
+        },
+        
       ],
     },
     sportsligUtvalg: {
@@ -205,6 +204,15 @@ function OrganisasjonsKart() {
           email: 'bent.rode.christoffersen@gmail.com',
           phone: 90969435,
           responsibilities: ['Dommerkontakt'],
+        },
+        {
+          name: 'Ulf Flink',
+          role: 'Dommerkontakt',
+          email: 'flinkulf@gmail.com',
+          phone: 40340144,
+          responsibilities: [
+            'Dommerkontakt',
+          ],
         },
       ],
     },
@@ -320,7 +328,6 @@ function OrganisasjonsKart() {
         >
           <span className='text-balance hyphens-auto'>
            Her finner du oversikt over klubbens organisasjon med kontaktinformasjon og ansvarsområder. 
-           Klikk på personen for å se vedkommendes ansvarsområder.
             
           </span>
         </motion.p>
@@ -332,7 +339,7 @@ function OrganisasjonsKart() {
         {/* Organization chart sections */}
         <div className="space-y-8">
           {renderSection(organisasjon.hovedStyre)}
-          {renderSection(organisasjon.sportsligUtvalg)}
+          {/* {renderSection(organisasjon.sportsligUtvalg)} */}
           {renderSection(organisasjon.dommeransvarlig)}
         </div>
       </div>

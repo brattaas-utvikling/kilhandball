@@ -36,12 +36,6 @@ const Contact = () => {
       telefon: "91185490"
     },
     {
-      navn: "Elin Maria Vendela Skoglund",
-      stilling: "Styremedlem",
-      epost: "elinskoglund83@gmail.com",
-      telefon: "91788617"
-    },
-    {
       navn: "Erik Seigerud",
       stilling: "Styremedlem",
       epost: "erse@omfjeld.no",
@@ -54,45 +48,51 @@ const Contact = () => {
       telefon: "90728194"
     },
     {
-      navn: "Linda Skarstad",
+      navn: "Jon Are Haveråen-Brattås",
       stilling: "Styremedlem",
-      epost: "linda@skarstadgartneri.no",
-      telefon: "41500585"
+      epost: "jon.are.br@gmail.com",
+      telefon: "91607759"
     },
     {
-      navn: "Hanne Fiskerud",
+      navn: "Ulf Flink",
       stilling: "Styremedlem",
-      epost: "hanne.fiskerud@gmail.com",
-      telefon: "97584371"
+      epost: "flinkulf@gmail.com",
+      telefon: "40340144"
+    },
+    {
+      navn: "Monica Berg",
+      stilling: "Styremedlem",
+      epost: "monica.berg@outlook.com",
+      telefon: "93899823"
     }
   ];
 
-  const sportsligUtvalg = [
-    {
-      navn: "Erik Elseth",
-      stilling: "Sportslig leder",
-      epost: "erik.elseth@gmail.com",
-      telefon: "90667312"
-    },
-    {
-      navn: "Sarah Bourne Holtet",
-      stilling: "Medlem",
-      epost: "sarah_bourne6@hotmail.com",
-      telefon: "91158686"
-    },
-    {
-      navn: "Charlotte Egnersson",
-      stilling: "Medlem",
-      epost: "charlotteproeven@hotmail.com",
-      telefon: "41351166"
-    },
-    {
-      navn: "Jon Are Haveråen-Brattås",
-      stilling: "Medlem",
-      epost: "jon.are.br@gmail.com",
-      telefon: "91607759"
-    }
-  ];
+  // const sportsligUtvalg = [
+  //   {
+  //     navn: "Erik Elseth",
+  //     stilling: "Sportslig leder",
+  //     epost: "erik.elseth@gmail.com",
+  //     telefon: "90667312"
+  //   },
+  //   {
+  //     navn: "Sarah Bourne Holtet",
+  //     stilling: "Medlem",
+  //     epost: "sarah_bourne6@hotmail.com",
+  //     telefon: "91158686"
+  //   },
+  //   {
+  //     navn: "Charlotte Egnersson",
+  //     stilling: "Medlem",
+  //     epost: "charlotteproeven@hotmail.com",
+  //     telefon: "41351166"
+  //   },
+  //   {
+  //     navn: "Jon Are Haveråen-Brattås",
+  //     stilling: "Medlem",
+  //     epost: "jon.are.br@gmail.com",
+  //     telefon: "91607759"
+  //   }
+  // ];
 
   const dommerTeam = [
     {
@@ -168,9 +168,7 @@ const Contact = () => {
               Kontakt oss
             </h1>
             <p className="text-lg text-white font-roboto leading-relaxed">
-              Vi hører gjerne fra deg! Enten du er interessert i å bli med i
-              klubben, har spørsmål om våre lag, eller ønsker å bidra som
-              frivillig, er vi her for å hjelpe!
+            Ta kontakt — uansett om du har spørsmål om et lag, ønsker å melde deg inn eller vil bidra som frivillig.
             </p>
           </motion.div>
         </div>
@@ -218,35 +216,6 @@ const Contact = () => {
                   2212 Kongsvinger
                 </address>
               </div>
-            </div>
-
-            {/* Quick Contact Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-              <motion.a
-                href="mailto:post@kilhandball.no"
-                className="flex items-center p-4 bg-kilred border border-kilred-200 rounded-lg hover:bg-kilred-600 transition-colors duration-300 cursor-pointer"
-              >
-                <Mail className="w-5 h-5 text-white mr-3" />
-                <div>
-                  <div className="font-semibold text-white">Send e-post</div>
-                  <div className="text-sm text-white">Generelle henvendelser</div>
-                </div>
-              </motion.a>
-
-              <motion.div
-                className="flex items-center p-4 bg-kilsvart-50 border border-kilsvart-200 rounded-lg hover:bg-kilsvart-100 transition-colors duration-300"
-              >
-                <Phone className="w-5 h-5 text-kilsvart mr-3" />
-                <div>
-                  <div className="font-semibold text-kilsvart">Ring styreleder</div>
-                  <a 
-                    href="tel:+4790969435"
-                    className="text-sm text-kilsvart-700 hover:underline"
-                  >
-                    909 69 435
-                  </a>
-                </div>
-              </motion.div>
             </div>
 
             {/* Map */}
@@ -309,9 +278,9 @@ const Contact = () => {
                 </h2>
               </div>
               <p className="text-gray-700 mb-4 font-roboto">
-                Sportslig utvalg har ansvar for den sportslige utviklingen og koordineringen av lagene i klubben.
+              Sportslig utvalg har ansvar for den sportslige utviklingen og koordineringen av lagene. Vi holder for øyeblikket på å sette nytt utvalg. Har du spørsmål om det sportslige i KIL Håndball, ta gjerne kontakt med oss på e-post.
               </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {sportsligUtvalg.map((medlem, index) => (
                   <PersonCard 
                     key={medlem.navn} 
@@ -320,7 +289,7 @@ const Contact = () => {
                     delay={0.3}
                   />
                 ))}
-              </div>
+              </div> */}
             </div>
 
             {/* Dommerkontakt */}
@@ -354,12 +323,10 @@ const Contact = () => {
             className="text-center max-w-4xl mx-auto"
           >
             <h2 className="font-anton text-anton-3xl md:text-anton-4xl text-white tracking-wide mb-6 uppercase">
-            Ønsker du å engasjere deg?
+            Bli med som frivillig!
             </h2>
             <p className="text-lg md:text-xl text-white/90 font-roboto leading-relaxed mb-12 max-w-2xl mx-auto">
-            Vi søker alltid etter frivillige som ønsker å bidra til klubbens utvikling. 
-                Ta kontakt hvis du er interessert i å være med på laget - enten som trener, 
-                dommer, i styret eller på andre måter!
+            Klubben drives av frivillige — og vi trenger alltid flere. Er du interessert i å stille som trener, dommer, i styret eller på andre måter, hører vi gjerne fra deg.
             </p>
           </div>
         </div>
