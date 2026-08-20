@@ -246,7 +246,7 @@ export default function ArshjulHjul({ sesong }: { sesong?: string }) {
           <p 
             className="text-lg text-gray-600 font-roboto max-w-3xl mx-auto leading-relaxed"
           >
-            Oversikt over viktige frister og hv asom skjer i klubben.
+            Oversikt over viktige frister og hva som skjer i klubben.
           </p>
         </div>
         </header>
