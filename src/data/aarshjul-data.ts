@@ -476,7 +476,7 @@ export const AARSHJUL_DATA: ArshjulHendelse[] = [
   //   rekkefolge: 2,
   // },
   {
-    _id: 'ah-sep-3',
+    _id: 'ah-sep-2',
     tittel: 'Påmelding av lag til barnehåndball',
     maned: 9,
     kategori: 'frist',
@@ -485,6 +485,17 @@ export const AARSHJUL_DATA: ArshjulHendelse[] = [
     beskrivelse:
       '4-er-håndball (6, 7 og 8 år) og 5-er-håndball (9 og 10 år) har frist 27. september. Alle trenere må ha gitt informasjon om antall lag til Sportslig utvalg senest én uke før fristen.',
     ansvarlig: 'Sporstlig utvalg',
+    rekkefolge: 2,
+  },
+  {
+    _id: 'ah-sep-3',
+    tittel: 'Håndballskolen',
+    maned: 9,
+    kategori: 'sport',
+    dato: '27. september',
+    beskrivelse:
+      'KIL Håndball arrangerer håndballskole for 1. - 6. klasse.',
+    ansvarlig: 'Sporstlig utvalg og håndballskolekomité',
     rekkefolge: 3,
   },
   // {
