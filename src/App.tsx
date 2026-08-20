@@ -24,6 +24,7 @@ import Utviklingstrappa from './components/Veiledninger/Utviklingstrappa/Utvikli
 import { Analytics } from "@vercel/analytics/react";
 import { PageViewTracker } from './components/analytics/PageViewTracker';
 import { ScrollTracker } from './components/analytics/ScrollTracker';
+import AarhjulIndex from './components/Veiledninger/Aarshjul';
 
 function App() {
   return (
@@ -68,6 +69,7 @@ function App() {
           <Route path="/praktisk-info/sportslig" element={<Sportslig />} />
           <Route path="/praktisk-info/utviklingstrappa" element={<Utviklingstrappa />} />
           <Route path="/praktisk-info/klubbdrift" element={<Klubbdrift />} />
+          <Route path="/praktisk-info/aarshjul" element={<AarhjulIndex />} />
           <Route path="/kontakt" element={<Contact />} />
           <Route path="*" element={<ErrorPage />} />
         </Route>
