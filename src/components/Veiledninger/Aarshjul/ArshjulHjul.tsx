@@ -246,7 +246,7 @@ export default function ArshjulHjul({ sesong }: { sesong?: string }) {
           <p 
             className="text-lg text-gray-600 font-roboto max-w-3xl mx-auto leading-relaxed"
           >
-            Dra hjulet rundt, eller trykk på en måned. Da ser du hva som skjer i klubben akkurat da.
+            Oversikt over viktige frister og hv asom skjer i klubben.
           </p>
         </div>
         </header>
