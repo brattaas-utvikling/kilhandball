@@ -574,8 +574,10 @@ export const AARSHJUL_DATA: ArshjulHendelse[] = [
   {
     _id: 'ah-sep-13',
     tittel: 'Påmelding SPU for 13- og 14-åringer',
+    viktig: true,
+    dato: '9. september',
     maned: 9,
-    kategori: 'sport',
+    kategori: 'frist',
     ansvarlig: 'Sportslig utvalg og aktuelle trenere',
     rekkefolge: 13,
   },
