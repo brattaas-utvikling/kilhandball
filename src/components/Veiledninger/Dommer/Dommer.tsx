@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
 import {
   CheckCircle,
-  Award,
 } from 'lucide-react';
 import { GiWhistle } from 'react-icons/gi';
 
@@ -24,8 +23,7 @@ const Dommere = () => {
           </p>
 
           <div className="bg-gradient-to-br from-kilblue-100 to-kilblue-50 p-6 rounded-xl border border-gray-200">
-            <div className="flex items-start">
-              <Award className="w-5 h-5 text-kilblue mr-3 mt-1 flex-shrink-0" />
+            
               <div>
                 <p className="text-gray-700 text-sm italic leading-relaxed">
                   "Regionene har et opplegg for å ivareta deg i din dommergjerningen, sammen med klubbene og dommerkontakt for at du skal få en god start. Vi håper at du vil vurdere å ta opp fløyta, ta på deg drakta og bli en leder for neste generasjon dommer. Ta dommerutdanningen - og du vil utvikle deg som ressurs for håndballen, både på og utenfor banen. "
@@ -33,7 +31,7 @@ const Dommere = () => {
                 <p className="text-gray-600 text-sm mt-3 font-semibold">
                   Tim-Nicolai Fjellvang, Dommerutviklingsansvarlig i NHF
                 </p>
-              </div>
+            
             </div>
           </div>
 
@@ -220,7 +218,7 @@ const Dommere = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-white rounded-xl shadow-sm overflow-hidden"
+              className="overflow-hidden"
             >
               {/* Section Header */}
               <div className="px-6 py-4">
