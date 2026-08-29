@@ -25,7 +25,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { PageViewTracker } from './components/analytics/PageViewTracker';
 import { ScrollTracker } from './components/analytics/ScrollTracker';
 import AarhjulIndex from './components/Veiledninger/Aarshjul';
-import Hjemmearrangement2Divisjon from './components/Veiledninger/Hjemmearrangement-2div/Hjemmearrangement2Divisjon';
+import Hjemmearrangement2Divisjon from './components/Veiledninger/Hjemmearrangement-2div';
 
 function App() {
   return (

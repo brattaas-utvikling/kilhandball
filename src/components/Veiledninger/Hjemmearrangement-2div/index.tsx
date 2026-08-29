@@ -1,10 +1,9 @@
 import { Link } from 'react-router-dom';
-import Hjemmearrangement2Divisjon from '../Hjemmearrangement/Hjemmearrangement';
-;
+import Hjemmearrangement2Divisjon from './Hjemmearrangement2Divisjon';
 
 
 
-function Arr2div() {
+function div2Arr() {
   return (
     <div className="container mx-auto pb-12">
       <div className="my-6">
@@ -20,4 +19,4 @@ function Arr2div() {
   );
 }
 
-export default Arr2div;
+export default div2Arr;
