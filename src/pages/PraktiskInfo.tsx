@@ -80,6 +80,12 @@ function PraktiskInfo() {
     },
     {
       icon: <House size={24} />,
+      title: 'Arrangement 2. div',
+      description: 'Brukerveiledninger for hjemmearrangement for 2. divisjon',
+      link: '/praktisk-info/Hjemmearrangement-2divisjon',
+    },
+    {
+      icon: <House size={24} />,
       title: 'Barnehåndballarrangement',
       description: 'Brukerveiledninger for barnehåndballarrangement',
       link: '/praktisk-info/barnehandballarrangement',

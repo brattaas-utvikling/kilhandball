@@ -25,6 +25,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { PageViewTracker } from './components/analytics/PageViewTracker';
 import { ScrollTracker } from './components/analytics/ScrollTracker';
 import AarhjulIndex from './components/Veiledninger/Aarshjul';
+import Hjemmearrangement2Divisjon from './components/Veiledninger/Hjemmearrangement-2div/Hjemmearrangement2Divisjon';
 
 function App() {
   return (
@@ -48,6 +49,10 @@ function App() {
           <Route
             path="/praktisk-info/hjemmearrangement"
             element={<Hjemmearrangement />}
+          />
+          <Route
+            path="/praktisk-info/Hjemmearrangement-2divisjon"
+            element={<Hjemmearrangement2Divisjon />}
           />
           <Route
             path="/praktisk-info/barnehandballarrangement"
