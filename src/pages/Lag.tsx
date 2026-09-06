@@ -30,22 +30,22 @@ function teamTheme(isJenter: boolean) {
         softRing: "ring-kilred/15",
       }
     : {
-        accentText: "text-kilblue",
-        accentHoverText: "hover:text-kilblue",
-        accentFocus: "focus-visible:outline-kilblue",
+        accentText: "text-kilsvart",
+        accentHoverText: "hover:text-kilsvart",
+        accentFocus: "focus-visible:outline-kilsvart",
 
-        headerBg: "bg-kilblue",
-        headerGradient: "bg-gradient-to-r from-kilblue via-kilblue-600 to-kilblue-700",
+        headerBg: "bg-kilsvart",
+        headerGradient: "bg-gradient-to-r from-kilsvart via-kilsvart-600 to-kilsvart-700",
         badgeBg: "bg-white/15",
 
-        footerBg: "bg-kilblue-700",
-        footerBtnBg: "bg-kilblue",
-        footerBtnHover: "hover:bg-kilblue-600",
+        footerBg: "bg-kilsvart-700",
+        footerBtnBg: "bg-kilsvart",
+        footerBtnHover: "hover:bg-kilsvart-600",
 
-        linkHover: "hover:text-kilblue",
-        rowHover: "hover:bg-kilblue-50/50",
+        linkHover: "hover:text-kilsvart",
+        rowHover: "hover:bg-kilsvart-50/50",
 
-        softRing: "ring-kilblue/15",
+        softRing: "ring-kilsvart/15",
       }
 }
 
@@ -371,6 +371,8 @@ function TeamModal({
   )
 }
 
+
+
 /* ── Tabs + List ── */
 function TeamTabs({
   jentelag,
@@ -415,9 +417,9 @@ function TeamTabs({
             id="tab-gutter-mobile"
             onClick={() => setTab("gutter")}
             type="button"
-            className={`py-4 px-4 font-anton text-base uppercase tracking-wide transition-colors border-b-[3px] focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-kilblue ${
+            className={`py-4 px-4 font-anton text-base uppercase tracking-wide transition-colors border-b-[3px] focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-kilsvart ${
               tab === "gutter"
-                ? "bg-kilblue-50 text-kilblue border-kilblue-500"
+                ? "bg-kilsvart-50 text-kilsvart border-kilsvart-500"
                 : "bg-kilsvart-50/50 text-kilsvart-400 border-transparent hover:text-kilsvart-600"
             }`}
           >
@@ -461,7 +463,7 @@ function TeamTabs({
 
         {/* Guttelag */}
         <div className="rounded-2xl overflow-hidden border border-kilsvart-50 shadow-lg">
-          <div className="bg-kilblue px-6 py-4 border-b-[3px] border-kilblue-500">
+          <div className="bg-kilsvart px-6 py-4 border-b-[3px] border-kilsvart-500">
             <h3 className="font-anton text-lg uppercase tracking-wide text-white">
               Guttelag
               <span className="ml-2 text-sm font-roboto font-normal text-white/60">({guttelag.length})</span>
@@ -510,14 +512,14 @@ function TeamList({
             className={`group w-full flex items-center justify-between gap-4 py-4 px-5 sm:px-6 text-left transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-[-2px] ${
               isJenter
                 ? "hover:bg-kilred-50/50 focus-visible:outline-kilred"
-                : "hover:bg-kilblue-50/50 focus-visible:outline-kilblue"
+                : "hover:bg-kilsvart-50/50 focus-visible:outline-kilsvart"
             }`}
             aria-label={`${team.team_name}, trener: ${team.coach_name}`}
           >
             <div className="flex-1 min-w-0">
               <p
                 className={`font-anton text-base sm:text-lg tracking-wide text-kilsvart transition-colors ${
-                  isJenter ? "group-hover:text-kilred" : "group-hover:text-kilblue"
+                  isJenter ? "group-hover:text-kilred" : "group-hover:text-kilsvart"
                 }`}
               >
                 {team.team_name}
@@ -530,11 +532,11 @@ function TeamList({
             <div className="flex items-center gap-3 shrink-0">
               <div className="hidden sm:flex items-center gap-1.5">
                 <Mail
-                  className={`w-3.5 h-3.5 ${isJenter ? "text-kilred-300" : "text-kilblue-300"}`}
+                  className={`w-3.5 h-3.5 ${isJenter ? "text-kilred-300" : "text-kilsvart-300"}`}
                   aria-hidden="true"
                 />
                 <Phone
-                  className={`w-3.5 h-3.5 ${isJenter ? "text-kilred-300" : "text-kilblue-300"}`}
+                  className={`w-3.5 h-3.5 ${isJenter ? "text-kilred-300" : "text-kilsvart-300"}`}
                   aria-hidden="true"
                 />
               </div>
@@ -596,19 +598,83 @@ export default function Lag() {
     fetchTeams()
   }, [fetchTeams])
 
-  const separateTeams = (allTeams: Team[]) => {
-    const jentelag: Team[] = []
-    const guttelag: Team[] = []
-    allTeams.forEach((team) => {
-      const name = team.team_name.toLowerCase()
-      if (name.includes("jente") || name.startsWith("j")) {
-        jentelag.push(team)
-      } else {
-        guttelag.push(team)
-      }
-    })
-    return { jentelag, guttelag }
+/* ── Laginndeling og sortering ── */
+
+/** K2 / K3 — kvinnelag. Matcher «K2», «K 3», «K2 senior», ikke «KUSK». */
+const KVINNER = /^k\s*(\d+)\b/i
+
+/** Rangnummeret bak K-en. Høyere tall = yngre lag. */
+function kvinnerRank(teamName: string): number | null {
+  const match = KVINNER.exec(teamName.trim())
+  return match ? Number(match[1]) : null
+}
+
+/**
+ * Leser kjønn ut av lagnavnet. Returnerer null når navnet ikke sier noe.
+ * Guttemarkørene sjekkes først, slik at «Gutter junior» ikke faller
+ * gjennom til junior-regelen i isJenterTeam.
+ */
+function lagKjonn(teamName: string): "jenter" | "gutter" | null {
+  const n = teamName.trim().toLowerCase()
+
+  // Gutter / herrer: «Gutter 16», «G2016», «G Junior», «H3», «Herrer 2»
+  if (/gutt|herre/.test(n) || /^g\s*\d/.test(n) || /^g[\s-]/.test(n) || /^h\s*\d/.test(n)) {
+    return "gutter"
   }
+
+  // Jenter / kvinner: «Jenter 14», «J2014», «J Junior», «Damer», «D40», «K2»
+  if (/jente|kvinne|dame/.test(n) || /^j\s*\d/.test(n) || /^j[\s-]/.test(n)) {
+    return "jenter"
+  }
+  if (/^d\s*\d/.test(n) || kvinnerRank(n) !== null) {
+    return "jenter"
+  }
+
+  return null
+}
+
+function isJenterTeam(teamName: string): boolean {
+  const kjonn = lagKjonn(teamName)
+  if (kjonn) return kjonn === "jenter"
+
+  // «Junior» uten kjønnsmarkør: KIL har per i dag kun jentejunior.
+  // Kommer det et guttelag, døp det «G Junior» — da fanges det av lagKjonn.
+  if (/junior/i.test(teamName)) return true
+
+  return false
+}
+
+/**
+ * Beholder rekkefølgen fra Appwrite, men flytter kvinnelagene nederst.
+ * K3 før K2 — høyere nummer er det yngste laget.
+ */
+function kvinnerSist(teams: Team[]): Team[] {
+  return teams
+    .map((team, index) => ({ team, index, rank: kvinnerRank(team.team_name) }))
+    .sort((a, b) => {
+      const aKvinner = a.rank !== null
+      const bKvinner = b.rank !== null
+      if (aKvinner !== bKvinner) return aKvinner ? 1 : -1
+      if (aKvinner && bKvinner) return b.rank! - a.rank!
+      return a.index - b.index // stabil: behold API-rekkefølgen ellers
+    })
+    .map(({ team }) => team)
+}
+
+function separateTeams(allTeams: Team[]) {
+  const jentelag: Team[] = []
+  const guttelag: Team[] = []
+
+  allTeams.forEach((team) => {
+    if (isJenterTeam(team.team_name)) {
+      jentelag.push(team)
+    } else {
+      guttelag.push(team)
+    }
+  })
+
+  return { jentelag: kvinnerSist(jentelag), guttelag }
+}
 
   /* ── Loading ── */
   if (loading) {
