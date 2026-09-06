@@ -507,7 +507,7 @@ const Treningsoversikt: React.FC = () => {
           <h1 className="mb-6 text-center font-anton text-anton-4xl font-bold uppercase tracking-[-0.01em] text-white md:text-anton-5xl">
             Treningsoversikt
           </h1>
-          <p className="mb-4 max-w-[68ch] font-roboto text-base text-white/80">
+          <p className="mb-4 max-w-[68ch] mx-auto font-roboto text-base text-white/80">
             Tabellen nedenfor viser oversikt over treningene til alle lag i KIL Håndball. Det er kun
             ledig tid der det står «Ledig halltid», alt annet er det andre idretter som disponerer i
             Kongsvinger Kommune. Ta kontakt med Sportslig utvalg om man ønsker å benytte seg av
