@@ -17,7 +17,6 @@ import { cn } from "@/lib/utils"
    ───────────────────────────────────────────────────────────── */
 
 const POSTER_SRC =
-  // TODO: bytt til plakaten for 2026 når den er lastet opp i Appwrite
   "https://fra.cloud.appwrite.io/v1/storage/buckets/68bd6c630003e8e8b879/files/6aa564fd003069ba92d2/view?project=68a9f0da0014cb9bd6ad&impersonateuserid=&mode=admin"
 
 const INFO_ITEMS = [
