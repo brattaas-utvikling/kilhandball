@@ -85,7 +85,7 @@ const DETAILS: React.ReactNode[] = [
   <>Kiosken er åpen.</>,
 ]
 
-export function KickOff2026() {
+export function Kickoff2k26() {
   return (
     <motion.section
       initial={{ opacity: 0, y: -16 }}
