@@ -48,7 +48,7 @@ const META = {
 
 /* Ingressen – ett kort avsnitt som står alene over bildene */
 const INGRESS =
-  "Veteran-NM ble spilt i Stavanger i helgen og Kil håndball stilte to lag; Jenter 40 år og Gutter 33 år. ."
+  "Veteran-NM ble spilt i Stavanger i helgen og Kil håndball stilte to lag; Jenter 40 år og Gutter 33 år."
 
 /* Brødteksten. Ett element = ett avsnitt. */
 const PARAGRAPHS: React.ReactNode[] = [
