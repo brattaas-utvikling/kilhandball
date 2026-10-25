@@ -8,6 +8,7 @@ import { SaksagendaBanner } from '@/components/SaksagendaBanner';
 import RullestolSeksjon from '@/components/RullestolSeksjon';
 import { Handballskole2026 } from '@/components/Handballskole2026';
 import { Kickoff2k26 } from '@/components/Kickoff2k26';
+import { VeteranNM2026 } from '@/components/VeteranNM2026';
 
 function Home() {
   
@@ -16,6 +17,7 @@ function Home() {
     <>
         <div className="flex flex-col items-center justify-center">
           <HeroSection />
+          <VeteranNM2026 />
           <Kickoff2k26 />
           <Handballskole2026 />
           <RullestolSeksjon />
