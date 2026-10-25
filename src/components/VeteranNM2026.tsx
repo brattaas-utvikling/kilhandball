@@ -16,27 +16,27 @@ const PHOTOS: readonly Photo[] = [
   {
     src: "https://fra.cloud.appwrite.io/v1/storage/buckets/68bd6c630003e8e8b879/files/6addf45e000374b3c579/view?project=68a9f0da0014cb9bd6ad",
     alt: "KIL-laget samlet før første kamp i Veteran-NM",
-    caption: "Hele troppen samlet før første kamp.",
+    
   },
   {
     src: "https://fra.cloud.appwrite.io/v1/storage/buckets/68bd6c630003e8e8b879/files/6addf4650010705601f4/view?project=68a9f0da0014cb9bd6ad",
     alt: "Spiller skyter på mål i Veteran-NM",
-    caption: "Full fart fra første avkast.",
+    
   },
   {
     src: "https://fra.cloud.appwrite.io/v1/storage/buckets/68bd6c630003e8e8b879/files/6addf46d0028522ae9f1/view?project=68a9f0da0014cb9bd6ad",
     alt: "Pause på benken mellom to kamper",
-    caption: "Tre kamper på én dag krever pauser.",
+    
   },
   {
     src: "https://fra.cloud.appwrite.io/v1/storage/buckets/68bd6c630003e8e8b879/files/6addf47800220c2b346f/view?project=68a9f0da0014cb9bd6ad",
     alt: "Jubel etter seier",
-    caption: "Jubel etter seieren i den siste gruppekampen.",
+    
   },
   {
     src: "https://fra.cloud.appwrite.io/v1/storage/buckets/68bd6c630003e8e8b879/files/6addf47c003c261a7dc9/view?project=68a9f0da0014cb9bd6ad",
     alt: "Laget på tribunen etter siste kamp",
-    caption: "Takk for helga – vi kommer tilbake neste år.",
+    
   },
 ] as const
 
@@ -150,11 +150,6 @@ function PhotoCarousel({ photos }: { photos: readonly Photo[] }) {
                   className="h-full w-full object-cover"
                 />
               </div>
-              {photo.caption && (
-                <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 via-black/40 to-transparent px-4 pb-4 pt-10 text-xs sm:text-sm text-white/90 leading-snug">
-                  {photo.caption}
-                </figcaption>
-              )}
             </figure>
           ))}
         </div>
